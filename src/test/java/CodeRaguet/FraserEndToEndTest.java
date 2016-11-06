@@ -7,12 +7,13 @@ import java.io.IOException;
 
 public class FraserEndToEndTest {
 
+    private static final String LAST_LABEL = "Aire de los Andes";
+
     private ApplicationRunner application = new ApplicationRunner();
 
-    @Test public void findAFrase() throws IOException, InterruptedException {
-        application.findFrase();
-        String frase = "Desafiando a la luz, tuve claridad. (La Renga)";
-        application.showsFrase(frase);
+    @Test
+    public void getGmailLabels() throws IOException, InterruptedException {
+        application.getLabels();
+        application.showsLabelsContainig(LAST_LABEL);
     }
-
 }

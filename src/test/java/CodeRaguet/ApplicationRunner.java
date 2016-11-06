@@ -3,13 +3,14 @@ package CodeRaguet;
 
 import java.io.*;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.*;
 
-public class ApplicationRunner {
+
+class ApplicationRunner {
 
     private String stdout;
 
-    public void findFrase() throws IOException, InterruptedException {
+    private String runFraser() throws IOException, InterruptedException {
         ProcessBuilder pb = new ProcessBuilder("bash", "fraser.sh");
         pb.redirectErrorStream(true);
         Process p = pb.start();
@@ -17,10 +18,14 @@ public class ApplicationRunner {
 
         InputStreamReader inputStreamReader = new InputStreamReader(p.getInputStream());
         BufferedReader br = new BufferedReader(inputStreamReader);
-        stdout = br.readLine();
+        return br.readLine();
     }
 
-    public void showsFrase(String frase) {
-        assertEquals(frase, stdout);
+    void getLabels() throws IOException, InterruptedException {
+        stdout = runFraser();
+    }
+
+    void showsLabelsContainig(String label) {
+        assertThat(stdout).isEqualTo(label);
     }
 }
