@@ -1,11 +1,13 @@
 package CodeRaguet;
 
 
+import java.io.IOException;
+
 public class Main {
 
-    public static void main(String... args) {
-        Gmail gmail = new Gmail();
-        System.out.println(gmail.getLastLabel());
+    public static void main(String... args) throws IOException {
+        GmailService gmailService = new GmailService();
+        System.out.println(gmailService.getLastLabel());
     }
 
 }
