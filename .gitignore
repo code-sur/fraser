@@ -1,6 +1,8 @@
 .idea/
 fraser.iml
+
 jdk
 maven
+
 target/
-client_secret.json
+.vagrant/

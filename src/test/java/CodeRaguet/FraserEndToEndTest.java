@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class FraserEndToEndTest {
 
-    private static final String LAST_LABEL = "Aire de los Andes";
+    private static final String LAST_LABEL = "IMPORTANT";
 
     private ApplicationRunner application = new ApplicationRunner();
 

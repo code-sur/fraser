@@ -28,8 +28,7 @@ public class GmailService {
     private static HttpTransport HTTP_TRANSPORT;
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static FileDataStoreFactory DATA_STORE_FACTORY;
-    private static final java.io.File DATA_STORE_DIR = new java.io.File(
-            System.getProperty("user.home"), ".credentials/gmail-java-quickstart");
+    private static final java.io.File DATA_STORE_DIR = new java.io.File("gmail-java-quickstart");
     private static final String APPLICATION_NAME = "Gmail API Java Quickstart";
 
     public String getLastLabel() throws IOException {
