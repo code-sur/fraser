@@ -1,0 +1,1 @@
+fraser: java -jar target/fraser.jar
