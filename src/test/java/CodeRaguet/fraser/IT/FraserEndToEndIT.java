@@ -1,11 +1,11 @@
-package CodeRaguet;
+package CodeRaguet.fraser.IT;
 
 
 import org.junit.Test;
 
 import java.io.IOException;
 
-public class FraserEndToEndTest {
+public class FraserEndToEndIT {
 
     private static final String LAST_LABEL = "IMPORTANT";
 
