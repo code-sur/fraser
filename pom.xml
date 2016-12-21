@@ -30,7 +30,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>CodeRaguet.Main</mainClass>
+                            <mainClass>CodeRaguet.fraser.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

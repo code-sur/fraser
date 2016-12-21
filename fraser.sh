@@ -3,4 +3,4 @@
 CLASSPATH=`mvn dependency:build-classpath | grep -v '[INFO]'`
 CLASSPATH="target/classes:$CLASSPATH"
 
-java -cp $CLASSPATH CodeRaguet.Main
+java -cp $CLASSPATH CodeRaguet.fraser.Main
