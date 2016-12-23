@@ -11,11 +11,13 @@ class FraserRunner {
 
     private String stdout;
     private String refreshToken;
+    private String clientSecret;
 
     private String runFraser() throws IOException, InterruptedException {
         ProcessBuilder pb = new ProcessBuilder("bash", "fraser.sh");
         Map<String, String> env = pb.environment();
         env.put("REFRESH_TOKEN", refreshToken);
+        env.put("CLIENT_SECRET", clientSecret);
         pb.redirectErrorStream(true);
         Process p = pb.start();
         p.waitFor();
@@ -35,5 +37,9 @@ class FraserRunner {
 
     void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
     }
 }
