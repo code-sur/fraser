@@ -11,6 +11,8 @@ public class FraserIT {
 
     @Test
     public void fraserRun() throws IOException, InterruptedException {
+        fraser.setRefreshToken("1/ADyEQcVsjNnqQOUDYyBjBsI2PGk62XlTyNxsxdYaGwpzNMZI8oV8yjuxc6b5nTgQ");
+
         fraser.run();
 
         String lastLabel = "IMPORTANT";
