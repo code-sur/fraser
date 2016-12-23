@@ -6,7 +6,7 @@ import java.io.*;
 import static org.assertj.core.api.Assertions.*;
 
 
-class ApplicationRunner {
+class FraserRunner {
 
     private String stdout;
 
@@ -21,11 +21,11 @@ class ApplicationRunner {
         return br.readLine();
     }
 
-    void getLabels() throws IOException, InterruptedException {
+    void run() throws IOException, InterruptedException {
         stdout = runFraser();
     }
 
-    void showsLabelsContainig(String label) {
+    void shows(String label) {
         assertThat(stdout).isEqualTo(label);
     }
 }
