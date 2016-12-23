@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class FraserEndToEndIT {
 
-    private ApplicationRunner fraser = new ApplicationRunner();
+    private FraserRunner fraser = new FraserRunner();
 
     @Test
     public void getGmailLabels() throws IOException, InterruptedException {

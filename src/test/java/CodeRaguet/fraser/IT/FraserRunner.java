@@ -6,7 +6,7 @@ import java.io.*;
 import static org.assertj.core.api.Assertions.*;
 
 
-class ApplicationRunner {
+class FraserRunner {
 
     private String stdout;
 
