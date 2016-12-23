@@ -25,7 +25,7 @@ class ApplicationRunner {
         stdout = runFraser();
     }
 
-    void showsLabelsContainig(String label) {
+    void shows(String label) {
         assertThat(stdout).isEqualTo(label);
     }
 }

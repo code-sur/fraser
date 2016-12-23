@@ -14,6 +14,6 @@ public class FraserEndToEndIT {
         application.getLabels();
 
         String lastLabel = "IMPORTANT";
-        application.showsLabelsContainig(lastLabel);
+        application.shows(lastLabel);
     }
 }
