@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-public class FraserEndToEndIT {
+public class FraserIT {
 
     private FraserRunner fraser = new FraserRunner();
 
