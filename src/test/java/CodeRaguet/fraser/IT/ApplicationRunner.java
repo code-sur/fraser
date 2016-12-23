@@ -21,7 +21,7 @@ class ApplicationRunner {
         return br.readLine();
     }
 
-    void getLabels() throws IOException, InterruptedException {
+    void run() throws IOException, InterruptedException {
         stdout = runFraser();
     }
 

@@ -11,7 +11,7 @@ public class FraserEndToEndIT {
 
     @Test
     public void getGmailLabels() throws IOException, InterruptedException {
-        application.getLabels();
+        application.run();
 
         String lastLabel = "IMPORTANT";
         application.shows(lastLabel);
