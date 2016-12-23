@@ -2,16 +2,22 @@ package CodeRaguet.fraser.IT;
 
 
 import java.io.*;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.*;
 
 
-class ApplicationRunner {
+class FraserRunner {
 
     private String stdout;
+    private String refreshToken;
+    private String clientSecret;
 
     private String runFraser() throws IOException, InterruptedException {
         ProcessBuilder pb = new ProcessBuilder("bash", "fraser.sh");
+        Map<String, String> env = pb.environment();
+        env.put("REFRESH_TOKEN", refreshToken);
+        env.put("CLIENT_SECRET", clientSecret);
         pb.redirectErrorStream(true);
         Process p = pb.start();
         p.waitFor();
@@ -21,11 +27,19 @@ class ApplicationRunner {
         return br.readLine();
     }
 
-    void getLabels() throws IOException, InterruptedException {
+    void run() throws IOException, InterruptedException {
         stdout = runFraser();
     }
 
-    void showsLabelsContainig(String label) {
+    void shows(String label) {
         assertThat(stdout).isEqualTo(label);
+    }
+
+    void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
     }
 }
