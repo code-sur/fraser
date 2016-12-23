@@ -10,7 +10,7 @@ public class FraserEndToEndIT {
     private FraserRunner fraser = new FraserRunner();
 
     @Test
-    public void getGmailLabels() throws IOException, InterruptedException {
+    public void fraserRun() throws IOException, InterruptedException {
         fraser.run();
 
         String lastLabel = "IMPORTANT";
