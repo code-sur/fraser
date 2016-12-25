@@ -1,10 +1,9 @@
 package CodeRaguet.fraser.IT;
 
 
-import CodeRaguet.fraser.ENV;
-
 import java.io.*;
 import java.util.Map;
+import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -33,12 +32,8 @@ class FraserRunner {
         assertThat(stdout).isEqualTo(label);
     }
 
-    void setRefreshToken(String refreshToken) {
-        env.put(ENV.REFRESH_TOKEN.name(), refreshToken);
-    }
-
-    void setClientSecret(String clientSecret) {
-        env.put(ENV.CLIENT_SECRET.name(), clientSecret);
+    void with(Properties env) {
+        env.forEach((name, value) -> this.env.put(name.toString(), value.toString()));
     }
 
 }
