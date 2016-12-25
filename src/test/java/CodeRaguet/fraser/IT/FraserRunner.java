@@ -5,6 +5,7 @@ import CodeRaguet.fraser.ENV;
 
 import java.io.*;
 import java.util.Map;
+import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -12,14 +13,10 @@ import static org.assertj.core.api.Assertions.*;
 class FraserRunner {
 
     private String stdout;
-    private String refreshToken;
-    private String clientSecret;
+    private final ProcessBuilder pb = new ProcessBuilder("bash", "fraser.sh");
+    private final Map<String, String> env = pb.environment();
 
     private String runFraser() throws IOException, InterruptedException {
-        ProcessBuilder pb = new ProcessBuilder("bash", "fraser.sh");
-        Map<String, String> env = pb.environment();
-        env.put(ENV.REFRESH_TOKEN.name(), refreshToken);
-        env.put(ENV.CLIENT_SECRET.name(), clientSecret);
         pb.redirectErrorStream(true);
         Process p = pb.start();
         p.waitFor();
@@ -38,10 +35,11 @@ class FraserRunner {
     }
 
     void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
+        env.put(ENV.REFRESH_TOKEN.name(), refreshToken);
     }
 
-    public void setClientSecret(String clientSecret) {
-        this.clientSecret = clientSecret;
+    void setClientSecret(String clientSecret) {
+        env.put(ENV.CLIENT_SECRET.name(), clientSecret);
     }
+
 }
