@@ -12,19 +12,19 @@ import java.util.Properties;
 public class FraserIT {
 
     private final FraserRunner fraser = new FraserRunner();
-    private final Properties gmailProperties = new Properties();
+    private final Properties testENV = new Properties();
 
     @Before
-    public void loadGmailProperties() throws IOException {
-        InputStream inStream = this.getClass().getResourceAsStream("gmail.properties");
-        gmailProperties.load(inStream);
+    public void loadTestENV() throws IOException {
+        InputStream inStream = this.getClass().getResourceAsStream("testENV.properties");
+        testENV.load(inStream);
         inStream.close();
     }
 
     @Test
     public void fraserRun() throws IOException, InterruptedException {
-        fraser.setRefreshToken(gmailProperties.getProperty(ENV.REFRESH_TOKEN.variable()));
-        fraser.setClientSecret(gmailProperties.getProperty(ENV.CLIENT_SECRET.variable()));
+        fraser.setRefreshToken(testENV.getProperty(ENV.REFRESH_TOKEN.variable()));
+        fraser.setClientSecret(testENV.getProperty(ENV.CLIENT_SECRET.variable()));
 
         fraser.run();
 
