@@ -23,7 +23,7 @@ public class FraserIT {
 
     @Test
     public void fraserRun() throws IOException, InterruptedException {
-        fraser.setRefreshToken(gmailProperties.getProperty("REFRESH_TOKEN"));
+        fraser.setRefreshToken(gmailProperties.getProperty(ENV.REFRESH_TOKEN.toString()));
         fraser.setClientSecret(gmailProperties.getProperty(ENV.CLIENT_SECRET.toString()));
 
         fraser.run();
