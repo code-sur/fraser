@@ -1,6 +1,7 @@
 package CodeRaguet.fraser.IT;
 
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -9,16 +10,18 @@ import java.util.Properties;
 
 public class FraserIT {
 
-    private FraserRunner fraser = new FraserRunner();
+    private final FraserRunner fraser = new FraserRunner();
+    private final Properties gmailProperties = new Properties();
 
-    @Test
-    public void fraserRun() throws IOException, InterruptedException {
-        Properties gmailProperties = new Properties();
-
+    @Before
+    public void loadGmailProperties() throws IOException {
         InputStream inStream = this.getClass().getResourceAsStream("gmail.properties");
         gmailProperties.load(inStream);
         inStream.close();
+    }
 
+    @Test
+    public void fraserRun() throws IOException, InterruptedException {
         fraser.setRefreshToken(gmailProperties.getProperty("REFRESH_TOKEN"));
         fraser.setClientSecret(gmailProperties.getProperty("CLIENT_SECRET"));
 
@@ -27,4 +30,5 @@ public class FraserIT {
         String lastLabel = "IMPORTANT";
         fraser.shows(lastLabel);
     }
+
 }
