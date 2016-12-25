@@ -18,8 +18,8 @@ class FraserRunner {
     private String runFraser() throws IOException, InterruptedException {
         ProcessBuilder pb = new ProcessBuilder("bash", "fraser.sh");
         Map<String, String> env = pb.environment();
-        env.put(ENV.REFRESH_TOKEN.variable(), refreshToken);
-        env.put(ENV.CLIENT_SECRET.variable(), clientSecret);
+        env.put(ENV.REFRESH_TOKEN.name(), refreshToken);
+        env.put(ENV.CLIENT_SECRET.name(), clientSecret);
         pb.redirectErrorStream(true);
         Process p = pb.start();
         p.waitFor();

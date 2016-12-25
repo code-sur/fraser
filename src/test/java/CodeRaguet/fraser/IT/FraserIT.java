@@ -23,8 +23,8 @@ public class FraserIT {
 
     @Test
     public void fraserRun() throws IOException, InterruptedException {
-        fraser.setRefreshToken(testENV.getProperty(ENV.REFRESH_TOKEN.variable()));
-        fraser.setClientSecret(testENV.getProperty(ENV.CLIENT_SECRET.variable()));
+        fraser.setRefreshToken(testENV.getProperty(ENV.REFRESH_TOKEN.name()));
+        fraser.setClientSecret(testENV.getProperty(ENV.CLIENT_SECRET.name()));
 
         fraser.run();
 
