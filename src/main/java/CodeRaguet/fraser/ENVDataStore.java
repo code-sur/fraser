@@ -53,7 +53,7 @@ public class ENVDataStore<V extends Serializable> implements DataStore<V> {
 
     @Override
     public V get(String key) throws IOException {
-        return (V) new StoredCredential().setRefreshToken(System.getenv("REFRESH_TOKEN"));
+        return (V) new StoredCredential().setRefreshToken(ENV.REFRESH_TOKEN.value());
     }
 
     @Override

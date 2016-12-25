@@ -1,6 +1,8 @@
 package CodeRaguet.fraser.IT;
 
 
+import CodeRaguet.fraser.ENV;
+
 import java.io.*;
 import java.util.Map;
 
@@ -16,8 +18,8 @@ class FraserRunner {
     private String runFraser() throws IOException, InterruptedException {
         ProcessBuilder pb = new ProcessBuilder("bash", "fraser.sh");
         Map<String, String> env = pb.environment();
-        env.put("REFRESH_TOKEN", refreshToken);
-        env.put("CLIENT_SECRET", clientSecret);
+        env.put(ENV.REFRESH_TOKEN.variable(), refreshToken);
+        env.put(ENV.CLIENT_SECRET.variable(), clientSecret);
         pb.redirectErrorStream(true);
         Process p = pb.start();
         p.waitFor();
