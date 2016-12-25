@@ -10,9 +10,7 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.Charsets;
 import com.google.api.client.util.store.DataStoreFactory;
-import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.gmail.model.Label;
@@ -22,7 +20,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
@@ -62,7 +59,7 @@ public class GmailService {
 
     public static Credential authorize() throws IOException {
         // Load client secrets.
-        String secret = System.getenv("CLIENT_SECRET");
+        String secret = ENV.CLIENT_SECRET.value();
         InputStream in = new ByteArrayInputStream(secret.getBytes(StandardCharsets.UTF_8));
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 

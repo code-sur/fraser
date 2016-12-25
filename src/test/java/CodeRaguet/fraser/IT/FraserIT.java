@@ -1,6 +1,7 @@
 package CodeRaguet.fraser.IT;
 
 
+import CodeRaguet.fraser.ENV;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,7 +24,7 @@ public class FraserIT {
     @Test
     public void fraserRun() throws IOException, InterruptedException {
         fraser.setRefreshToken(gmailProperties.getProperty("REFRESH_TOKEN"));
-        fraser.setClientSecret(gmailProperties.getProperty("CLIENT_SECRET"));
+        fraser.setClientSecret(gmailProperties.getProperty(ENV.CLIENT_SECRET.toString()));
 
         fraser.run();
 
