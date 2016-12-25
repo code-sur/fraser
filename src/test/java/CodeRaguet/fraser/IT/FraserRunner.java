@@ -5,7 +5,6 @@ import CodeRaguet.fraser.ENV;
 
 import java.io.*;
 import java.util.Map;
-import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -13,12 +12,12 @@ import static org.assertj.core.api.Assertions.*;
 class FraserRunner {
 
     private String stdout;
-    private final ProcessBuilder pb = new ProcessBuilder("bash", "fraser.sh");
-    private final Map<String, String> env = pb.environment();
+    private final ProcessBuilder processBuilder = new ProcessBuilder("bash", "fraser.sh");
+    private final Map<String, String> env = processBuilder.environment();
 
     private String runFraser() throws IOException, InterruptedException {
-        pb.redirectErrorStream(true);
-        Process p = pb.start();
+        processBuilder.redirectErrorStream(true);
+        Process p = processBuilder.start();
         p.waitFor();
 
         InputStreamReader inputStreamReader = new InputStreamReader(p.getInputStream());
