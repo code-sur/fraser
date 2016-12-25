@@ -5,9 +5,15 @@ public enum ENV {
     CLIENT_SECRET("CLIENT_SECRET");
 
     private final String value;
+    private final String variable;
 
     ENV(String variable) {
-        value = System.getenv(variable);
+        this.variable = variable;
+        this.value = System.getenv(variable);
+    }
+
+    public String variable() {
+        return variable;
     }
 
     public String value() {
