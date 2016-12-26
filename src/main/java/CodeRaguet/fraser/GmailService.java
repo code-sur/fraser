@@ -34,6 +34,7 @@ class GmailService {
     private String clientSecret;
 
     GmailService() throws GeneralSecurityException, IOException {
+        clientSecret = ENV.CLIENT_SECRET.value();
         HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         DATA_STORE_FACTORY = new ENVDataStoreFactory();
     }
@@ -78,7 +79,6 @@ class GmailService {
     }
 
     private GoogleClientSecrets loadClientSecrets() throws IOException {
-        clientSecret = ENV.CLIENT_SECRET.value();
         InputStream in = new ByteArrayInputStream(clientSecret.getBytes(StandardCharsets.UTF_8));
         return GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
     }
