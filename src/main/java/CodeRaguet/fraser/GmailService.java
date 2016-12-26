@@ -63,10 +63,7 @@ class GmailService {
     }
 
     private Credential authorize() throws IOException {
-        // Load client secrets.
-        String secret = ENV.CLIENT_SECRET.value();
-        InputStream in = new ByteArrayInputStream(secret.getBytes(StandardCharsets.UTF_8));
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+        GoogleClientSecrets clientSecrets = loadClientSecrets();
 
         // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow =
@@ -77,6 +74,12 @@ class GmailService {
                         .build();
         return new AuthorizationCodeInstalledApp(
                 flow, new LocalServerReceiver()).authorize("user");
+    }
+
+    private GoogleClientSecrets loadClientSecrets() throws IOException {
+        String clientSecret = ENV.CLIENT_SECRET.value();
+        InputStream in = new ByteArrayInputStream(clientSecret.getBytes(StandardCharsets.UTF_8));
+        return GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
     }
 
 }
