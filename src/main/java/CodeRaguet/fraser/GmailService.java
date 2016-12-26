@@ -27,15 +27,17 @@ import java.util.List;
 
 class GmailService {
 
-    private final List<String> SCOPES = Arrays.asList(GmailScopes.GMAIL_LABELS);
+    private final List<String> SCOPES;
     private HttpTransport HTTP_TRANSPORT;
-    private final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+    private final JsonFactory JSON_FACTORY;
     private DataStoreFactory DATA_STORE_FACTORY;
     private String clientSecret;
 
     GmailService() throws GeneralSecurityException, IOException {
         HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         DATA_STORE_FACTORY = new ENVDataStoreFactory();
+        SCOPES = Arrays.asList(GmailScopes.GMAIL_LABELS);
+        JSON_FACTORY = JacksonFactory.getDefaultInstance();
     }
 
     String getLastLabel() throws IOException {
