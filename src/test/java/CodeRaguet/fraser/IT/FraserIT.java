@@ -26,7 +26,7 @@ public class FraserIT {
 
         fraser.run();
 
-        String lastLabel = "IMPORTANT";
+        String lastLabel = "IMPORTANT\n";
         fraser.shows(lastLabel);
     }
 

@@ -1,7 +1,10 @@
 package CodeRaguet.fraser.IT;
 
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Properties;
 
@@ -19,9 +22,7 @@ class FraserRunner {
         Process p = processBuilder.start();
         p.waitFor();
 
-        InputStreamReader inputStreamReader = new InputStreamReader(p.getInputStream());
-        BufferedReader br = new BufferedReader(inputStreamReader);
-        stdout = br.readLine();
+        stdout = IOUtils.toString(p.getInputStream(), StandardCharsets.UTF_8);
     }
 
     void shows(String label) {
