@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.*;
 class FraserRunner {
 
     private String stdout;
-    private final ProcessBuilder processBuilder = new ProcessBuilder("bash", "fraser.sh");
+    private final ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar", "target/fraser.jar");
     private final Map<String, String> env = processBuilder.environment();
 
     void run() throws IOException, InterruptedException {
