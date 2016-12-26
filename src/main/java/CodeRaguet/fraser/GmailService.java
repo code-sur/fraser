@@ -31,6 +31,7 @@ class GmailService {
     private HttpTransport HTTP_TRANSPORT;
     private final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private DataStoreFactory DATA_STORE_FACTORY;
+    private String clientSecret;
 
     GmailService() throws GeneralSecurityException, IOException {
         HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
@@ -77,7 +78,7 @@ class GmailService {
     }
 
     private GoogleClientSecrets loadClientSecrets() throws IOException {
-        String clientSecret = ENV.CLIENT_SECRET.value();
+        clientSecret = ENV.CLIENT_SECRET.value();
         InputStream in = new ByteArrayInputStream(clientSecret.getBytes(StandardCharsets.UTF_8));
         return GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
     }
