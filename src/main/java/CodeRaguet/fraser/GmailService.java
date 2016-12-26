@@ -34,7 +34,6 @@ class GmailService {
     private String clientSecret;
 
     GmailService() throws GeneralSecurityException, IOException {
-        setClientSecret(ENV.CLIENT_SECRET.value());
         HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         DATA_STORE_FACTORY = new ENVDataStoreFactory();
     }
