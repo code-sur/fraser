@@ -24,16 +24,15 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
-public class GmailService {
+class GmailService {
 
     private static final List<String> SCOPES = Arrays.asList(GmailScopes.GMAIL_LABELS);
     private static HttpTransport HTTP_TRANSPORT;
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static DataStoreFactory DATA_STORE_FACTORY;
-    private static final java.io.File DATA_STORE_DIR = new java.io.File("gmail-java-quickstart");
     private static final String APPLICATION_NAME = "Gmail API Java Quickstart";
 
-    public String getLastLabel() throws IOException {
+    String getLastLabel() throws IOException {
         // Build a new authorized API client service.
         Gmail service = getGmailService();
 
@@ -50,14 +49,14 @@ public class GmailService {
         return label;
     }
 
-    public static Gmail getGmailService() throws IOException {
+    private static Gmail getGmailService() throws IOException {
         Credential credential = authorize();
         return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
                 .setApplicationName(APPLICATION_NAME)
                 .build();
     }
 
-    public static Credential authorize() throws IOException {
+    private static Credential authorize() throws IOException {
         // Load client secrets.
         String secret = ENV.CLIENT_SECRET.value();
         InputStream in = new ByteArrayInputStream(secret.getBytes(StandardCharsets.UTF_8));
@@ -70,9 +69,8 @@ public class GmailService {
                         .setDataStoreFactory(DATA_STORE_FACTORY)
                         .setAccessType("offline")
                         .build();
-        Credential credential = new AuthorizationCodeInstalledApp(
+        return new AuthorizationCodeInstalledApp(
                 flow, new LocalServerReceiver()).authorize("user");
-        return credential;
     }
 
     static {
