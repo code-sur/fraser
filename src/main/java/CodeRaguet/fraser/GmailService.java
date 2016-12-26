@@ -25,7 +25,7 @@ import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.List;
 
-class GmailService {
+public class GmailService {
 
     private final List<String> SCOPES;
     private HttpTransport HTTP_TRANSPORT;
@@ -33,14 +33,14 @@ class GmailService {
     private DataStoreFactory DATA_STORE_FACTORY;
     private String clientSecret;
 
-    GmailService() throws GeneralSecurityException, IOException {
+    public GmailService() throws GeneralSecurityException, IOException {
         HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         DATA_STORE_FACTORY = new ENVDataStoreFactory();
         SCOPES = Arrays.asList(GmailScopes.GMAIL_LABELS);
         JSON_FACTORY = JacksonFactory.getDefaultInstance();
     }
 
-    String getLastLabel() throws IOException {
+    public String getLastLabel() throws IOException {
         // Build a new authorized API client service.
         Gmail service = getGmailService();
 
