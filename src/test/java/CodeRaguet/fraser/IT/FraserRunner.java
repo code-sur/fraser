@@ -1,10 +1,9 @@
 package CodeRaguet.fraser.IT;
 
 
-import CodeRaguet.fraser.ENV;
-
 import java.io.*;
 import java.util.Map;
+import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -12,36 +11,25 @@ import static org.assertj.core.api.Assertions.*;
 class FraserRunner {
 
     private String stdout;
-    private String refreshToken;
-    private String clientSecret;
+    private final ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar", "target/fraser.jar");
+    private final Map<String, String> env = processBuilder.environment();
 
-    private String runFraser() throws IOException, InterruptedException {
-        ProcessBuilder pb = new ProcessBuilder("bash", "fraser.sh");
-        Map<String, String> env = pb.environment();
-        env.put(ENV.REFRESH_TOKEN.name(), refreshToken);
-        env.put(ENV.CLIENT_SECRET.name(), clientSecret);
-        pb.redirectErrorStream(true);
-        Process p = pb.start();
+    void run() throws IOException, InterruptedException {
+        processBuilder.redirectErrorStream(true);
+        Process p = processBuilder.start();
         p.waitFor();
 
         InputStreamReader inputStreamReader = new InputStreamReader(p.getInputStream());
         BufferedReader br = new BufferedReader(inputStreamReader);
-        return br.readLine();
-    }
-
-    void run() throws IOException, InterruptedException {
-        stdout = runFraser();
+        stdout = br.readLine();
     }
 
     void shows(String label) {
         assertThat(stdout).isEqualTo(label);
     }
 
-    void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
+    void with(Properties env) {
+        env.forEach((name, value) -> this.env.put(name.toString(), value.toString()));
     }
 
-    public void setClientSecret(String clientSecret) {
-        this.clientSecret = clientSecret;
-    }
 }

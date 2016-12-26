@@ -1,7 +1,6 @@
 package CodeRaguet.fraser.IT;
 
 
-import CodeRaguet.fraser.ENV;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,8 +22,7 @@ public class FraserIT {
 
     @Test
     public void fraserRun() throws IOException, InterruptedException {
-        fraser.setRefreshToken(testENV.getProperty(ENV.REFRESH_TOKEN.name()));
-        fraser.setClientSecret(testENV.getProperty(ENV.CLIENT_SECRET.name()));
+        fraser.with(testENV);
 
         fraser.run();
 
