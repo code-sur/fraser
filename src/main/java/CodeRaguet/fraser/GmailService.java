@@ -33,13 +33,6 @@ public class GmailService {
     private DataStoreFactory DATA_STORE_FACTORY;
     private String clientSecret;
 
-    public GmailService() throws GeneralSecurityException, IOException {
-        HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        DATA_STORE_FACTORY = new ENVDataStoreFactory();
-        SCOPES = Arrays.asList(GmailScopes.GMAIL_LABELS);
-        JSON_FACTORY = JacksonFactory.getDefaultInstance();
-    }
-
     public GmailService(String clientSecret, String refreshToken) throws GeneralSecurityException, IOException {
         HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         DATA_STORE_FACTORY = new ENVDataStoreFactory(refreshToken);
