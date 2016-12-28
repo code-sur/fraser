@@ -19,4 +19,14 @@ public class GmailServiceIT extends IntegrationTest {
 
         assertThat(gmailService.getLastLabel()).isEqualTo(LAST_LABEL);
     }
+
+    @Test
+    public void shouldGetThreadsWithFrase() throws GeneralSecurityException, IOException {
+
+        String refreshToken = testENV.getProperty(ENV.REFRESH_TOKEN.name());
+        String clientSecret = testENV.getProperty(ENV.CLIENT_SECRET.name());
+        GmailService gmailService = new GmailService(clientSecret, refreshToken);
+
+        assertThat(gmailService.threadsWithFrase().size()).isEqualTo(1);
+    }
 }
