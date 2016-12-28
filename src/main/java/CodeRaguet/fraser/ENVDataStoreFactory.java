@@ -6,15 +6,11 @@ import com.google.api.client.util.store.DataStoreFactory;
 import java.io.IOException;
 import java.io.Serializable;
 
-public class ENVDataStoreFactory implements DataStoreFactory {
+class ENVDataStoreFactory implements DataStoreFactory {
     private final String refreshToken;
 
-    public ENVDataStoreFactory(String refreshToken) {
+    ENVDataStoreFactory(String refreshToken) {
         this.refreshToken = refreshToken;
-    }
-
-    public ENVDataStoreFactory() {
-        refreshToken = ENV.REFRESH_TOKEN.value();
     }
 
     @Override
