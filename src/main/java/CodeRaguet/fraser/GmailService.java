@@ -33,11 +33,12 @@ public class GmailService {
     private DataStoreFactory DATA_STORE_FACTORY;
     private String clientSecret;
 
-    public GmailService() throws GeneralSecurityException, IOException {
+    public GmailService(String clientSecret, String refreshToken) throws GeneralSecurityException, IOException {
         HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        DATA_STORE_FACTORY = new ENVDataStoreFactory();
+        DATA_STORE_FACTORY = new ENVDataStoreFactory(refreshToken);
         SCOPES = Arrays.asList(GmailScopes.GMAIL_LABELS);
         JSON_FACTORY = JacksonFactory.getDefaultInstance();
+        this.clientSecret = clientSecret;
     }
 
     public String getLastLabel() throws IOException {
@@ -84,7 +85,4 @@ public class GmailService {
         return GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
     }
 
-    public void setClientSecret(String clientSecret) {
-        this.clientSecret = clientSecret;
-    }
 }

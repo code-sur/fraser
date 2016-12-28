@@ -7,8 +7,9 @@ import java.security.GeneralSecurityException;
 public class Main {
 
     public static void main(String... args) throws IOException, GeneralSecurityException {
-        GmailService gmailService = new GmailService();
-        gmailService.setClientSecret(ENV.CLIENT_SECRET.value());
+        String clientSecret = ENV.CLIENT_SECRET.value();
+        String refreshToken = ENV.REFRESH_TOKEN.value();
+        GmailService gmailService = new GmailService(clientSecret, refreshToken);
         System.out.println(gmailService.getLastLabel());
     }
 

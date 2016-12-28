@@ -11,6 +11,12 @@ import java.util.Set;
 
 public class ENVDataStore<V extends Serializable> implements DataStore<V> {
 
+    private final String refreshToken;
+
+    public ENVDataStore(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
     @Override
     public DataStoreFactory getDataStoreFactory() {
         return null;
@@ -53,7 +59,7 @@ public class ENVDataStore<V extends Serializable> implements DataStore<V> {
 
     @Override
     public V get(String key) throws IOException {
-        return (V) new StoredCredential().setRefreshToken(ENV.REFRESH_TOKEN.value());
+        return (V) new StoredCredential().setRefreshToken(refreshToken);
     }
 
     @Override
