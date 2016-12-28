@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-abstract class IntegrationTest {
+public abstract class IntegrationTest {
 
     static final String LAST_LABEL = "IMPORTANT";
     Properties testENV;
