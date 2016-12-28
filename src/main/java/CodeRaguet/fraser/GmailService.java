@@ -40,6 +40,14 @@ public class GmailService {
         JSON_FACTORY = JacksonFactory.getDefaultInstance();
     }
 
+    public GmailService(String clientSecret, String refreshToken) throws GeneralSecurityException, IOException {
+        HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        DATA_STORE_FACTORY = new ENVDataStoreFactory(refreshToken);
+        SCOPES = Arrays.asList(GmailScopes.GMAIL_LABELS);
+        JSON_FACTORY = JacksonFactory.getDefaultInstance();
+        this.setClientSecret(clientSecret);
+    }
+
     public String getLastLabel() throws IOException {
         // Build a new authorized API client service.
         Gmail service = getGmailService();
