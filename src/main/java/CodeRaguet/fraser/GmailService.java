@@ -38,7 +38,7 @@ public class GmailService {
         DATA_STORE_FACTORY = new ENVDataStoreFactory(refreshToken);
         SCOPES = Arrays.asList(GmailScopes.GMAIL_LABELS);
         JSON_FACTORY = JacksonFactory.getDefaultInstance();
-        this.setClientSecret(clientSecret);
+        this.clientSecret = clientSecret;
     }
 
     public String getLastLabel() throws IOException {
@@ -85,7 +85,4 @@ public class GmailService {
         return GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
     }
 
-    public void setClientSecret(String clientSecret) {
-        this.clientSecret = clientSecret;
-    }
 }
