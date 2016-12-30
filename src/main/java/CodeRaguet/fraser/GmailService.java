@@ -15,6 +15,7 @@ import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.gmail.model.Label;
 import com.google.api.services.gmail.model.ListLabelsResponse;
+import com.google.api.services.gmail.model.Message;
 import com.google.api.services.gmail.model.Thread;
 
 import java.io.ByteArrayInputStream;
@@ -23,16 +24,19 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class GmailService {
 
+    private static final String USER_ID = "me";
     private final List<String> SCOPES;
     private HttpTransport HTTP_TRANSPORT;
     private final JsonFactory JSON_FACTORY;
     private DataStoreFactory DATA_STORE_FACTORY;
     private String clientSecret;
+    private Gmail service;
 
     public GmailService(String clientSecret, String refreshToken) throws GeneralSecurityException, IOException {
         HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
@@ -40,15 +44,15 @@ public class GmailService {
         SCOPES = Collections.singletonList(GmailScopes.GMAIL_READONLY);
         JSON_FACTORY = JacksonFactory.getDefaultInstance();
         this.clientSecret = clientSecret;
+        service = authorizeAndBuildService();
     }
 
     public String getLastLabel() throws IOException {
         // Build a new authorized API client service.
-        Gmail service = getGmailService();
+        Gmail service = authorizeAndBuildService();
 
         // Print the labels in the user's account.
-        String user = "me";
-        ListLabelsResponse listResponse = service.users().labels().list(user).execute();
+        ListLabelsResponse listResponse = service.users().labels().list(USER_ID).execute();
         List<Label> labels = listResponse.getLabels();
         String label = null;
         if (labels.size() == 0) {
@@ -59,7 +63,7 @@ public class GmailService {
         return label;
     }
 
-    private Gmail getGmailService() throws IOException {
+    private Gmail authorizeAndBuildService() throws IOException {
         Credential credential = authorize();
         String APPLICATION_NAME = "Gmail API Java Quickstart";
         return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
@@ -86,8 +90,22 @@ public class GmailService {
         return GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
     }
 
-    public List<Thread> threadsWithFrase() throws IOException {
-        Gmail service = getGmailService();
-        return service.users().threads().list("me").setQ("subject:f").execute().getThreads();
+    public List<Message> messagesWithFrase() throws IOException {
+        List<Thread> threadsWithFrase = selectThreadsWithFrase();
+        List<Message> messagesWithFrase = new ArrayList<>();
+        threadsWithFrase.forEach(thread -> messagesWithFrase.add(selectMessageWithFrase(thread)));
+        return messagesWithFrase;
+    }
+
+    private List<Thread> selectThreadsWithFrase() throws IOException {
+        return service.users().threads().list(USER_ID).setQ("subject:f").execute().getThreads();
+    }
+
+    private Message selectMessageWithFrase(Thread threadWithFrase) {
+        try {
+            return service.users().threads().get(USER_ID, threadWithFrase.getId()).execute().getMessages().get(0);
+        } catch (IOException e) {
+            throw new GmailServiceException("Can't select message", e);
+        }
     }
 }

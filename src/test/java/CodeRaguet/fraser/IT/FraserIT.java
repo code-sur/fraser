@@ -15,7 +15,7 @@ public class FraserIT extends IntegrationTest {
 
         fraser.run();
 
-        fraser.shows(LAST_LABEL + "\n");
+        fraser.shows("No te llevas nada" + "\n" + "El infierno es el olvido" + "\n");
     }
 
 }
