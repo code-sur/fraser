@@ -2,7 +2,7 @@ package CodeRaguet.fraser.IT;
 
 import CodeRaguet.fraser.ENV;
 import CodeRaguet.fraser.GmailService;
-import com.google.api.services.gmail.model.Thread;
+import com.google.api.services.gmail.model.Message;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,14 +14,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class GmailServiceIT extends IntegrationTest {
 
-    private String refreshToken;
-    private String clientSecret;
     private GmailService gmailService;
 
     @Before
     public void setUpGmailService() throws GeneralSecurityException, IOException {
-        refreshToken = testENV.getProperty(ENV.REFRESH_TOKEN.name());
-        clientSecret = testENV.getProperty(ENV.CLIENT_SECRET.name());
+        String refreshToken = testENV.getProperty(ENV.REFRESH_TOKEN.name());
+        String clientSecret = testENV.getProperty(ENV.CLIENT_SECRET.name());
         gmailService = new GmailService(clientSecret, refreshToken);
     }
 
@@ -32,8 +30,8 @@ public class GmailServiceIT extends IntegrationTest {
     }
 
     @Test
-    public void shouldGetThreadsWithFrase() throws GeneralSecurityException, IOException {
-        List<Thread> threadsWithFrase = gmailService.threadsWithFrase();
-        assertThat(threadsWithFrase.size()).isEqualTo(1);
+    public void shouldGetMessagesWithFrase() throws GeneralSecurityException, IOException {
+        List<Message> messagesWithFrase = gmailService.messagesWithFrase();
+        assertThat(messagesWithFrase).hasSize(1).extracting(Message::getSnippet).contains("El infierno es el olvido");
     }
 }

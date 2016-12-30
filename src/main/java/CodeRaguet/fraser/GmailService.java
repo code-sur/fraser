@@ -15,6 +15,7 @@ import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.gmail.model.Label;
 import com.google.api.services.gmail.model.ListLabelsResponse;
+import com.google.api.services.gmail.model.Message;
 import com.google.api.services.gmail.model.Thread;
 
 import java.io.ByteArrayInputStream;
@@ -23,6 +24,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -86,8 +88,11 @@ public class GmailService {
         return GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
     }
 
-    public List<Thread> threadsWithFrase() throws IOException {
+    public List<Message> messagesWithFrase() throws IOException {
         Gmail service = getGmailService();
-        return service.users().threads().list("me").setQ("subject:f").execute().getThreads();
+        List<Thread> threads = service.users().threads().list("me").setQ("subject:f").execute().getThreads();
+        List<Message> messages = new ArrayList<>();
+        messages.add(service.users().threads().get("me", threads.get(0).getId()).execute().getMessages().get(0));
+        return messages;
     }
 }
