@@ -10,39 +10,49 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.Charsets;
 import com.google.api.client.util.store.DataStoreFactory;
-import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.gmail.model.Label;
 import com.google.api.services.gmail.model.ListLabelsResponse;
+import com.google.api.services.gmail.model.Message;
+import com.google.api.services.gmail.model.Thread;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import java.security.GeneralSecurityException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GmailService {
 
-    private static final List<String> SCOPES = Arrays.asList(GmailScopes.GMAIL_LABELS);
-    private static HttpTransport HTTP_TRANSPORT;
-    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-    private static DataStoreFactory DATA_STORE_FACTORY;
-    private static final java.io.File DATA_STORE_DIR = new java.io.File("gmail-java-quickstart");
-    private static final String APPLICATION_NAME = "Gmail API Java Quickstart";
+    private static final String USER_ID = "me";
+    private final List<String> SCOPES;
+    private HttpTransport HTTP_TRANSPORT;
+    private final JsonFactory JSON_FACTORY;
+    private DataStoreFactory DATA_STORE_FACTORY;
+    private String clientSecret;
+    private Gmail service;
+
+    public GmailService(String clientSecret, String refreshToken) throws GeneralSecurityException, IOException {
+        HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        DATA_STORE_FACTORY = new ENVDataStoreFactory(refreshToken);
+        SCOPES = Collections.singletonList(GmailScopes.GMAIL_READONLY);
+        JSON_FACTORY = JacksonFactory.getDefaultInstance();
+        this.clientSecret = clientSecret;
+        service = authorizeAndBuildService();
+    }
 
     public String getLastLabel() throws IOException {
         // Build a new authorized API client service.
-        Gmail service = getGmailService();
+        Gmail service = authorizeAndBuildService();
 
         // Print the labels in the user's account.
-        String user = "me";
-        ListLabelsResponse listResponse = service.users().labels().list(user).execute();
+        ListLabelsResponse listResponse = service.users().labels().list(USER_ID).execute();
         List<Label> labels = listResponse.getLabels();
         String label = null;
         if (labels.size() == 0) {
@@ -53,18 +63,16 @@ public class GmailService {
         return label;
     }
 
-    public static Gmail getGmailService() throws IOException {
+    private Gmail authorizeAndBuildService() throws IOException {
         Credential credential = authorize();
+        String APPLICATION_NAME = "Gmail API Java Quickstart";
         return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
                 .setApplicationName(APPLICATION_NAME)
                 .build();
     }
 
-    public static Credential authorize() throws IOException {
-        // Load client secrets.
-        String secret = System.getenv("CLIENT_SECRET");
-        InputStream in = new ByteArrayInputStream(secret.getBytes(StandardCharsets.UTF_8));
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+    private Credential authorize() throws IOException {
+        GoogleClientSecrets clientSecrets = loadClientSecrets();
 
         // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow =
@@ -73,18 +81,31 @@ public class GmailService {
                         .setDataStoreFactory(DATA_STORE_FACTORY)
                         .setAccessType("offline")
                         .build();
-        Credential credential = new AuthorizationCodeInstalledApp(
+        return new AuthorizationCodeInstalledApp(
                 flow, new LocalServerReceiver()).authorize("user");
-        return credential;
     }
 
-    static {
+    private GoogleClientSecrets loadClientSecrets() throws IOException {
+        InputStream in = new ByteArrayInputStream(clientSecret.getBytes(StandardCharsets.UTF_8));
+        return GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+    }
+
+    public List<Message> messagesWithFrase() throws IOException {
+        List<Thread> threadsWithFrase = selectThreadsWithFrase();
+        List<Message> messagesWithFrase = new ArrayList<>();
+        threadsWithFrase.forEach(thread -> messagesWithFrase.add(selectMessageWithFrase(thread)));
+        return messagesWithFrase;
+    }
+
+    private List<Thread> selectThreadsWithFrase() throws IOException {
+        return service.users().threads().list(USER_ID).setQ("subject:f").execute().getThreads();
+    }
+
+    private Message selectMessageWithFrase(Thread threadWithFrase) {
         try {
-            HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-            DATA_STORE_FACTORY = new ENVDataStoreFactory();
-        } catch (Throwable t) {
-            t.printStackTrace();
-            System.exit(1);
+            return service.users().threads().get(USER_ID, threadWithFrase.getId()).execute().getMessages().get(0);
+        } catch (IOException e) {
+            throw new GmailServiceException("Can't select message", e);
         }
     }
 }
