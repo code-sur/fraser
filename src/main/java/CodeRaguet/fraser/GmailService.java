@@ -93,14 +93,7 @@ public class GmailService {
     public List<Message> messagesWithFrase() throws IOException {
         List<Thread> threadsWithFrase = selectThreadsWithFrase();
         List<Message> messagesWithFrase = new ArrayList<>();
-        threadsWithFrase.forEach(thread -> {
-            try {
-                messagesWithFrase.add(selectMessageWithFrase(thread));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        });
+        threadsWithFrase.forEach(thread -> messagesWithFrase.add(selectMessageWithFrase(thread)));
         return messagesWithFrase;
     }
 
@@ -108,7 +101,11 @@ public class GmailService {
         return service.users().threads().list(USER_ID).setQ("subject:f").execute().getThreads();
     }
 
-    private Message selectMessageWithFrase(Thread threadWithFrase) throws IOException {
-        return service.users().threads().get(USER_ID, threadWithFrase.getId()).execute().getMessages().get(0);
+    private Message selectMessageWithFrase(Thread threadWithFrase) {
+        try {
+            return service.users().threads().get(USER_ID, threadWithFrase.getId()).execute().getMessages().get(0);
+        } catch (IOException e) {
+            throw new GmailServiceException("Can't select message", e);
+        }
     }
 }
