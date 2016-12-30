@@ -47,22 +47,6 @@ public class GmailService {
         service = authorizeAndBuildService();
     }
 
-    public String getLastLabel() throws IOException {
-        // Build a new authorized API client service.
-        Gmail service = authorizeAndBuildService();
-
-        // Print the labels in the user's account.
-        ListLabelsResponse listResponse = service.users().labels().list(USER_ID).execute();
-        List<Label> labels = listResponse.getLabels();
-        String label = null;
-        if (labels.size() == 0) {
-            System.out.println("No labels found.");
-        } else {
-            label = labels.get(labels.size() - 1).getName();
-        }
-        return label;
-    }
-
     private Gmail authorizeAndBuildService() throws IOException {
         Credential credential = authorize();
         String APPLICATION_NAME = "Gmail API Java Quickstart";
