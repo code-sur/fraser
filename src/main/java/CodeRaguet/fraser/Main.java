@@ -10,7 +10,7 @@ public class Main {
         String clientSecret = ENV.CLIENT_SECRET.value();
         String refreshToken = ENV.REFRESH_TOKEN.value();
         GmailService gmailService = new GmailService(clientSecret, refreshToken);
-        System.out.println(gmailService.getLastLabel());
+        gmailService.messagesWithFrase().forEach(message -> System.out.println(message.getSnippet()));
     }
 
 }
