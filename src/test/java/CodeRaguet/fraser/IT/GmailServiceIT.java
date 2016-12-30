@@ -32,6 +32,8 @@ public class GmailServiceIT extends IntegrationTest {
     @Test
     public void shouldGetMessagesWithFrase() throws GeneralSecurityException, IOException {
         List<Message> messagesWithFrase = gmailService.messagesWithFrase();
-        assertThat(messagesWithFrase).hasSize(1).extracting(Message::getSnippet).contains("El infierno es el olvido");
+        assertThat(messagesWithFrase).hasSize(2)
+                .extracting(Message::getSnippet)
+                    .contains("El infierno es el olvido", "No te llevas nada");
     }
 }
