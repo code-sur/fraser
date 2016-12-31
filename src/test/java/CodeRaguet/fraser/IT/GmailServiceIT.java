@@ -24,16 +24,21 @@ public class GmailServiceIT extends IntegrationTest {
     }
 
     @Test
-    public void shouldGetLastLabel() throws GeneralSecurityException, IOException {
-        String lastLabel = gmailService.getLastLabel();
-        assertThat(lastLabel).isEqualTo(LAST_LABEL);
+    public void shouldGetMessagesWithFrase() throws GeneralSecurityException, IOException {
+        List<Message> messagesWithFrase = gmailService.messagesWithFrase();
+        assertThat(messagesWithFrase)
+                .hasSize(2)
+                .extracting(Message::getSnippet)
+                .contains("El infierno es el olvido", "No te llevas nada");
     }
 
     @Test
-    public void shouldGetMessagesWithFrase() throws GeneralSecurityException, IOException {
+    public void shouldGetAllMessagesWithFrase() throws IOException {
+        gmailService.setThreadsMaxResults(1L);
         List<Message> messagesWithFrase = gmailService.messagesWithFrase();
-        assertThat(messagesWithFrase).hasSize(2)
+        assertThat(messagesWithFrase)
+                .hasSize(2)
                 .extracting(Message::getSnippet)
-                    .contains("El infierno es el olvido", "No te llevas nada");
+                .contains("El infierno es el olvido", "No te llevas nada");
     }
 }

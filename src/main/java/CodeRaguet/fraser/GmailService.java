@@ -13,9 +13,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.DataStoreFactory;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
-import com.google.api.services.gmail.model.Label;
-import com.google.api.services.gmail.model.ListLabelsResponse;
-import com.google.api.services.gmail.model.Message;
+import com.google.api.services.gmail.model.*;
 import com.google.api.services.gmail.model.Thread;
 
 import java.io.ByteArrayInputStream;
@@ -37,6 +35,7 @@ public class GmailService {
     private DataStoreFactory DATA_STORE_FACTORY;
     private String clientSecret;
     private Gmail service;
+    private Long threadsMaxResults = 100L;
 
     public GmailService(String clientSecret, String refreshToken) throws GeneralSecurityException, IOException {
         HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
@@ -45,22 +44,6 @@ public class GmailService {
         JSON_FACTORY = JacksonFactory.getDefaultInstance();
         this.clientSecret = clientSecret;
         service = authorizeAndBuildService();
-    }
-
-    public String getLastLabel() throws IOException {
-        // Build a new authorized API client service.
-        Gmail service = authorizeAndBuildService();
-
-        // Print the labels in the user's account.
-        ListLabelsResponse listResponse = service.users().labels().list(USER_ID).execute();
-        List<Label> labels = listResponse.getLabels();
-        String label = null;
-        if (labels.size() == 0) {
-            System.out.println("No labels found.");
-        } else {
-            label = labels.get(labels.size() - 1).getName();
-        }
-        return label;
     }
 
     private Gmail authorizeAndBuildService() throws IOException {
@@ -98,7 +81,23 @@ public class GmailService {
     }
 
     private List<Thread> selectThreadsWithFrase() throws IOException {
-        return service.users().threads().list(USER_ID).setQ("subject:f").execute().getThreads();
+        List<Thread> threads = new ArrayList<>();
+        ListThreadsResponse response;
+        String pageToken = null;
+        do {
+            response = getResponse(pageToken);
+            threads.addAll(response.getThreads());
+            pageToken = response.getNextPageToken();
+        } while (response.getNextPageToken() != null);
+        return threads;
+    }
+
+    private ListThreadsResponse getResponse(String pageToken) throws IOException {
+        return service.users().threads().list(USER_ID)
+                .setMaxResults(threadsMaxResults)
+                .setQ("subject:f")
+                .setPageToken(pageToken)
+                .execute();
     }
 
     private Message selectMessageWithFrase(Thread threadWithFrase) {
@@ -107,5 +106,9 @@ public class GmailService {
         } catch (IOException e) {
             throw new GmailServiceException("Can't select message", e);
         }
+    }
+
+    public void setThreadsMaxResults(Long threadsMaxResults) {
+        this.threadsMaxResults = threadsMaxResults;
     }
 }

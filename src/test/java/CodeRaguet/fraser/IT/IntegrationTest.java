@@ -8,7 +8,6 @@ import java.util.Properties;
 
 public abstract class IntegrationTest {
 
-    static final String LAST_LABEL = "IMPORTANT";
     Properties testENV;
 
     @Before
