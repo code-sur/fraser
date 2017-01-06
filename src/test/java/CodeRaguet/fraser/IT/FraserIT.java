@@ -7,6 +7,7 @@ import java.io.IOException;
 
 public class FraserIT extends IntegrationTest {
 
+    public static final String FIRST_FRASE = "El infierno es el olvido";
     private final FraserRunner fraser = new FraserRunner();
 
     @Test
@@ -15,7 +16,7 @@ public class FraserIT extends IntegrationTest {
 
         fraser.run();
 
-        fraser.shows("El infierno es el olvido" + "\n");
+        fraser.shows(FIRST_FRASE + "\n");
     }
 
 }
