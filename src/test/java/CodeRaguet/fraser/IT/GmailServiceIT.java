@@ -18,8 +18,8 @@ public class GmailServiceIT extends IntegrationTest {
 
     @Before
     public void setUpGmailService() throws GeneralSecurityException, IOException {
-        String refreshToken = testENV.getProperty(ENV.REFRESH_TOKEN.name());
-        String clientSecret = testENV.getProperty(ENV.CLIENT_SECRET.name());
+        String refreshToken = testENV.getProperty(ENV.GMAIL_REFRESH_TOKEN.name());
+        String clientSecret = testENV.getProperty(ENV.GMAIL_CLIENT_SECRET.name());
         gmailService = new GmailService(clientSecret, refreshToken);
     }
 
