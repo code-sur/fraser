@@ -1,13 +1,14 @@
 package CodeRaguet.fraser.IT;
 
 
+import CodeRaguet.fraser.Frase;
 import org.junit.Test;
 
 import java.io.IOException;
 
 public class FraserIT extends IntegrationTest {
 
-    public static final String FIRST_FRASE = "El infierno es el olvido";
+    private static final Frase FIRST_FRASE = new Frase("El infierno es el olvido");
     private final FraserRunner fraser = new FraserRunner();
 
     @Test
