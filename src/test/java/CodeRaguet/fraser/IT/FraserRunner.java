@@ -25,8 +25,8 @@ class FraserRunner {
         stdout = IOUtils.toString(p.getInputStream(), StandardCharsets.UTF_8);
     }
 
-    void shows(String output) {
-        assertThat(stdout).isEqualTo(output);
+    void posterShows(String output) {
+        assertThat(stdout).contains(output);
     }
 
     void with(Properties env) {

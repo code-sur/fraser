@@ -16,7 +16,7 @@ public class FraserIT extends IntegrationTest {
 
         fraser.run();
 
-        fraser.shows(FIRST_FRASE + "\n");
+        fraser.posterShows(FIRST_FRASE);
     }
 
 }
