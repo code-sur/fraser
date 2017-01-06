@@ -32,4 +32,14 @@ public class TwitterService {
         twitter.getHomeTimeline().forEach(status -> tweets.add(status.getText()));
         return tweets;
     }
+
+    public void deleteTweets() throws TwitterException {
+        twitter.getUserTimeline().forEach(status -> {
+            try {
+                twitter.destroyStatus(status.getId());
+            } catch (TwitterException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
 }
