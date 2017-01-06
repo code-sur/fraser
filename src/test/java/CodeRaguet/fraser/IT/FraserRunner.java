@@ -1,6 +1,7 @@
 package CodeRaguet.fraser.IT;
 
 
+import CodeRaguet.fraser.Frase;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
@@ -25,8 +26,8 @@ class FraserRunner {
         stdout = IOUtils.toString(p.getInputStream(), StandardCharsets.UTF_8);
     }
 
-    void shows(String label) {
-        assertThat(stdout).isEqualTo(label);
+    void posterShows(Frase frase) {
+        assertThat(stdout).contains(frase.toString());
     }
 
     void with(Properties env) {

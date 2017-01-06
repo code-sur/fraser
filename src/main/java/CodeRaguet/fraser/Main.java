@@ -1,8 +1,11 @@
 package CodeRaguet.fraser;
 
 
+import com.google.api.services.gmail.model.Message;
+
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.List;
 
 public class Main {
 
@@ -10,7 +13,8 @@ public class Main {
         String clientSecret = ENV.CLIENT_SECRET.value();
         String refreshToken = ENV.REFRESH_TOKEN.value();
         GmailService gmailService = new GmailService(clientSecret, refreshToken);
-        gmailService.messagesWithFrase().forEach(message -> System.out.println(message.getSnippet()));
+        List<Message> messages = gmailService.messagesWithFrase();
+        System.out.println(messages.get(messages.size() -1).getSnippet());
     }
 
 }
