@@ -1,4 +1,4 @@
-package CodeRaguet.fraser;
+package CodeRaguet.fraser.gmail;
 
 import java.io.IOException;
 

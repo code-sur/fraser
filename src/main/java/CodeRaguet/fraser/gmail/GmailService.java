@@ -1,4 +1,4 @@
-package CodeRaguet.fraser;
+package CodeRaguet.fraser.gmail;
 
 
 import com.google.api.client.auth.oauth2.Credential;

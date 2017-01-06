@@ -1,6 +1,7 @@
 package CodeRaguet.fraser;
 
 
+import CodeRaguet.fraser.gmail.GmailService;
 import com.google.api.services.gmail.model.Message;
 
 import java.io.IOException;
