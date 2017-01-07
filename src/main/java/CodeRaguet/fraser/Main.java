@@ -11,12 +11,12 @@ import java.security.GeneralSecurityException;
 
 public class Main {
 
-    private final GmailService gmailService;
-    private final TwitterService twitterService;
+    private final BookOfFrases bookOfFrases;
+    private final FrasesPublisher frasesPublisher;
 
     private Main(GmailService gmailService, TwitterService twitterService) {
-        this.gmailService = gmailService;
-        this.twitterService = twitterService;
+        bookOfFrases = new GmailBookOfFrases(gmailService);
+        frasesPublisher = new TwitterFrasesPublisher(twitterService);
     }
 
     public static void main(String... args) throws IOException, GeneralSecurityException {
@@ -34,8 +34,6 @@ public class Main {
     }
 
     private void run() throws IOException {
-        BookOfFrases bookOfFrases = new GmailBookOfFrases(gmailService);
-        FrasesPublisher frasesPublisher = new TwitterFrasesPublisher(twitterService);
         frasesPublisher.publish(bookOfFrases.next());
     }
 
