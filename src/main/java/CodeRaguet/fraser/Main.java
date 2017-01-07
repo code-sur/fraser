@@ -3,7 +3,6 @@ package CodeRaguet.fraser;
 
 import CodeRaguet.fraser.gmail.GmailService;
 import com.google.api.services.gmail.model.Message;
-import twitter4j.TwitterException;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -19,7 +18,7 @@ public class Main {
         this.twitterService = twitterService;
     }
 
-    public static void main(String... args) throws IOException, GeneralSecurityException, TwitterException {
+    public static void main(String... args) throws IOException, GeneralSecurityException {
         String clientSecret = ENV.GMAIL_CLIENT_SECRET.value();
         String refreshToken = ENV.GMAIL_REFRESH_TOKEN.value();
         GmailService gmailService = new GmailService(clientSecret, refreshToken);
@@ -33,7 +32,7 @@ public class Main {
         new Main(gmailService, twitterService).run();
     }
 
-    void run() throws IOException, TwitterException {
+    private void run() throws IOException {
         List<Message> messages = gmailService.messagesWithFrase();
         twitterService.tweet(messages.get(messages.size() - 1).getSnippet());
     }
