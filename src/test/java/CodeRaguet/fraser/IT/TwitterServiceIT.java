@@ -1,7 +1,7 @@
 package CodeRaguet.fraser.IT;
 
 import CodeRaguet.fraser.ENV;
-import CodeRaguet.fraser.TwitterService;
+import CodeRaguet.fraser.twitter.TwitterService;
 import org.junit.Before;
 import org.junit.Test;
 import twitter4j.TwitterException;

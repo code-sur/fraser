@@ -1,4 +1,4 @@
-package CodeRaguet.fraser;
+package CodeRaguet.fraser.twitter;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;

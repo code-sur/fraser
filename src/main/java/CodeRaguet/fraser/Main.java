@@ -3,6 +3,8 @@ package CodeRaguet.fraser;
 
 import CodeRaguet.fraser.gmail.GmailBookOfFrases;
 import CodeRaguet.fraser.gmail.GmailService;
+import CodeRaguet.fraser.twitter.TwitterFrasesPublisher;
+import CodeRaguet.fraser.twitter.TwitterService;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
