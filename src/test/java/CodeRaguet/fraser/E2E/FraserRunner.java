@@ -1,4 +1,4 @@
-package CodeRaguet.fraser.IT;
+package CodeRaguet.fraser.E2E;
 
 
 import java.io.IOException;

@@ -1,7 +1,8 @@
-package CodeRaguet.fraser.IT;
+package CodeRaguet.fraser.E2E;
 
 
 import CodeRaguet.fraser.Frase;
+import CodeRaguet.fraser.IT.IntegrationTest;
 import org.junit.Before;
 import org.junit.Test;
 

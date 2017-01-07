@@ -8,12 +8,12 @@ import java.util.Properties;
 
 public abstract class IntegrationTest {
 
-    Properties testENV;
+    protected Properties testENV;
 
     @Before
     public void loadTestENV() throws IOException {
         testENV = new Properties();
-        InputStream inStream = this.getClass().getResourceAsStream("testENV.properties");
+        InputStream inStream = IntegrationTest.class.getResourceAsStream("testENV.properties");
         testENV.load(inStream);
         inStream.close();
     }
