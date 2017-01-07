@@ -11,3 +11,10 @@ export MAVEN_HOME="/home/vagrant/apache-maven-3.3.9"
 echo "export PATH=$MAVEN_HOME/bin:$PATH" > maven.sh
 sudo echo "export PATH=$MAVEN_HOME/bin:$PATH" > /etc/profile.d/maven.sh
 sudo cp maven.sh /etc/profile.d
+
+sudo apt-get -qq update
+sudo apt-get install -y postgresql
+
+sudo su - postgres -c 'createuser -D -R -S fraser'
+sudo su - postgres -c "psql -c \"ALTER USER fraser WITH PASSWORD 'fraser';\""
+sudo su - postgres -c 'createdb -O fraser fraser'
