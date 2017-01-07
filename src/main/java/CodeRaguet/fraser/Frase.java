@@ -11,4 +11,18 @@ public class Frase {
     public String toString() {
         return frase;
     }
+
+    @Override public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Frase frase1 = (Frase) o;
+
+        return frase.equals(frase1.frase);
+
+    }
+
+    @Override public int hashCode() {
+        return frase.hashCode();
+    }
 }
