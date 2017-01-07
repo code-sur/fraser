@@ -11,17 +11,30 @@ import java.util.List;
 
 public class Main {
 
+    private final GmailService gmailService;
+    private final TwitterService twitterService;
+
+    private Main(GmailService gmailService, TwitterService twitterService) {
+        this.gmailService = gmailService;
+        this.twitterService = twitterService;
+    }
+
     public static void main(String... args) throws IOException, GeneralSecurityException, TwitterException {
         String clientSecret = ENV.GMAIL_CLIENT_SECRET.value();
         String refreshToken = ENV.GMAIL_REFRESH_TOKEN.value();
         GmailService gmailService = new GmailService(clientSecret, refreshToken);
-        List<Message> messages = gmailService.messagesWithFrase();
 
         String consumerKey = ENV.TWITTER_CONSUMER_KEY.value();
         String consumerSecret = ENV.TWITTER_CONSUMER_SECRET.value();
         String accessToken = ENV.TWITTER_ACCESS_TOKEN.value();
         String accessTokenSecret = ENV.TWITTER_ACCESS_TOKEN_SECRET.value();
         TwitterService twitterService = new TwitterService(consumerKey, consumerSecret, accessToken, accessTokenSecret);
+
+        new Main(gmailService, twitterService).run();
+    }
+
+    void run() throws IOException, TwitterException {
+        List<Message> messages = gmailService.messagesWithFrase();
         twitterService.tweet(messages.get(messages.size() - 1).getSnippet());
     }
 
