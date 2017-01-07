@@ -1,12 +1,11 @@
 package CodeRaguet.fraser;
 
 
+import CodeRaguet.fraser.gmail.GmailBookOfFrases;
 import CodeRaguet.fraser.gmail.GmailService;
-import com.google.api.services.gmail.model.Message;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.List;
 
 public class Main {
 
@@ -33,8 +32,9 @@ public class Main {
     }
 
     private void run() throws IOException {
-        List<Message> messages = gmailService.messagesWithFrase();
-        twitterService.tweet(messages.get(messages.size() - 1).getSnippet());
+        BookOfFrases bookOfFrases = new GmailBookOfFrases();
+        FrasesPublisher frasesPublisher = new TwitterFrasesPublisher();
+        frasesPublisher.publish(bookOfFrases.next());
     }
 
 }
