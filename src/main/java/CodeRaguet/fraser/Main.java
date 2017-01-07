@@ -34,7 +34,7 @@ public class Main {
     }
 
     private void run() throws IOException {
-        BookOfFrases bookOfFrases = new GmailBookOfFrases();
+        BookOfFrases bookOfFrases = new GmailBookOfFrases(gmailService);
         FrasesPublisher frasesPublisher = new TwitterFrasesPublisher();
         frasesPublisher.publish(bookOfFrases.next());
     }
