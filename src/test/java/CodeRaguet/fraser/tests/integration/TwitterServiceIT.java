@@ -24,7 +24,7 @@ public class TwitterServiceIT extends IntegrationTest {
     }
 
     @Test
-    public void test() throws TwitterException {
+    public void shouldTweet() throws TwitterException {
         String someTweet = "Test tweet";
 
         twitterService.tweet(someTweet);
