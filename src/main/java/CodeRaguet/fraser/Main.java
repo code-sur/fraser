@@ -10,10 +10,12 @@ public class Main {
 
     private final BookOfFrases bookOfFrases;
     private final FrasesPublisher frasesPublisher;
+    private Bookmark bookmark;
 
     private Main(GmailService gmailService, TwitterService twitterService) {
         bookOfFrases = new GmailBookOfFrases(gmailService);
         frasesPublisher = new TwitterFrasesPublisher(twitterService);
+        bookmark = new PostgresBookmark();
     }
 
     public static void main(String... args) {
@@ -31,7 +33,7 @@ public class Main {
     }
 
     private void run() {
-        frasesPublisher.publish(bookOfFrases.next());
+        frasesPublisher.publish(bookOfFrases.nextFraseAfter(bookmark));
     }
 
 }
