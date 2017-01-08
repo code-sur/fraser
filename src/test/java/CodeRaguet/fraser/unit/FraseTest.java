@@ -1,4 +1,4 @@
-package CodeRaguet.fraser.test;
+package CodeRaguet.fraser.unit;
 
 import CodeRaguet.fraser.Frase;
 import org.junit.Test;
