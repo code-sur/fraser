@@ -1,6 +1,9 @@
 package CodeRaguet.fraser.tests.e2e;
 
+import CodeRaguet.fraser.PostgresBookmark;
+import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.model.Frase;
+import CodeRaguet.fraser.model.NoBookmarkException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,9 +11,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class BookmarkServer {
 
+    private Bookmark bookmark;
+
     public BookmarkServer(Properties testENV) throws SQLException {
+        bookmark = new PostgresBookmark();
     }
 
     public void bookmarkAt(Frase firstFrase) throws SQLException {
@@ -29,5 +37,9 @@ public class BookmarkServer {
         stmt.execute(sql);
         stmt.close();
         connection.close();
+    }
+
+    public void hasBookmarkAt(Frase frase) throws NoBookmarkException {
+        assertThat(bookmark.isAt()).isEqualTo(frase);
     }
 }

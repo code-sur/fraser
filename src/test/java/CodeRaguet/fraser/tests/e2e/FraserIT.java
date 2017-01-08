@@ -2,6 +2,7 @@ package CodeRaguet.fraser.tests.e2e;
 
 
 import CodeRaguet.fraser.model.Frase;
+import CodeRaguet.fraser.model.NoBookmarkException;
 import CodeRaguet.fraser.tests.integration.IntegrationTest;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +13,7 @@ import java.sql.SQLException;
 public class FraserIT extends IntegrationTest {
 
     private static final Frase FIRST_FRASE = new Frase("El infierno es el olvido");
-    private static final String SECOND_FRASE = "No te llevas nada";
+    private static final Frase SECOND_FRASE = new Frase("No te llevas nada");
     private final FraserRunner fraser = new FraserRunner();
     private FraserPublicationsServer frasePublicationsServer;
     private BookmarkServer bookmarServer;
@@ -42,12 +43,13 @@ public class FraserIT extends IntegrationTest {
     }
 
     @Test
-    public void shouldPublishSecondFrase() throws SQLException, IOException, InterruptedException {
+    public void shouldPublishSecondFrase() throws SQLException, IOException, InterruptedException, NoBookmarkException {
         bookmarServer.bookmarkAt(FIRST_FRASE);
 
         fraser.run();
 
-        frasePublicationsServer.hasRecived(new Frase(SECOND_FRASE));
+        bookmarServer.hasBookmarkAt(SECOND_FRASE);
+        frasePublicationsServer.hasRecived(SECOND_FRASE);
     }
 
 }
