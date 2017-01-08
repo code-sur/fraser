@@ -13,15 +13,15 @@ import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class BookmarkServer {
+class BookmarkServer {
 
     private Bookmark bookmark;
 
-    public BookmarkServer(Properties testENV) throws SQLException {
+    BookmarkServer(Properties testENV) throws SQLException {
         bookmark = new PostgresBookmark();
     }
 
-    public void bookmarkAt(Frase firstFrase) throws SQLException {
+    void bookmarkAt(Frase firstFrase) throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/fraser", "fraser", "fraser");
         String sql = "INSERT INTO BOOKMARK (FRASE, FECHA) VALUES ('El infierno es el olvido', DATE '2016-12-28')";
         Statement stmt = connection.createStatement();
@@ -30,7 +30,7 @@ public class BookmarkServer {
         connection.close();
     }
 
-    public void clearBookmark() throws SQLException {
+    void clearBookmark() throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/fraser", "fraser", "fraser");
         String sql = "TRUNCATE TABLE bookmark";
         Statement stmt = connection.createStatement();
@@ -39,7 +39,7 @@ public class BookmarkServer {
         connection.close();
     }
 
-    public void hasBookmarkAt(Frase frase) throws NoBookmarkException {
+    void hasBookmarkAt(Frase frase) throws NoBookmarkException {
         assertThat(bookmark.isAt()).isEqualTo(frase);
     }
 }
