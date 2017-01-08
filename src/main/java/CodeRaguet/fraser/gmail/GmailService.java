@@ -13,7 +13,8 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.DataStoreFactory;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
-import com.google.api.services.gmail.model.*;
+import com.google.api.services.gmail.model.ListThreadsResponse;
+import com.google.api.services.gmail.model.Message;
 import com.google.api.services.gmail.model.Thread;
 
 import java.io.ByteArrayInputStream;
@@ -37,8 +38,12 @@ public class GmailService {
     private Gmail service;
     private Long threadsMaxResults = 100L;
 
-    public GmailService(String clientSecret, String refreshToken) throws GeneralSecurityException, IOException {
-        HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+    public GmailService(String clientSecret, String refreshToken) {
+        try {
+            HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        } catch (IOException | GeneralSecurityException e) {
+            throw new RuntimeException(e);
+        }
         DATA_STORE_FACTORY = new ENVDataStoreFactory(refreshToken);
         SCOPES = Collections.singletonList(GmailScopes.GMAIL_READONLY);
         JSON_FACTORY = JacksonFactory.getDefaultInstance();
@@ -46,8 +51,13 @@ public class GmailService {
         service = authorizeAndBuildService();
     }
 
-    private Gmail authorizeAndBuildService() throws IOException {
-        Credential credential = authorize();
+    private Gmail authorizeAndBuildService() {
+        Credential credential;
+        try {
+            credential = authorize();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         String APPLICATION_NAME = "Gmail API Java Quickstart";
         return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
                 .setApplicationName(APPLICATION_NAME)
@@ -73,19 +83,23 @@ public class GmailService {
         return GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
     }
 
-    public List<Message> messagesWithFrase() throws IOException {
+    public List<Message> messagesWithFrase() {
         List<Thread> threadsWithFrase = selectThreadsWithFrase();
         List<Message> messagesWithFrase = new ArrayList<>();
         threadsWithFrase.forEach(thread -> messagesWithFrase.add(selectMessageWithFrase(thread)));
         return messagesWithFrase;
     }
 
-    private List<Thread> selectThreadsWithFrase() throws IOException {
+    private List<Thread> selectThreadsWithFrase() {
         List<Thread> threads = new ArrayList<>();
         ListThreadsResponse response;
         String pageToken = null;
         do {
-            response = getResponse(pageToken);
+            try {
+                response = getResponse(pageToken);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             threads.addAll(response.getThreads());
             pageToken = response.getNextPageToken();
         } while (response.getNextPageToken() != null);

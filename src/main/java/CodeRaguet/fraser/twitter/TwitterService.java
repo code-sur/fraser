@@ -1,4 +1,4 @@
-package CodeRaguet.fraser;
+package CodeRaguet.fraser.twitter;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -23,8 +23,12 @@ public class TwitterService {
         this.twitter = twitterFactory.getInstance();
     }
 
-    public void tweet(String tweet) throws TwitterException {
-        twitter.updateStatus(tweet);
+    public void tweet(String tweet) {
+        try {
+            twitter.updateStatus(tweet);
+        } catch (TwitterException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<String> tweets() throws TwitterException {

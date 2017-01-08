@@ -6,8 +6,6 @@ import com.google.api.services.gmail.model.Message;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,14 +15,14 @@ public class GmailServiceIT extends IntegrationTest {
     private GmailService gmailService;
 
     @Before
-    public void setUpGmailService() throws GeneralSecurityException, IOException {
+    public void setUpGmailService() {
         String refreshToken = testENV.getProperty(ENV.GMAIL_REFRESH_TOKEN.name());
         String clientSecret = testENV.getProperty(ENV.GMAIL_CLIENT_SECRET.name());
         gmailService = new GmailService(clientSecret, refreshToken);
     }
 
     @Test
-    public void shouldGetMessagesWithFrase() throws GeneralSecurityException, IOException {
+    public void shouldGetMessagesWithFrase() {
         List<Message> messagesWithFrase = gmailService.messagesWithFrase();
         assertThat(messagesWithFrase)
                 .hasSize(2)
@@ -33,7 +31,7 @@ public class GmailServiceIT extends IntegrationTest {
     }
 
     @Test
-    public void shouldGetAllMessagesWithFrase() throws IOException {
+    public void shouldGetAllMessagesWithFrase() {
         gmailService.setThreadsMaxResults(1L);
         List<Message> messagesWithFrase = gmailService.messagesWithFrase();
         assertThat(messagesWithFrase)
