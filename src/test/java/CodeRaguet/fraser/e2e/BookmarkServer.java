@@ -1,4 +1,4 @@
-package CodeRaguet.fraser.E2E;
+package CodeRaguet.fraser.e2e;
 
 import CodeRaguet.fraser.Frase;
 
