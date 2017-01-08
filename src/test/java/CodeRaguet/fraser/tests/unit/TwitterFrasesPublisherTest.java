@@ -1,6 +1,6 @@
 package CodeRaguet.fraser.tests.unit;
 
-import CodeRaguet.fraser.Frase;
+import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.twitter.TwitterFrasesPublisher;
 import CodeRaguet.fraser.twitter.TwitterService;
 import org.junit.Test;

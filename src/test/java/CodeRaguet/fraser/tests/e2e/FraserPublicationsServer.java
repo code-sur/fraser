@@ -1,7 +1,7 @@
 package CodeRaguet.fraser.tests.e2e;
 
 import CodeRaguet.fraser.ENV;
-import CodeRaguet.fraser.Frase;
+import CodeRaguet.fraser.model.Frase;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;

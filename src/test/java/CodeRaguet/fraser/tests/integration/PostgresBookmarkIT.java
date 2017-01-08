@@ -1,8 +1,8 @@
 package CodeRaguet.fraser.tests.integration;
 
-import CodeRaguet.fraser.Bookmark;
-import CodeRaguet.fraser.Frase;
-import CodeRaguet.fraser.NoBookmarkException;
+import CodeRaguet.fraser.model.Bookmark;
+import CodeRaguet.fraser.model.Frase;
+import CodeRaguet.fraser.model.NoBookmarkException;
 import CodeRaguet.fraser.PostgresBookmark;
 import org.junit.Before;
 import org.junit.Test;

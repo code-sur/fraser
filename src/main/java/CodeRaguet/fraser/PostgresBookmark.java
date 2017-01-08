@@ -1,5 +1,9 @@
 package CodeRaguet.fraser;
 
+import CodeRaguet.fraser.model.Bookmark;
+import CodeRaguet.fraser.model.Frase;
+import CodeRaguet.fraser.model.NoBookmarkException;
+
 import java.sql.*;
 
 public class PostgresBookmark implements Bookmark {

@@ -3,6 +3,9 @@ package CodeRaguet.fraser;
 
 import CodeRaguet.fraser.gmail.GmailBookOfFrases;
 import CodeRaguet.fraser.gmail.GmailService;
+import CodeRaguet.fraser.model.BookOfFrases;
+import CodeRaguet.fraser.model.Bookmark;
+import CodeRaguet.fraser.model.FrasesPublisher;
 import CodeRaguet.fraser.twitter.TwitterFrasesPublisher;
 import CodeRaguet.fraser.twitter.TwitterService;
 

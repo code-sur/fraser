@@ -1,6 +1,6 @@
 package CodeRaguet.fraser.tests.unit;
 
-import CodeRaguet.fraser.Frase;
+import CodeRaguet.fraser.model.Frase;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

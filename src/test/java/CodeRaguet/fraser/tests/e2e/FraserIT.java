@@ -1,7 +1,7 @@
 package CodeRaguet.fraser.tests.e2e;
 
 
-import CodeRaguet.fraser.Frase;
+import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.tests.integration.IntegrationTest;
 import org.junit.Before;
 import org.junit.Test;

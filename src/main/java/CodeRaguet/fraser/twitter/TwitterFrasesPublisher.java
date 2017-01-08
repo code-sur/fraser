@@ -1,7 +1,7 @@
 package CodeRaguet.fraser.twitter;
 
-import CodeRaguet.fraser.Frase;
-import CodeRaguet.fraser.FrasesPublisher;
+import CodeRaguet.fraser.model.Frase;
+import CodeRaguet.fraser.model.FrasesPublisher;
 
 public class TwitterFrasesPublisher implements FrasesPublisher {
 

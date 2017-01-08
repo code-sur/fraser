@@ -1,6 +1,6 @@
 package CodeRaguet.fraser.tests.e2e;
 
-import CodeRaguet.fraser.Frase;
+import CodeRaguet.fraser.model.Frase;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,4 +1,4 @@
-package CodeRaguet.fraser;
+package CodeRaguet.fraser.model;
 
 public interface BookOfFrases {
     Frase next();
