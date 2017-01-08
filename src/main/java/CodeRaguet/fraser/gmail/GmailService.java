@@ -13,7 +13,8 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.DataStoreFactory;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
-import com.google.api.services.gmail.model.*;
+import com.google.api.services.gmail.model.ListThreadsResponse;
+import com.google.api.services.gmail.model.Message;
 import com.google.api.services.gmail.model.Thread;
 
 import java.io.ByteArrayInputStream;
@@ -73,19 +74,23 @@ public class GmailService {
         return GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
     }
 
-    public List<Message> messagesWithFrase() throws IOException {
+    public List<Message> messagesWithFrase() {
         List<Thread> threadsWithFrase = selectThreadsWithFrase();
         List<Message> messagesWithFrase = new ArrayList<>();
         threadsWithFrase.forEach(thread -> messagesWithFrase.add(selectMessageWithFrase(thread)));
         return messagesWithFrase;
     }
 
-    private List<Thread> selectThreadsWithFrase() throws IOException {
+    private List<Thread> selectThreadsWithFrase() {
         List<Thread> threads = new ArrayList<>();
         ListThreadsResponse response;
         String pageToken = null;
         do {
-            response = getResponse(pageToken);
+            try {
+                response = getResponse(pageToken);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             threads.addAll(response.getThreads());
             pageToken = response.getNextPageToken();
         } while (response.getNextPageToken() != null);

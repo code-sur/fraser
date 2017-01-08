@@ -5,7 +5,6 @@ import CodeRaguet.fraser.Bookmark;
 import CodeRaguet.fraser.Frase;
 import com.google.api.services.gmail.model.Message;
 
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,25 +18,14 @@ public class GmailBookOfFrases implements BookOfFrases {
 
     @Override
     public Frase next() {
-        List<Message> frases;
-        try {
-            frases = gmailService.messagesWithFrase();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        List<Message> frases = gmailService.messagesWithFrase();
 
-        Frase frase = new Frase(frases.get(frases.size() - 1).getSnippet());
-        return frase;
+        return new Frase(frases.get(frases.size() - 1).getSnippet());
     }
 
     @Override
     public Frase nextAfter(Bookmark bookmark) {
-        List<Message> messagesWithFrase;
-        try {
-            messagesWithFrase = gmailService.messagesWithFrase();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        List<Message> messagesWithFrase = gmailService.messagesWithFrase();
 
         String fraseText;
         Iterator<Message> messageIterator = messagesWithFrase.iterator();
@@ -45,8 +33,7 @@ public class GmailBookOfFrases implements BookOfFrases {
             fraseText = messageIterator.next().getSnippet();
         } while (fraseText.equals(bookmark.isAt().toString()));
 
-        Frase frase = new Frase(fraseText);
-        return frase;
+        return new Frase(fraseText);
     }
 
 }

@@ -9,7 +9,6 @@ import com.google.api.services.gmail.model.Message;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class GmailBookOfFrasesTest {
     private BookOfFrases bookOfFrases = new GmailBookOfFrases(gmailService);
 
     @Before
-    public void setUpGmailService() throws IOException {
+    public void setUpGmailService() {
         Message firstFrase = new Message().setSnippet("First frase");
         Message lastFrase = new Message().setSnippet("Last frase");
         List<Message> messagesWithFrase = Arrays.asList(lastFrase, firstFrase);

@@ -24,7 +24,7 @@ public class GmailServiceIT extends IntegrationTest {
     }
 
     @Test
-    public void shouldGetMessagesWithFrase() throws GeneralSecurityException, IOException {
+    public void shouldGetMessagesWithFrase() throws GeneralSecurityException {
         List<Message> messagesWithFrase = gmailService.messagesWithFrase();
         assertThat(messagesWithFrase)
                 .hasSize(2)
@@ -33,7 +33,7 @@ public class GmailServiceIT extends IntegrationTest {
     }
 
     @Test
-    public void shouldGetAllMessagesWithFrase() throws IOException {
+    public void shouldGetAllMessagesWithFrase() {
         gmailService.setThreadsMaxResults(1L);
         List<Message> messagesWithFrase = gmailService.messagesWithFrase();
         assertThat(messagesWithFrase)
