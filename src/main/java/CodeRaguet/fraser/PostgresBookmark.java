@@ -15,9 +15,14 @@ public class PostgresBookmark implements Bookmark {
         try {
             Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/fraser", "fraser", "fraser");
             Statement statement = connection.createStatement();
+
             resultSet = statement.executeQuery(String.format("SELECT %s from %s", FRASE_TEXT_COLUMN, BOOKMARK_TABLE));
-            resultSet.next();
-            fraseText = resultSet.getString(FRASE_TEXT_COLUMN);
+            if (resultSet.next()) {
+                fraseText = resultSet.getString(FRASE_TEXT_COLUMN);
+            } else {
+                throw new NoBookmarkException();
+            }
+
             resultSet.close();
             statement.close();
             connection.close();

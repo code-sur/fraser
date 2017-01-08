@@ -2,6 +2,7 @@ package CodeRaguet.fraser.IT;
 
 import CodeRaguet.fraser.Bookmark;
 import CodeRaguet.fraser.Frase;
+import CodeRaguet.fraser.NoBookmarkException;
 import CodeRaguet.fraser.PostgresBookmark;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,5 +39,12 @@ public class PostgresBookmarkTest {
 
         assertThat(bookmark.isAt()).isEqualTo(new Frase("First frase"));
     }
+
+    @Test(expected = NoBookmarkException.class)
+    public void shouldFailIfNoBookmark() {
+        Bookmark bookmark = new PostgresBookmark();
+        bookmark.isAt();
+    }
+
 
 }
