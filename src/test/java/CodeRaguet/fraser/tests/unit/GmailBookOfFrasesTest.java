@@ -15,6 +15,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class GmailBookOfFrasesTest {
@@ -47,6 +48,16 @@ public class GmailBookOfFrasesTest {
         Bookmark bookmark = mock(Bookmark.class);
         when(bookmark.isAt()).thenThrow(NoBookmarkException.class);
         assertThat(bookOfFrases.nextFraseAfter(bookmark)).isEqualTo(new Frase("First frase"));
+    }
+
+    @Test
+    public void shouldSetBookmarkAtNextFrase() throws NoBookmarkException {
+        Bookmark bookmark = mock(Bookmark.class);
+        when(bookmark.isAt()).thenReturn(new Frase("First frase"));
+
+        bookOfFrases.nextFraseAfter(bookmark);
+
+        verify(bookmark).setAt(new Frase("Last frase"));
     }
 
 }

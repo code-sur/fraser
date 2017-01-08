@@ -40,7 +40,9 @@ public class GmailBookOfFrases implements BookOfFrases {
             fraseText = messagesWithFrase.get(messagesWithFrase.size() - 1).getSnippet();
         }
 
-        return new Frase(fraseText);
+        Frase frase = new Frase(fraseText);
+        bookmark.setAt(frase);
+        return frase;
     }
 
 }

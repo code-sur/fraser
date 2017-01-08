@@ -37,4 +37,8 @@ public class PostgresBookmark implements Bookmark {
         return new Frase(fraseText);
     }
 
+    @Override public void setAt(Frase frase) {
+
+    }
+
 }
