@@ -1,6 +1,7 @@
 package CodeRaguet.fraser.test;
 
 import CodeRaguet.fraser.BookOfFrases;
+import CodeRaguet.fraser.Bookmark;
 import CodeRaguet.fraser.Frase;
 import CodeRaguet.fraser.gmail.GmailBookOfFrases;
 import CodeRaguet.fraser.gmail.GmailService;
@@ -32,5 +33,12 @@ public class GmailBookOfFrasesTest {
     @Test
     public void shoulGetFirstFrase() {
         assertThat(bookOfFrases.next()).isEqualTo(new Frase("First frase"));
+    }
+
+    @Test
+    public void shouldGetNextFraseAfterBookmark() {
+        Bookmark bookmark = mock(Bookmark.class);
+        when(bookmark.isAt()).thenReturn(new Frase("First frase"));
+        assertThat(bookOfFrases.nextAfter(bookmark)).isEqualTo(new Frase("Last frase"));
     }
 }
