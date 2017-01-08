@@ -8,7 +8,7 @@ public class PostgresBookmark implements Bookmark {
     private static final String BOOKMARK_TABLE = "BOOKMARK";
 
     @Override
-    public Frase isAt() {
+    public Frase isAt() throws NoBookmarkException {
 
         ResultSet resultSet;
         String fraseText;

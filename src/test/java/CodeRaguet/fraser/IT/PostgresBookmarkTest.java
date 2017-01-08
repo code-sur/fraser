@@ -27,7 +27,7 @@ public class PostgresBookmarkTest {
     }
 
     @Test
-    public void shouldGetCurrentFrase() throws SQLException {
+    public void shouldGetCurrentFrase() throws SQLException, NoBookmarkException {
         Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/fraser", "fraser", "fraser");
         String sql = "INSERT INTO BOOKMARK (FRASE, FECHA) VALUES ('First frase', DATE '2016-12-28')";
         Statement stmt = connection.createStatement();
@@ -41,7 +41,7 @@ public class PostgresBookmarkTest {
     }
 
     @Test(expected = NoBookmarkException.class)
-    public void shouldFailIfNoBookmark() {
+    public void shouldFailIfNoBookmark() throws NoBookmarkException {
         Bookmark bookmark = new PostgresBookmark();
         bookmark.isAt();
     }

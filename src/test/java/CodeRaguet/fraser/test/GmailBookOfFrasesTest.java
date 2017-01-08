@@ -36,14 +36,14 @@ public class GmailBookOfFrasesTest {
     }
 
     @Test
-    public void shouldGetNextFraseAfterBookmark() {
+    public void shouldGetNextFraseAfterBookmark() throws NoBookmarkException {
         Bookmark bookmark = mock(Bookmark.class);
         when(bookmark.isAt()).thenReturn(new Frase("First frase"));
         assertThat(bookOfFrases.nextFraseAfter(bookmark)).isEqualTo(new Frase("Last frase"));
     }
 
     @Test
-    public void shouldGetFirstFraseIfNoBookmark() {
+    public void shouldGetFirstFraseIfNoBookmark() throws NoBookmarkException {
         Bookmark bookmark = mock(Bookmark.class);
         when(bookmark.isAt()).thenThrow(NoBookmarkException.class);
         assertThat(bookOfFrases.nextFraseAfter(bookmark)).isEqualTo(new Frase("First frase"));

@@ -1,5 +1,5 @@
 package CodeRaguet.fraser;
 
 public interface Bookmark {
-    Frase isAt();
+    Frase isAt() throws NoBookmarkException;
 }
