@@ -3,6 +3,7 @@ package CodeRaguet.fraser.gmail;
 import CodeRaguet.fraser.BookOfFrases;
 import CodeRaguet.fraser.Bookmark;
 import CodeRaguet.fraser.Frase;
+import CodeRaguet.fraser.NoBookmarkException;
 import com.google.api.services.gmail.model.Message;
 
 import java.util.Iterator;
@@ -29,9 +30,15 @@ public class GmailBookOfFrases implements BookOfFrases {
 
         String fraseText;
         Iterator<Message> messageIterator = messagesWithFrase.iterator();
-        do {
-            fraseText = messageIterator.next().getSnippet();
-        } while (fraseText.equals(bookmark.isAt().toString()));
+        Frase bookmarkAt;
+        try {
+            bookmarkAt = bookmark.isAt();
+            do {
+                fraseText = messageIterator.next().getSnippet();
+            } while (fraseText.equals(bookmarkAt.toString()));
+        } catch (NoBookmarkException e) {
+            fraseText = messagesWithFrase.get(messagesWithFrase.size() - 1).getSnippet();
+        }
 
         return new Frase(fraseText);
     }
