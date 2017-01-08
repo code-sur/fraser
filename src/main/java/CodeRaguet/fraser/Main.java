@@ -6,9 +6,6 @@ import CodeRaguet.fraser.gmail.GmailService;
 import CodeRaguet.fraser.twitter.TwitterFrasesPublisher;
 import CodeRaguet.fraser.twitter.TwitterService;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-
 public class Main {
 
     private final BookOfFrases bookOfFrases;
@@ -19,7 +16,7 @@ public class Main {
         frasesPublisher = new TwitterFrasesPublisher(twitterService);
     }
 
-    public static void main(String... args) throws IOException, GeneralSecurityException {
+    public static void main(String... args) {
         String clientSecret = ENV.GMAIL_CLIENT_SECRET.value();
         String refreshToken = ENV.GMAIL_REFRESH_TOKEN.value();
         GmailService gmailService = new GmailService(clientSecret, refreshToken);
@@ -33,7 +30,7 @@ public class Main {
         new Main(gmailService, twitterService).run();
     }
 
-    private void run() throws IOException {
+    private void run() {
         frasesPublisher.publish(bookOfFrases.next());
     }
 
