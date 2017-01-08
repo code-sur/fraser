@@ -1,4 +1,4 @@
-package CodeRaguet.fraser.integration;
+package CodeRaguet.fraser.tests.integration;
 
 import org.junit.Before;
 

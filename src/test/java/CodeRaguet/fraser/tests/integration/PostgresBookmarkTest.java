@@ -1,4 +1,4 @@
-package CodeRaguet.fraser.integration;
+package CodeRaguet.fraser.tests.integration;
 
 import CodeRaguet.fraser.Bookmark;
 import CodeRaguet.fraser.Frase;
