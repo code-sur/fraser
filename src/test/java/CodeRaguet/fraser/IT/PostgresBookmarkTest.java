@@ -26,7 +26,7 @@ public class PostgresBookmarkTest {
     }
 
     @Test
-    public void test() throws SQLException {
+    public void shouldGetCurrentFrase() throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/fraser", "fraser", "fraser");
         String sql = "INSERT INTO BOOKMARK (FRASE, FECHA) VALUES ('First frase', DATE '2016-12-28')";
         Statement stmt = connection.createStatement();
@@ -35,6 +35,7 @@ public class PostgresBookmarkTest {
         connection.close();
 
         Bookmark bookmark = new PostgresBookmark();
+
         assertThat(bookmark.isAt()).isEqualTo(new Frase("First frase"));
     }
 
