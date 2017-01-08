@@ -1,4 +1,4 @@
-package CodeRaguet.fraser.IT;
+package CodeRaguet.fraser.integration;
 
 import CodeRaguet.fraser.ENV;
 import CodeRaguet.fraser.gmail.GmailService;

@@ -2,7 +2,7 @@ package CodeRaguet.fraser.E2E;
 
 
 import CodeRaguet.fraser.Frase;
-import CodeRaguet.fraser.IT.IntegrationTest;
+import CodeRaguet.fraser.integration.IntegrationTest;
 import org.junit.Before;
 import org.junit.Test;
 

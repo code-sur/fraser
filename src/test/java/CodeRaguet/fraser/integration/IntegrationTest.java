@@ -1,4 +1,4 @@
-package CodeRaguet.fraser.IT;
+package CodeRaguet.fraser.integration;
 
 import org.junit.Before;
 
