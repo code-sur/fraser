@@ -14,7 +14,7 @@ import java.sql.Statement;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PostgresBookmarkTest {
+public class PostgresBookmarkIT {
 
     @Before
     public void clearBookmark() throws SQLException {
