@@ -24,7 +24,7 @@ public class GmailBookOfFrases implements BookOfFrases {
     }
 
     @Override
-    public Frase nextAfter(Bookmark bookmark) {
+    public Frase nextFraseAfter(Bookmark bookmark) {
         List<Message> messagesWithFrase = gmailService.messagesWithFrase();
 
         String fraseText;

@@ -38,6 +38,7 @@ public class GmailBookOfFrasesTest {
     public void shouldGetNextFraseAfterBookmark() {
         Bookmark bookmark = mock(Bookmark.class);
         when(bookmark.isAt()).thenReturn(new Frase("First frase"));
-        assertThat(bookOfFrases.nextAfter(bookmark)).isEqualTo(new Frase("Last frase"));
+        assertThat(bookOfFrases.nextFraseAfter(bookmark)).isEqualTo(new Frase("Last frase"));
     }
+
 }
