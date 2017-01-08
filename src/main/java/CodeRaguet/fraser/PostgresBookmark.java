@@ -38,7 +38,17 @@ public class PostgresBookmark implements Bookmark {
     }
 
     @Override public void setAt(Frase frase) {
-
+        Connection connection;
+        try {
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/fraser", "fraser", "fraser");
+            String sql = String.format("UPDATE BOOKMARK SET FRASE = '%s'", frase);
+            Statement stmt = connection.createStatement();
+            stmt.execute(sql);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

@@ -46,5 +46,21 @@ public class PostgresBookmarkIT {
         bookmark.isAt();
     }
 
+    @Test
+    public void shouldUpdateBookmarkAtFrase() throws NoBookmarkException, SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/fraser", "fraser", "fraser");
+        String sql = "INSERT INTO BOOKMARK (FRASE, FECHA) VALUES ('First frase', DATE '2016-12-28')";
+        Statement stmt = connection.createStatement();
+        stmt.execute(sql);
+        stmt.close();
+        connection.close();
+
+        Bookmark bookmark = new PostgresBookmark();
+
+        bookmark.setAt(new Frase("some frase"));
+
+        assertThat(bookmark.isAt()).isEqualTo(new Frase("some frase"));
+    }
+
 
 }
