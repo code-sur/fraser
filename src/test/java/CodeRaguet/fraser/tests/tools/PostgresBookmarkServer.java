@@ -1,4 +1,4 @@
-package CodeRaguet.fraser.tests.e2e;
+package CodeRaguet.fraser.tests.tools;
 
 import CodeRaguet.fraser.PostgresBookmark;
 import CodeRaguet.fraser.model.Bookmark;
@@ -13,27 +13,27 @@ import java.sql.Statement;
 import static CodeRaguet.fraser.PostgresBookmark.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class PostgresBookmarkServer {
+public class PostgresBookmarkServer {
 
     private final Connection connection;
     private Bookmark bookmark;
 
-    PostgresBookmarkServer(Connection connection) throws SQLException {
+    public PostgresBookmarkServer(Connection connection) throws SQLException {
         this.connection = connection;
         bookmark = new PostgresBookmark();
     }
 
-    void bookmarkAt(Frase frase) throws SQLException {
+    public void bookmarkAt(Frase frase) throws SQLException {
         String sql = String.format("INSERT INTO %s (FRASE) VALUES ('%s')", BOOKMARK_TABLE, frase);
         executeSQLStatement(sql);
     }
 
-    void clearBookmark() throws SQLException {
+    public void clearBookmark() throws SQLException {
         String sql = String.format("TRUNCATE TABLE %s", BOOKMARK_TABLE);
         executeSQLStatement(sql);
     }
 
-    void hasBookmarkAt(Frase frase) throws NoBookmarkException {
+    public void hasBookmarkAt(Frase frase) throws NoBookmarkException {
         assertThat(bookmark.isAt()).isEqualTo(frase);
     }
 
