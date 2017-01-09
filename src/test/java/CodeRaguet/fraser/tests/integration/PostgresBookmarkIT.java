@@ -1,9 +1,11 @@
 package CodeRaguet.fraser.tests.integration;
 
+import CodeRaguet.fraser.ENV;
 import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.model.NoBookmarkException;
 import CodeRaguet.fraser.PostgresBookmark;
+import CodeRaguet.fraser.tests.HerokuDBURLParser;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -18,13 +20,14 @@ import static CodeRaguet.fraser.PostgresBookmark.BOOKMARK_TABLE;
 import static CodeRaguet.fraser.PostgresBookmark.FRASE_TEXT_COLUMN;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PostgresBookmarkIT {
+public class PostgresBookmarkIT extends IntegrationTest {
 
     private static Connection connection;
 
     @BeforeClass
     public static void createConnection() throws SQLException {
-        connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/fraser?user=fraser&password=fraser");
+        String jdbcURL = HerokuDBURLParser.parse(testENV.getProperty(ENV.DATABASE_URL.name()));
+        connection = DriverManager.getConnection(jdbcURL);
     }
 
     @AfterClass
