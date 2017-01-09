@@ -10,7 +10,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static CodeRaguet.fraser.PostgresBookmark.BOOKMARK_TABLE;
+import static CodeRaguet.fraser.PostgresBookmark.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class BookmarkServer {
@@ -38,7 +38,7 @@ class BookmarkServer {
     private void executeSQLStatement(String sql) {
         Connection connection;
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/fraser", "fraser", "fraser");
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
             stmt.close();

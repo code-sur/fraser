@@ -10,9 +10,9 @@ public class PostgresBookmark implements Bookmark {
 
     private static final String FRASE_TEXT_COLUMN = "FRASE";
     public static final String BOOKMARK_TABLE = "BOOKMARK";
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/fraser";
-    private static final String DB_USER = "fraser";
-    private static final String DB_PASSWORD = "fraser";
+    public static final String DB_URL = "jdbc:postgresql://localhost:5432/fraser";
+    public static final String DB_USER = "fraser";
+    public static final String DB_PASSWORD = "fraser";
 
     @Override
     public Frase isAt() throws NoBookmarkException {
