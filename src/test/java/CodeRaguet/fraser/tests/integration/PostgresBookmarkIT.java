@@ -1,19 +1,13 @@
 package CodeRaguet.fraser.tests.integration;
 
-import CodeRaguet.fraser.ENV;
+import CodeRaguet.fraser.PostgresBookmark;
 import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.model.NoBookmarkException;
-import CodeRaguet.fraser.PostgresBookmark;
-import CodeRaguet.fraser.tests.ENVTest;
-import CodeRaguet.fraser.tests.HerokuDBURLParser;
-import org.junit.AfterClass;
+import CodeRaguet.fraser.tests.DatabaseTest;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -21,20 +15,7 @@ import static CodeRaguet.fraser.PostgresBookmark.BOOKMARK_TABLE;
 import static CodeRaguet.fraser.PostgresBookmark.FRASE_TEXT_COLUMN;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PostgresBookmarkIT extends ENVTest {
-
-    private static Connection connection;
-
-    @BeforeClass
-    public static void createConnection() throws SQLException {
-        String jdbcURL = HerokuDBURLParser.parse(testENV.getProperty(ENV.DATABASE_URL.name()));
-        connection = DriverManager.getConnection(jdbcURL);
-    }
-
-    @AfterClass
-    public static void closeConnection() throws SQLException {
-        connection.close();
-    }
+public class PostgresBookmarkIT extends DatabaseTest {
 
     @Before
     public void clearBookmark() throws SQLException {
