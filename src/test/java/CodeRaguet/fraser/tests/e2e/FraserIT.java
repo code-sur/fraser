@@ -31,7 +31,7 @@ public class FraserIT extends DatabaseTest {
 
     @Before
     public void setUpBookmarkServer() throws SQLException {
-        bookmarServer = new PostgresBookmarkServer();
+        bookmarServer = new PostgresBookmarkServer(connection);
         bookmarServer.clearBookmark();
     }
 

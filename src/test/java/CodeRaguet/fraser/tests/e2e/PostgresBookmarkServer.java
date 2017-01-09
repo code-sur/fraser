@@ -15,9 +15,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class PostgresBookmarkServer {
 
+    private final Connection connection;
     private Bookmark bookmark;
 
-    PostgresBookmarkServer() throws SQLException {
+    PostgresBookmarkServer(Connection connection) throws SQLException {
+        this.connection = connection;
         bookmark = new PostgresBookmark();
     }
 
@@ -36,13 +38,10 @@ class PostgresBookmarkServer {
     }
 
     private void executeSQLStatement(String sql) {
-        Connection connection;
         try {
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
             stmt.close();
-            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
