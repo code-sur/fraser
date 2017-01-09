@@ -20,7 +20,7 @@ public class PostgresBookmarkServer {
 
     public PostgresBookmarkServer(Connection connection) throws SQLException {
         this.connection = connection;
-        bookmark = new PostgresBookmark();
+        bookmark = new PostgresBookmark(connection);
     }
 
     public void bookmarkAt(Frase frase) throws SQLException {
