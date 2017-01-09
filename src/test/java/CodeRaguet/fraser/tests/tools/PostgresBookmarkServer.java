@@ -36,7 +36,7 @@ public class PostgresBookmarkServer {
         assertThat(bookmark.isAt()).isEqualTo(frase);
     }
 
-    private void executeSQLStatement(String sql) {
+    public void executeSQLStatement(String sql) {
         try {
             Statement stmt = connection.createStatement();
             stmt.execute(sql);

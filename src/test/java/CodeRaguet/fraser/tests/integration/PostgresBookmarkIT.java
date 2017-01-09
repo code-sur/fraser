@@ -5,11 +5,11 @@ import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.model.NoBookmarkException;
 import CodeRaguet.fraser.tests.tools.DatabaseTest;
+import CodeRaguet.fraser.tests.tools.PostgresBookmarkServer;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import static CodeRaguet.fraser.PostgresBookmark.BOOKMARK_TABLE;
 import static CodeRaguet.fraser.PostgresBookmark.FRASE_TEXT_COLUMN;
@@ -18,21 +18,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PostgresBookmarkIT extends DatabaseTest {
 
     private Bookmark bookmark = new PostgresBookmark(connection);
+    private PostgresBookmarkServer bookmarkServer = new PostgresBookmarkServer(connection);
 
     @Before
     public void clearBookmark() throws SQLException {
-        String sql = String.format("TRUNCATE TABLE %s", BOOKMARK_TABLE);
-        Statement stmt = connection.createStatement();
-        stmt.execute(sql);
-        stmt.close();
+        bookmarkServer.clearBookmark();
     }
 
     @Test
     public void shouldGetCurrentFrase() throws SQLException, NoBookmarkException {
         String sql = String.format("INSERT INTO %s (%s) VALUES ('First frase')", BOOKMARK_TABLE, FRASE_TEXT_COLUMN);
-        Statement stmt = connection.createStatement();
-        stmt.execute(sql);
-        stmt.close();
+        bookmarkServer.executeSQLStatement(sql);
 
         assertThat(bookmark.isAt()).isEqualTo(new Frase("First frase"));
     }
@@ -45,9 +41,7 @@ public class PostgresBookmarkIT extends DatabaseTest {
     @Test
     public void shouldUpdateBookmarkAtFrase() throws NoBookmarkException, SQLException {
         String sql = String.format("INSERT INTO %s (%s) VALUES ('First frase')", BOOKMARK_TABLE, FRASE_TEXT_COLUMN);
-        Statement stmt = connection.createStatement();
-        stmt.execute(sql);
-        stmt.close();
+        bookmarkServer.executeSQLStatement(sql);
 
         bookmark.setAt(new Frase("some frase"));
 
