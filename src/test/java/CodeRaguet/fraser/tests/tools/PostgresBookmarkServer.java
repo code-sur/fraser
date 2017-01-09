@@ -6,11 +6,10 @@ import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.model.NoBookmarkException;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static CodeRaguet.fraser.PostgresBookmark.*;
+import static CodeRaguet.fraser.PostgresBookmark.BOOKMARK_TABLE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PostgresBookmarkServer {
