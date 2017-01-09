@@ -4,7 +4,7 @@ import CodeRaguet.fraser.PostgresBookmark;
 import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.model.NoBookmarkException;
-import CodeRaguet.fraser.tests.DatabaseTest;
+import CodeRaguet.fraser.tests.tools.DatabaseTest;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,7 +1,7 @@
 package CodeRaguet.fraser.tests.integration;
 
 import CodeRaguet.fraser.ENV;
-import CodeRaguet.fraser.tests.ENVTest;
+import CodeRaguet.fraser.tests.tools.ENVTest;
 import CodeRaguet.fraser.twitter.TwitterService;
 import org.junit.Before;
 import org.junit.Test;

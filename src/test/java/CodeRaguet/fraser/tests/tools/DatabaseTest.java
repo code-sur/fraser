@@ -1,4 +1,4 @@
-package CodeRaguet.fraser.tests;
+package CodeRaguet.fraser.tests.tools;
 
 import CodeRaguet.fraser.ENV;
 import org.junit.AfterClass;
