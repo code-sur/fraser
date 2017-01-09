@@ -4,6 +4,7 @@ package CodeRaguet.fraser.tests.e2e;
 import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.model.NoBookmarkException;
 import CodeRaguet.fraser.tests.tools.DatabaseTest;
+import CodeRaguet.fraser.tests.tools.FraserPublicationsServer;
 import CodeRaguet.fraser.tests.tools.PostgresBookmarkServer;
 import org.junit.Before;
 import org.junit.Test;
