@@ -17,7 +17,7 @@ public class PostgresBookmarkServer {
     private final Connection connection;
     private Bookmark bookmark;
 
-    public PostgresBookmarkServer(Connection connection) throws SQLException {
+    public PostgresBookmarkServer(Connection connection) {
         this.connection = connection;
         bookmark = new PostgresBookmark(connection);
     }
