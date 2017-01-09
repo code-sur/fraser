@@ -24,7 +24,7 @@ public class PostgresBookmarkIT {
 
     @BeforeClass
     public static void createConnection() throws SQLException {
-        connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/fraser", "fraser", "fraser");
+        connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/fraser?user=fraser&password=fraser");
     }
 
     @AfterClass
