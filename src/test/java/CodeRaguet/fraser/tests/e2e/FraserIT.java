@@ -17,7 +17,7 @@ public class FraserIT extends DatabaseTest {
     private static final Frase FIRST_FRASE = new Frase("El infierno es el olvido");
     private static final Frase SECOND_FRASE = new Frase("No te llevas nada");
     private final FraserRunner fraser = new FraserRunner();
-    private TwitterServer frasePublicationsServer;
+    private TwitterServer publicationsServer;
     private PostgresBookmarkServer bookmarServer;
 
     @Before
@@ -27,8 +27,8 @@ public class FraserIT extends DatabaseTest {
 
     @Before
     public void setUpPublicationsServer() {
-        frasePublicationsServer = new TwitterServer(testENV);
-        frasePublicationsServer.deleteFrases();
+        publicationsServer = new TwitterServer(testENV);
+        publicationsServer.deleteFrases();
     }
 
     @Before
@@ -41,7 +41,7 @@ public class FraserIT extends DatabaseTest {
     public void shouldPublishFirstFrase() throws IOException, InterruptedException {
         fraser.run();
 
-        frasePublicationsServer.hasRecived(FIRST_FRASE);
+        publicationsServer.hasRecived(FIRST_FRASE);
     }
 
     @Test
@@ -51,7 +51,7 @@ public class FraserIT extends DatabaseTest {
         fraser.run();
 
         bookmarServer.hasBookmarkAt(SECOND_FRASE);
-        frasePublicationsServer.hasRecived(SECOND_FRASE);
+        publicationsServer.hasRecived(SECOND_FRASE);
     }
 
 }
