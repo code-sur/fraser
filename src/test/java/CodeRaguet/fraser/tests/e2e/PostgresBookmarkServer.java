@@ -13,11 +13,11 @@ import java.sql.Statement;
 import static CodeRaguet.fraser.PostgresBookmark.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class BookmarkServer {
+class PostgresBookmarkServer {
 
     private Bookmark bookmark;
 
-    BookmarkServer() throws SQLException {
+    PostgresBookmarkServer() throws SQLException {
         bookmark = new PostgresBookmark();
     }
 

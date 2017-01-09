@@ -16,7 +16,7 @@ public class FraserIT extends IntegrationTest {
     private static final Frase SECOND_FRASE = new Frase("No te llevas nada");
     private final FraserRunner fraser = new FraserRunner();
     private FraserPublicationsServer frasePublicationsServer;
-    private BookmarkServer bookmarServer;
+    private PostgresBookmarkServer bookmarServer;
 
     @Before
     public void setUpFraser() {
@@ -31,7 +31,7 @@ public class FraserIT extends IntegrationTest {
 
     @Before
     public void setUpBookmarkServer() throws SQLException {
-        bookmarServer = new BookmarkServer();
+        bookmarServer = new PostgresBookmarkServer();
         bookmarServer.clearBookmark();
     }
 
