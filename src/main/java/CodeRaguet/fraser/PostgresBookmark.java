@@ -8,7 +8,7 @@ import java.sql.*;
 
 public class PostgresBookmark implements Bookmark {
 
-    private static final String FRASE_TEXT_COLUMN = "FRASE";
+    public static final String FRASE_TEXT_COLUMN = "FRASE";
     public static final String BOOKMARK_TABLE = "BOOKMARK";
     public static final String DB_URL = "jdbc:postgresql://localhost:5432/fraser";
     public static final String DB_USER = "fraser";

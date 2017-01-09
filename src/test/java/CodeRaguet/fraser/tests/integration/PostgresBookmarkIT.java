@@ -14,6 +14,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import static CodeRaguet.fraser.PostgresBookmark.BOOKMARK_TABLE;
+import static CodeRaguet.fraser.PostgresBookmark.FRASE_TEXT_COLUMN;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PostgresBookmarkIT {
@@ -32,7 +34,7 @@ public class PostgresBookmarkIT {
 
     @Before
     public void clearBookmark() throws SQLException {
-        String sql = "TRUNCATE TABLE bookmark";
+        String sql = String.format("TRUNCATE TABLE %s", BOOKMARK_TABLE);
         Statement stmt = connection.createStatement();
         stmt.execute(sql);
         stmt.close();
@@ -40,7 +42,7 @@ public class PostgresBookmarkIT {
 
     @Test
     public void shouldGetCurrentFrase() throws SQLException, NoBookmarkException {
-        String sql = "INSERT INTO BOOKMARK (FRASE, FECHA) VALUES ('First frase', DATE '2016-12-28')";
+        String sql = String.format("INSERT INTO %s (%s) VALUES ('First frase')", BOOKMARK_TABLE, FRASE_TEXT_COLUMN);
         Statement stmt = connection.createStatement();
         stmt.execute(sql);
         stmt.close();
@@ -58,7 +60,7 @@ public class PostgresBookmarkIT {
 
     @Test
     public void shouldUpdateBookmarkAtFrase() throws NoBookmarkException, SQLException {
-        String sql = "INSERT INTO BOOKMARK (FRASE, FECHA) VALUES ('First frase', DATE '2016-12-28')";
+        String sql = String.format("INSERT INTO %s (%s) VALUES ('First frase')", BOOKMARK_TABLE, FRASE_TEXT_COLUMN);
         Statement stmt = connection.createStatement();
         stmt.execute(sql);
         stmt.close();
