@@ -35,6 +35,8 @@ public class PostgresBookmarkIT extends DatabaseTest {
 
     @Test(expected = NoBookmarkException.class)
     public void shouldFailIfNoBookmark() throws NoBookmarkException {
+        bookmarkServer.clearBookmark();
+
         bookmark.isAt();
     }
 
