@@ -20,7 +20,7 @@ import static CodeRaguet.fraser.PostgresBookmark.BOOKMARK_TABLE;
 import static CodeRaguet.fraser.PostgresBookmark.FRASE_TEXT_COLUMN;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PostgresBookmarkIT extends IntegrationTest {
+public class PostgresBookmarkIT extends ENVTest {
 
     private static Connection connection;
 

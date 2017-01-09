@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class GmailServiceIT extends IntegrationTest {
+public class GmailServiceIT extends ENVTest {
 
     private GmailService gmailService;
 

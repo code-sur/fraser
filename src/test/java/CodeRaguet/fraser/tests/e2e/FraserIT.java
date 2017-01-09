@@ -5,7 +5,7 @@ import CodeRaguet.fraser.ENV;
 import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.model.NoBookmarkException;
 import CodeRaguet.fraser.tests.HerokuDBURLParser;
-import CodeRaguet.fraser.tests.integration.IntegrationTest;
+import CodeRaguet.fraser.tests.integration.ENVTest;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -16,7 +16,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class FraserIT extends IntegrationTest {
+public class FraserIT extends ENVTest {
 
     private static final Frase FIRST_FRASE = new Frase("El infierno es el olvido");
     private static final Frase SECOND_FRASE = new Frase("No te llevas nada");

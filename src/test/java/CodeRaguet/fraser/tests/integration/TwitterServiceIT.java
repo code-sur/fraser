@@ -8,7 +8,7 @@ import twitter4j.TwitterException;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class TwitterServiceIT extends IntegrationTest {
+public class TwitterServiceIT extends ENVTest {
 
     private TwitterService twitterService;
 
