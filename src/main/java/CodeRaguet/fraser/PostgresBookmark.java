@@ -9,7 +9,7 @@ import java.sql.*;
 public class PostgresBookmark implements Bookmark {
 
     private static final String FRASE_TEXT_COLUMN = "FRASE";
-    private static final String BOOKMARK_TABLE = "BOOKMARK";
+    public static final String BOOKMARK_TABLE = "BOOKMARK";
 
     @Override
     public Frase isAt() throws NoBookmarkException {

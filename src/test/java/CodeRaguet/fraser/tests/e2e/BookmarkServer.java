@@ -10,11 +10,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import static CodeRaguet.fraser.PostgresBookmark.BOOKMARK_TABLE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class BookmarkServer {
 
-    private static final String BOOKMARK_TABLE = "BOOKMARK";
     private Bookmark bookmark;
 
     BookmarkServer() throws SQLException {
