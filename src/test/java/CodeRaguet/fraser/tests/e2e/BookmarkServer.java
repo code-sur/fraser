@@ -9,25 +9,25 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class BookmarkServer {
 
+    private static final String BOOKMARK_TABLE = "BOOKMARK";
     private Bookmark bookmark;
 
-    BookmarkServer(Properties testENV) throws SQLException {
+    BookmarkServer() throws SQLException {
         bookmark = new PostgresBookmark();
     }
 
-    void bookmarkAt(Frase firstFrase) throws SQLException {
-        String sql = "INSERT INTO BOOKMARK (FRASE, FECHA) VALUES ('El infierno es el olvido', DATE '2016-12-28')";
+    void bookmarkAt(Frase frase) throws SQLException {
+        String sql = String.format("INSERT INTO %s (FRASE) VALUES ('%s')", BOOKMARK_TABLE, frase);
         executeSQLStatement(sql);
     }
 
     void clearBookmark() throws SQLException {
-        String sql = "TRUNCATE TABLE bookmark";
+        String sql = String.format("TRUNCATE TABLE %s", BOOKMARK_TABLE);
         executeSQLStatement(sql);
     }
 

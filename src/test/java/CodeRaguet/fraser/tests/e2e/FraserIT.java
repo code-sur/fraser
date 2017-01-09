@@ -31,7 +31,7 @@ public class FraserIT extends IntegrationTest {
 
     @Before
     public void setUpBookmarkServer() throws SQLException {
-        bookmarServer = new BookmarkServer(testENV);
+        bookmarServer = new BookmarkServer();
         bookmarServer.clearBookmark();
     }
 
