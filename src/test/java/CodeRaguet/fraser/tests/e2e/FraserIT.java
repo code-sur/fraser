@@ -4,7 +4,7 @@ package CodeRaguet.fraser.tests.e2e;
 import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.model.NoBookmarkException;
 import CodeRaguet.fraser.tests.tools.DatabaseTest;
-import CodeRaguet.fraser.tests.tools.FraserPublicationsServer;
+import CodeRaguet.fraser.tests.tools.TwitterServer;
 import CodeRaguet.fraser.tests.tools.PostgresBookmarkServer;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +17,7 @@ public class FraserIT extends DatabaseTest {
     private static final Frase FIRST_FRASE = new Frase("El infierno es el olvido");
     private static final Frase SECOND_FRASE = new Frase("No te llevas nada");
     private final FraserRunner fraser = new FraserRunner();
-    private FraserPublicationsServer frasePublicationsServer;
+    private TwitterServer frasePublicationsServer;
     private PostgresBookmarkServer bookmarServer;
 
     @Before
@@ -27,7 +27,7 @@ public class FraserIT extends DatabaseTest {
 
     @Before
     public void setUpPublicationsServer() {
-        frasePublicationsServer = new FraserPublicationsServer(testENV);
+        frasePublicationsServer = new TwitterServer(testENV);
         frasePublicationsServer.deleteFrases();
     }
 
