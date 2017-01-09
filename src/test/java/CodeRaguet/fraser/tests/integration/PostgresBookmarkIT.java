@@ -17,6 +17,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class PostgresBookmarkIT extends DatabaseTest {
 
+    private Bookmark bookmark = new PostgresBookmark();
+
     @Before
     public void clearBookmark() throws SQLException {
         String sql = String.format("TRUNCATE TABLE %s", BOOKMARK_TABLE);
@@ -32,14 +34,11 @@ public class PostgresBookmarkIT extends DatabaseTest {
         stmt.execute(sql);
         stmt.close();
 
-        Bookmark bookmark = new PostgresBookmark();
-
         assertThat(bookmark.isAt()).isEqualTo(new Frase("First frase"));
     }
 
     @Test(expected = NoBookmarkException.class)
     public void shouldFailIfNoBookmark() throws NoBookmarkException {
-        Bookmark bookmark = new PostgresBookmark();
         bookmark.isAt();
     }
 
@@ -49,8 +48,6 @@ public class PostgresBookmarkIT extends DatabaseTest {
         Statement stmt = connection.createStatement();
         stmt.execute(sql);
         stmt.close();
-
-        Bookmark bookmark = new PostgresBookmark();
 
         bookmark.setAt(new Frase("some frase"));
 
