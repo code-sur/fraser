@@ -5,7 +5,7 @@ import CodeRaguet.fraser.ENV;
 import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.model.NoBookmarkException;
 import CodeRaguet.fraser.tests.HerokuDBURLParser;
-import CodeRaguet.fraser.tests.integration.ENVTest;
+import CodeRaguet.fraser.tests.ENVTest;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;

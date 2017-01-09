@@ -2,6 +2,7 @@ package CodeRaguet.fraser.tests.integration;
 
 import CodeRaguet.fraser.ENV;
 import CodeRaguet.fraser.gmail.GmailService;
+import CodeRaguet.fraser.tests.ENVTest;
 import com.google.api.services.gmail.model.Message;
 import org.junit.Before;
 import org.junit.Test;

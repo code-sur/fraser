@@ -5,6 +5,7 @@ import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.model.NoBookmarkException;
 import CodeRaguet.fraser.PostgresBookmark;
+import CodeRaguet.fraser.tests.ENVTest;
 import CodeRaguet.fraser.tests.HerokuDBURLParser;
 import org.junit.AfterClass;
 import org.junit.Before;
