@@ -14,6 +14,13 @@ public class PostgresBookmark implements Bookmark {
     public static final String DB_USER = "fraser";
     public static final String DB_PASSWORD = "fraser";
 
+    public PostgresBookmark(Connection connection) {
+
+    }
+
+    public PostgresBookmark() {
+    }
+
     @Override
     public Frase isAt() throws NoBookmarkException {
 

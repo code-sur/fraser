@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class PostgresBookmarkIT extends DatabaseTest {
 
-    private Bookmark bookmark = new PostgresBookmark();
+    private Bookmark bookmark = new PostgresBookmark(connection);
 
     @Before
     public void clearBookmark() throws SQLException {
