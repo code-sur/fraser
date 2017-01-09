@@ -8,6 +8,9 @@ import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.model.FrasesPublisher;
 import CodeRaguet.fraser.twitter.TwitterFrasesPublisher;
 import CodeRaguet.fraser.twitter.TwitterService;
+import com.heroku.sdk.jdbc.DatabaseUrl;
+
+import java.sql.Connection;
 
 public class Main {
 
@@ -15,10 +18,10 @@ public class Main {
     private final FrasesPublisher frasesPublisher;
     private Bookmark bookmark;
 
-    private Main(GmailService gmailService, TwitterService twitterService) {
+    private Main(GmailService gmailService, TwitterService twitterService, Connection connection) {
         bookOfFrases = new GmailBookOfFrases(gmailService);
         frasesPublisher = new TwitterFrasesPublisher(twitterService);
-        bookmark = new PostgresBookmark();
+        bookmark = new PostgresBookmark(connection);
     }
 
     public static void main(String... args) {
@@ -32,7 +35,11 @@ public class Main {
         String accessTokenSecret = ENV.TWITTER_ACCESS_TOKEN_SECRET.value();
         TwitterService twitterService = new TwitterService(consumerKey, consumerSecret, accessToken, accessTokenSecret);
 
-        new Main(gmailService, twitterService).run();
+        try (Connection connection = DatabaseUrl.extract().getConnection()) {
+            new Main(gmailService, twitterService, connection).run();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void run() {
