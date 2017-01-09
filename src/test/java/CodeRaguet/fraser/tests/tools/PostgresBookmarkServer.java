@@ -27,7 +27,7 @@ public class PostgresBookmarkServer {
         executeSQLStatement(sql);
     }
 
-    public void clearBookmark() throws SQLException {
+    public void clearBookmark() {
         String sql = String.format("TRUNCATE TABLE %s", BOOKMARK_TABLE);
         executeSQLStatement(sql);
     }
