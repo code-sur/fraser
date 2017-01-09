@@ -1,4 +1,4 @@
-package CodeRaguet.fraser.tests.e2e;
+package CodeRaguet.fraser.tests.tools;
 
 import CodeRaguet.fraser.ENV;
 import CodeRaguet.fraser.model.Frase;
@@ -13,11 +13,11 @@ import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class FraserPublicationsServer {
+public class TwitterServer {
 
     private final Twitter twitter;
 
-    FraserPublicationsServer(Properties env) {
+    public TwitterServer(Properties env) {
         ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
         configurationBuilder
                 .setDebugEnabled(true)
@@ -29,7 +29,7 @@ class FraserPublicationsServer {
         twitter = twitterFactory.getInstance();
     }
 
-    void hasRecived(Frase firstFrase) {
+    public void hasRecived(Frase firstFrase) {
         List<String> tweets = new ArrayList<>();
         try {
             twitter.getHomeTimeline().forEach(status -> tweets.add(status.getText()));
@@ -39,7 +39,7 @@ class FraserPublicationsServer {
         assertThat(tweets).contains(firstFrase.toString());
     }
 
-    void deleteFrases() {
+    public void deleteFrases() {
         try {
             twitter.getUserTimeline().forEach(status -> {
                 try {

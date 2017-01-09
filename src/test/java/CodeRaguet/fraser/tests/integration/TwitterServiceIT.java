@@ -1,6 +1,7 @@
 package CodeRaguet.fraser.tests.integration;
 
 import CodeRaguet.fraser.ENV;
+import CodeRaguet.fraser.tests.tools.ENVTest;
 import CodeRaguet.fraser.twitter.TwitterService;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,7 +9,7 @@ import twitter4j.TwitterException;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class TwitterServiceIT extends IntegrationTest {
+public class TwitterServiceIT extends ENVTest {
 
     private TwitterService twitterService;
 

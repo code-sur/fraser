@@ -3,19 +3,22 @@ package CodeRaguet.fraser.tests.e2e;
 
 import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.model.NoBookmarkException;
-import CodeRaguet.fraser.tests.integration.IntegrationTest;
+import CodeRaguet.fraser.tests.tools.DatabaseTest;
+import CodeRaguet.fraser.tests.tools.FraserRunner;
+import CodeRaguet.fraser.tests.tools.TwitterServer;
+import CodeRaguet.fraser.tests.tools.PostgresBookmarkServer;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class FraserIT extends IntegrationTest {
+public class FraserIT extends DatabaseTest {
 
     private static final Frase FIRST_FRASE = new Frase("El infierno es el olvido");
     private static final Frase SECOND_FRASE = new Frase("No te llevas nada");
     private final FraserRunner fraser = new FraserRunner();
-    private FraserPublicationsServer frasePublicationsServer;
+    private TwitterServer publicationsServer;
     private PostgresBookmarkServer bookmarServer;
 
     @Before
@@ -25,13 +28,13 @@ public class FraserIT extends IntegrationTest {
 
     @Before
     public void setUpPublicationsServer() {
-        frasePublicationsServer = new FraserPublicationsServer(testENV);
-        frasePublicationsServer.deleteFrases();
+        publicationsServer = new TwitterServer(testENV);
+        publicationsServer.deleteFrases();
     }
 
     @Before
     public void setUpBookmarkServer() throws SQLException {
-        bookmarServer = new PostgresBookmarkServer();
+        bookmarServer = new PostgresBookmarkServer(connection);
         bookmarServer.clearBookmark();
     }
 
@@ -39,7 +42,7 @@ public class FraserIT extends IntegrationTest {
     public void shouldPublishFirstFrase() throws IOException, InterruptedException {
         fraser.run();
 
-        frasePublicationsServer.hasRecived(FIRST_FRASE);
+        publicationsServer.hasRecived(FIRST_FRASE);
     }
 
     @Test
@@ -49,7 +52,7 @@ public class FraserIT extends IntegrationTest {
         fraser.run();
 
         bookmarServer.hasBookmarkAt(SECOND_FRASE);
-        frasePublicationsServer.hasRecived(SECOND_FRASE);
+        publicationsServer.hasRecived(SECOND_FRASE);
     }
 
 }
