@@ -1,0 +1,3 @@
+CREATE TABLE BOOKMARK (
+    FRASE varchar(100)
+);
