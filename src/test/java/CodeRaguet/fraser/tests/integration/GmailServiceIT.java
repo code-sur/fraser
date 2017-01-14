@@ -26,7 +26,6 @@ public class GmailServiceIT extends ENVTest {
     public void shouldGetMessagesWithFrase() {
         List<Message> messagesWithFrase = gmailService.messagesWithFrase();
         assertThat(messagesWithFrase)
-                .hasSize(2)
                 .extracting(Message::getSnippet)
                 .contains("El infierno es el olvido", "No te llevas nada");
     }
@@ -36,7 +35,6 @@ public class GmailServiceIT extends ENVTest {
         gmailService.setThreadsMaxResults(1L);
         List<Message> messagesWithFrase = gmailService.messagesWithFrase();
         assertThat(messagesWithFrase)
-                .hasSize(2)
                 .extracting(Message::getSnippet)
                 .contains("El infierno es el olvido", "No te llevas nada");
     }
