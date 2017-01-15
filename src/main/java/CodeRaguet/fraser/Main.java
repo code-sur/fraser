@@ -19,9 +19,9 @@ public class Main {
     private Bookmark bookmark;
 
     private Main(GmailService gmailService, TwitterService twitterService, Connection connection) {
-        bookOfFrases = new GmailBookOfFrases(gmailService);
-        frasesPublisher = new TwitterFrasesPublisher(twitterService);
         bookmark = new PostgresBookmark(connection);
+        bookOfFrases = new GmailBookOfFrases(gmailService, bookmark);
+        frasesPublisher = new TwitterFrasesPublisher(twitterService);
     }
 
     public static void main(String... args) {
@@ -43,7 +43,7 @@ public class Main {
     }
 
     private void run() {
-        frasesPublisher.publish(bookOfFrases.nextFraseAfter(bookmark));
+        frasesPublisher.publish(bookOfFrases.next());
     }
 
 }
