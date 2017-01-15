@@ -2,10 +2,10 @@ package CodeRaguet.fraser.tests.tools;
 
 import CodeRaguet.fraser.model.Message;
 
-public class MessagesRead {
-    public void setLastAt(Message firstMessage) {
-    }
+public interface MessagesRead {
 
-    public void lastMessageIs(Message secondMessage) {
-    }
+    void setLastAt(Message message);
+
+    void lastMessageIs(Message message);
+
 }

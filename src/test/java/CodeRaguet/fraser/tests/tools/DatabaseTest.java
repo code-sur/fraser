@@ -1,6 +1,7 @@
 package CodeRaguet.fraser.tests.tools;
 
 import CodeRaguet.fraser.ENV;
+import org.flywaydb.core.Flyway;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
@@ -16,6 +17,11 @@ abstract public class DatabaseTest extends ENVTest {
     public static void createConnection() throws SQLException {
         String jdbcURL = HerokuDBURLParser.parse(testENV.getProperty(ENV.DATABASE_URL.name()));
         connection = DriverManager.getConnection(jdbcURL);
+
+        Flyway flyway = new Flyway();
+        flyway.setDataSource(jdbcURL, "fraser", "fraser");
+        flyway.clean();
+        flyway.migrate();
     }
 
     @AfterClass
