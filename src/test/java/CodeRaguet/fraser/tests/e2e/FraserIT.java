@@ -1,12 +1,11 @@
 package CodeRaguet.fraser.tests.e2e;
 
 
+import CodeRaguet.fraser.gmail.GmailMessage;
 import CodeRaguet.fraser.model.Frase;
+import CodeRaguet.fraser.model.Message;
 import CodeRaguet.fraser.model.NoBookmarkException;
-import CodeRaguet.fraser.tests.tools.DatabaseTest;
-import CodeRaguet.fraser.tests.tools.FraserRunner;
-import CodeRaguet.fraser.tests.tools.TwitterServer;
-import CodeRaguet.fraser.tests.tools.PostgresBookmarkServer;
+import CodeRaguet.fraser.tests.tools.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,6 +19,8 @@ public class FraserIT extends DatabaseTest {
     private final FraserRunner fraser = new FraserRunner();
     private TwitterServer publicationsServer;
     private PostgresBookmarkServer bookmarServer;
+    private MessagesRead messagesRead = new PostgresServer(connection);
+    private Publications publications = new TwitterServer(testENV);
 
     @Before
     public void setUpFraser() {
@@ -53,6 +54,18 @@ public class FraserIT extends DatabaseTest {
 
         bookmarServer.hasBookmarkAt(SECOND_FRASE);
         publicationsServer.hasRecived(SECOND_FRASE);
+    }
+
+    @Test
+    public void walkingSkeleton() throws IOException, InterruptedException {
+        Message firstMessage = new GmailMessage("El infierno es el olvido", "12/28/16");
+        messagesRead.setLastAt(firstMessage);
+
+        fraser.run();
+
+        Message secondMessage = new GmailMessage("No te llevas nada", "12/30/16");
+        messagesRead.lastMessageIs(secondMessage);
+        publications.hasRecived(SECOND_FRASE);
     }
 
 }
