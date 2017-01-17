@@ -44,7 +44,7 @@ public class PostgresBookmark implements Bookmark {
     @Override
     public void setAt(Message message) {
         try {
-            String sql = String.format("UPDATE LAST_MESSAGE SET TEXT = '%s', DATE = '%s'", message.getText(), message.getDate());
+            String sql = String.format("UPDATE LAST_MESSAGE SET TEXT = '%s'", message.getText());
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
             stmt.close();

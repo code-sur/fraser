@@ -41,7 +41,7 @@ public class GmailBookOfFrases implements BookOfFrases {
             messageText = messagesWithFrase.get(0).getSnippet();
         }
 
-        CodeRaguet.fraser.model.Message message = new GmailMessage(messageText, "date");
+        CodeRaguet.fraser.model.Message message = new CodeRaguet.fraser.model.Message(messageText);
         bookmark.setAt(message);
 
         return new Frase(messageText);

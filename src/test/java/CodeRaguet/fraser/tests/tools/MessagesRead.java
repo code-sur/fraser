@@ -4,8 +4,8 @@ import CodeRaguet.fraser.model.Message;
 
 public interface MessagesRead {
 
-    void setLastAt(Message message);
+    void withBookmarkAt(Message message);
 
-    void lastMessageIs(Message message);
+    void bookmarkShouldBeAt(Message message);
 
 }
