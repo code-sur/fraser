@@ -41,31 +41,10 @@ public class GmailBookOfFrases implements BookOfFrases {
             messageText = messagesWithFrase.get(0).getSnippet();
         }
 
-        Frase frase = new Frase(messageText);
-        bookmark.setAt(frase);
-        return frase;
-    }
+        CodeRaguet.fraser.model.Message message = new GmailMessage(messageText, "date");
+        bookmark.setAt(message);
 
-    @Override
-    public Frase nextFraseAfter(Bookmark bookmark) {
-        List<Message> messagesWithFrase = gmailService.messagesWithFrase();
-        Collections.reverse(messagesWithFrase);
-
-        String fraseText;
-        Iterator<Message> messageIterator = messagesWithFrase.iterator();
-        Frase bookmarkAt;
-        try {
-            bookmarkAt = bookmark.isAt();
-            do {
-                fraseText = messageIterator.next().getSnippet();
-            } while (fraseText.equals(bookmarkAt.toString()));
-        } catch (NoBookmarkException e) {
-            fraseText = messagesWithFrase.get(0).getSnippet();
-        }
-
-        Frase frase = new Frase(fraseText);
-        bookmark.setAt(frase);
-        return frase;
+        return new Frase(messageText);
     }
 
 }

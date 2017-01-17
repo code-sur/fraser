@@ -1,10 +1,16 @@
 package CodeRaguet.fraser.tests.tools;
 
+import CodeRaguet.fraser.PostgresBookmark;
+import CodeRaguet.fraser.gmail.GmailMessage;
 import CodeRaguet.fraser.model.Message;
+import CodeRaguet.fraser.model.NoBookmarkException;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class PostgresServer implements MessagesRead {
 
@@ -24,7 +30,25 @@ public class PostgresServer implements MessagesRead {
 
     @Override
     public void lastMessageIs(Message message) {
+        ResultSet resultSet;
+        String messageText;
+        String messageDate;
+        try {
+            Statement statement = connection.createStatement();
 
+            resultSet = statement.executeQuery(String.format("SELECT TEXT, DATE from %s", "LAST_MESSAGE"));
+            resultSet.next();
+            messageText = resultSet.getString("TEXT");
+            messageDate = resultSet.getString("DATE");
+
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        Message savedMessage = new GmailMessage(messageText, messageDate);
+        assertThat(message).isEqualTo(savedMessage);
     }
 
     public void executeSQLStatement(String sql) {

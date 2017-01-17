@@ -47,16 +47,6 @@ public class FraserIT extends DatabaseTest {
     }
 
     @Test
-    public void shouldPublishSecondFrase() throws SQLException, IOException, InterruptedException, NoBookmarkException {
-        bookmarServer.bookmarkAt(FIRST_FRASE);
-
-        fraser.run();
-
-        bookmarServer.hasBookmarkAt(SECOND_FRASE);
-        publicationsServer.hasRecived(SECOND_FRASE);
-    }
-
-    @Test
     public void walkingSkeleton() throws IOException, InterruptedException {
         Message firstMessage = new GmailMessage("El infierno es el olvido", "12/28/16");
         messagesRead.setLastAt(firstMessage);
