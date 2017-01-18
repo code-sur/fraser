@@ -1,8 +1,10 @@
 package CodeRaguet.fraser.tests.e2e;
 
 
-import CodeRaguet.fraser.model.Frase;
-import CodeRaguet.fraser.tests.tools.*;
+import CodeRaguet.fraser.tests.tools.FraserRunner;
+import CodeRaguet.fraser.tests.tools.MessagesRead;
+import CodeRaguet.fraser.tests.tools.Publications;
+import CodeRaguet.fraser.tests.tools.TwitterServer;
 import CodeRaguet.fraser.tests.tools.db.DatabaseTest;
 import CodeRaguet.fraser.tests.tools.db.PostgresBookmarkServer;
 import CodeRaguet.fraser.tests.tools.db.PostgresServer;
@@ -16,10 +18,9 @@ import java.sql.SQLException;
 
 public class WalkingSkeletonIT extends DatabaseTest {
 
-    private static final Frase SECOND_FRASE = new Frase("No te llevas nada");
     private final FraserRunner fraser = new FraserRunner();
-    private MessagesRead bookOfMessages = new PostgresServer(connection);
-    private Publications publications = new TwitterServer(testENV);
+    private final MessagesRead bookOfMessages = new PostgresServer(connection);
+    private final Publications publications = new TwitterServer(testENV);
 
     @Before
     public void setUpFraser() {
