@@ -1,6 +1,6 @@
 package CodeRaguet.fraser.tests.tools;
 
-import CodeRaguet.fraser.DatabaseBookmark;
+import CodeRaguet.fraser.db.DatabaseBookmark;
 import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.model.NoBookmarkException;
@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static CodeRaguet.fraser.DatabaseBookmark.BOOKMARK_TABLE;
+import static CodeRaguet.fraser.db.DatabaseBookmark.BOOKMARK_TABLE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PostgresBookmarkServer {

@@ -1,4 +1,4 @@
-package CodeRaguet.fraser;
+package CodeRaguet.fraser.db;
 
 import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.model.Frase;

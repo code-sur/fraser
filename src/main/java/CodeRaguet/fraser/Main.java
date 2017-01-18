@@ -1,6 +1,7 @@
 package CodeRaguet.fraser;
 
 
+import CodeRaguet.fraser.db.DatabaseBookmark;
 import CodeRaguet.fraser.gmail.GmailBookOfFrases;
 import CodeRaguet.fraser.gmail.GmailService;
 import CodeRaguet.fraser.model.BookOfFrases;
@@ -16,10 +17,9 @@ public class Main {
 
     private final BookOfFrases bookOfFrases;
     private final FrasesPublisher frasesPublisher;
-    private Bookmark bookmark;
 
     private Main(GmailService gmailService, TwitterService twitterService, Connection connection) {
-        bookmark = new DatabaseBookmark(connection);
+        Bookmark bookmark = new DatabaseBookmark(connection);
         bookOfFrases = new GmailBookOfFrases(gmailService, bookmark);
         frasesPublisher = new TwitterFrasesPublisher(twitterService);
     }
