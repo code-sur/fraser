@@ -1,4 +1,4 @@
-package CodeRaguet.fraser.tests.tools;
+package CodeRaguet.fraser.tests.tools.db;
 
 import CodeRaguet.fraser.db.DatabaseBookmark;
 import CodeRaguet.fraser.model.Bookmark;

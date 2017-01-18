@@ -1,4 +1,4 @@
-package CodeRaguet.fraser.tests.tools;
+package CodeRaguet.fraser.tests.tools.db;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

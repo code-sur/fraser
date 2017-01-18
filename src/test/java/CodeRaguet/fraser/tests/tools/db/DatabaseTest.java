@@ -1,6 +1,7 @@
-package CodeRaguet.fraser.tests.tools;
+package CodeRaguet.fraser.tests.tools.db;
 
 import CodeRaguet.fraser.ENV;
+import CodeRaguet.fraser.tests.tools.ENVTest;
 import org.flywaydb.core.Flyway;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

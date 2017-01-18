@@ -1,6 +1,7 @@
-package CodeRaguet.fraser.tests.tools;
+package CodeRaguet.fraser.tests.tools.db;
 
 import CodeRaguet.fraser.model.Message;
+import CodeRaguet.fraser.tests.tools.MessagesRead;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

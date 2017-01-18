@@ -1,6 +1,6 @@
 package CodeRaguet.fraser.tests.unit;
 
-import CodeRaguet.fraser.tests.tools.HerokuDBURLParser;
+import CodeRaguet.fraser.tests.tools.db.HerokuDBURLParser;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

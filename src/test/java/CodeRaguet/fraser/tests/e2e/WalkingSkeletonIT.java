@@ -3,6 +3,9 @@ package CodeRaguet.fraser.tests.e2e;
 
 import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.tests.tools.*;
+import CodeRaguet.fraser.tests.tools.db.DatabaseTest;
+import CodeRaguet.fraser.tests.tools.db.PostgresBookmarkServer;
+import CodeRaguet.fraser.tests.tools.db.PostgresServer;
 import org.junit.Before;
 import org.junit.Test;
 
