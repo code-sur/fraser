@@ -19,7 +19,7 @@ public class Main {
     private Bookmark bookmark;
 
     private Main(GmailService gmailService, TwitterService twitterService, Connection connection) {
-        bookmark = new PostgresBookmark(connection);
+        bookmark = new DatabaseBookmark(connection);
         bookOfFrases = new GmailBookOfFrases(gmailService, bookmark);
         frasesPublisher = new TwitterFrasesPublisher(twitterService);
     }

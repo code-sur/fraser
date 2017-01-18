@@ -7,13 +7,12 @@ import CodeRaguet.fraser.model.NoBookmarkException;
 
 import java.sql.*;
 
-public class PostgresBookmark implements Bookmark {
+public class DatabaseBookmark implements Bookmark {
 
-    public static final String FRASE_TEXT_COLUMN = "FRASE";
     public static final String BOOKMARK_TABLE = "BOOKMARK";
     private final Connection connection;
 
-    public PostgresBookmark(Connection connection) {
+    public DatabaseBookmark(Connection connection) {
         this.connection = connection;
     }
 
