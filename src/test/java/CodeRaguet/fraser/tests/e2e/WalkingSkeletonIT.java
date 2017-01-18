@@ -6,6 +6,8 @@ import CodeRaguet.fraser.tests.tools.*;
 import CodeRaguet.fraser.tests.tools.db.DatabaseTest;
 import CodeRaguet.fraser.tests.tools.db.PostgresBookmarkServer;
 import CodeRaguet.fraser.tests.tools.db.PostgresServer;
+import CodeRaguet.fraser.tests.tools.fixtures.Frases;
+import CodeRaguet.fraser.tests.tools.fixtures.Messages;
 import org.junit.Before;
 import org.junit.Test;
 
