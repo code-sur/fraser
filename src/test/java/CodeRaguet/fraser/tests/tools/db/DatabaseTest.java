@@ -16,7 +16,7 @@ abstract public class DatabaseTest extends ENVTest {
 
     @BeforeClass
     public static void createConnection() throws SQLException {
-        String jdbcURL = HerokuDBURLParser.parse(testENV.getProperty(ENV.DATABASE_URL.name()));
+        String jdbcURL = HerokuParserForDATABASE_URL.parse(testENV.getProperty(ENV.DATABASE_URL.name()));
         connection = DriverManager.getConnection(jdbcURL);
 
         Flyway flyway = new Flyway();
