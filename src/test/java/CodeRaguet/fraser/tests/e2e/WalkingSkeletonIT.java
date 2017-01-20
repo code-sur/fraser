@@ -1,6 +1,7 @@
 package CodeRaguet.fraser.tests.e2e;
 
 
+import CodeRaguet.fraser.model.Message;
 import CodeRaguet.fraser.tests.tools.FraserRunner;
 import CodeRaguet.fraser.tests.tools.PublishedFrases;
 import CodeRaguet.fraser.tests.tools.db.DatabaseTest;
@@ -37,6 +38,17 @@ public class WalkingSkeletonIT extends DatabaseTest {
 
         lastMessage.shouldBeAt(Messages.second());
         publishedFrases.hasRecived(Frases.second());
+    }
+
+    @Test
+    public void supportLongMessages() throws IOException, InterruptedException {
+        Message beforeLongMessage = Messages.second();
+        lastMessage.setAt(beforeLongMessage);
+
+        fraser.run();
+
+        lastMessage.shouldBeAt(Messages.longMessage());
+        publishedFrases.hasRecived(Frases.longFrase());
     }
 
 }

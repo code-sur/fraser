@@ -5,6 +5,10 @@ import CodeRaguet.fraser.tests.tools.fixtures.Messages;
 
 public class Frases {
     public static Frase second() {
-        return new Frase (Messages.second().getText());
+        return new Frase(Messages.second().getText());
+    }
+
+    public static Frase longFrase() {
+        return new Frase(Messages.longMessage().getText());
     }
 }

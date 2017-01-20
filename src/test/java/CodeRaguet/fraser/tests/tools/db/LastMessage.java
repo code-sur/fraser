@@ -40,7 +40,7 @@ public class LastMessage {
         }
 
         Message savedMessage = new Message(messageText);
-        assertThat(message).isEqualTo(savedMessage);
+        assertThat(savedMessage).isEqualTo(message);
     }
 
     public void clear() {
