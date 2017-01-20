@@ -4,7 +4,6 @@ package CodeRaguet.fraser.tests.e2e;
 import CodeRaguet.fraser.tests.tools.FraserRunner;
 import CodeRaguet.fraser.tests.tools.PublishedFrases;
 import CodeRaguet.fraser.tests.tools.db.DatabaseTest;
-import CodeRaguet.fraser.tests.tools.db.PostgresBookmarkServer;
 import CodeRaguet.fraser.tests.tools.db.LastMessage;
 import CodeRaguet.fraser.tests.tools.fixtures.Frases;
 import CodeRaguet.fraser.tests.tools.fixtures.Messages;
