@@ -13,11 +13,11 @@ import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TwitterServer implements Publications {
+public class PublishedFrases implements Publications {
 
     private final Twitter twitter;
 
-    public TwitterServer(Properties env) {
+    public PublishedFrases(Properties env) {
         ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
         configurationBuilder
                 .setDebugEnabled(true)

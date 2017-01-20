@@ -10,12 +10,12 @@ import java.sql.Statement;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PostgresServer implements MessagesRead {
+public class LastMessage implements MessagesRead {
 
     private static final String LAST_MESSAGE_TABLE = "LAST_MESSAGE";
     private final Connection connection;
 
-    public PostgresServer(Connection connection) {
+    public LastMessage(Connection connection) {
         this.connection = connection;
     }
 

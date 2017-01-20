@@ -2,12 +2,10 @@ package CodeRaguet.fraser.tests.e2e;
 
 
 import CodeRaguet.fraser.tests.tools.FraserRunner;
-import CodeRaguet.fraser.tests.tools.MessagesRead;
-import CodeRaguet.fraser.tests.tools.Publications;
-import CodeRaguet.fraser.tests.tools.TwitterServer;
+import CodeRaguet.fraser.tests.tools.PublishedFrases;
 import CodeRaguet.fraser.tests.tools.db.DatabaseTest;
 import CodeRaguet.fraser.tests.tools.db.PostgresBookmarkServer;
-import CodeRaguet.fraser.tests.tools.db.PostgresServer;
+import CodeRaguet.fraser.tests.tools.db.LastMessage;
 import CodeRaguet.fraser.tests.tools.fixtures.Frases;
 import CodeRaguet.fraser.tests.tools.fixtures.Messages;
 import org.junit.Before;
@@ -19,13 +17,12 @@ import java.sql.SQLException;
 public class WalkingSkeletonIT extends DatabaseTest {
 
     private final FraserRunner fraser = new FraserRunner(testENV);
-    private final MessagesRead lastMessage = new PostgresServer(connection);
-    private final Publications publications = new TwitterServer(testENV);
+    private final LastMessage lastMessage = new LastMessage(connection);
+    private final PublishedFrases publishedFrases = new PublishedFrases(testENV);
 
     @Before
-    public void setUpPublicationsServer() {
-        TwitterServer publicationsServer = new TwitterServer(testENV);
-        publicationsServer.deleteFrases();
+    public void setUpPublishedFrases() {
+        publishedFrases.deleteFrases();
     }
 
     @Before
@@ -41,7 +38,7 @@ public class WalkingSkeletonIT extends DatabaseTest {
         fraser.run();
 
         lastMessage.shouldBeAt(Messages.second());
-        publications.hasRecived(Frases.second());
+        publishedFrases.hasRecived(Frases.second());
     }
 
 }
