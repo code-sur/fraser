@@ -1,7 +1,6 @@
 package CodeRaguet.fraser.tests.tools.db;
 
 import CodeRaguet.fraser.model.Message;
-import CodeRaguet.fraser.tests.tools.MessagesRead;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,7 +9,7 @@ import java.sql.Statement;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LastMessage implements MessagesRead {
+public class LastMessage {
 
     private static final String LAST_MESSAGE_TABLE = "LAST_MESSAGE";
     private final Connection connection;
@@ -19,13 +18,11 @@ public class LastMessage implements MessagesRead {
         this.connection = connection;
     }
 
-    @Override
     public void setAt(Message message) {
         String sql = String.format("INSERT INTO %s (TEXT) VALUES ('%s')", LAST_MESSAGE_TABLE, message.getText());
         executeSQLStatement(sql);
     }
 
-    @Override
     public void shouldBeAt(Message message) {
         ResultSet resultSet;
         String messageText;
