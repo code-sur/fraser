@@ -6,6 +6,6 @@ public interface MessagesRead {
 
     void setAt(Message message);
 
-    void bookmarkShouldBeAt(Message message);
+    void shouldBeAt(Message message);
 
 }

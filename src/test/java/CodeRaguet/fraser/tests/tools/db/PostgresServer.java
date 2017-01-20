@@ -27,7 +27,7 @@ public class PostgresServer implements MessagesRead {
     }
 
     @Override
-    public void bookmarkShouldBeAt(Message message) {
+    public void shouldBeAt(Message message) {
         ResultSet resultSet;
         String messageText;
         try {

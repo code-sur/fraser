@@ -40,7 +40,7 @@ public class WalkingSkeletonIT extends DatabaseTest {
 
         fraser.run();
 
-        lastMessage.bookmarkShouldBeAt(Messages.second());
+        lastMessage.shouldBeAt(Messages.second());
         publications.hasRecived(Frases.second());
     }
 
