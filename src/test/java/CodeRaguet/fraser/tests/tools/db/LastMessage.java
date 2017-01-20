@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static CodeRaguet.fraser.db.DatabaseBookmark.BOOKMARK_TABLE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LastMessage implements MessagesRead {

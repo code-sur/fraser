@@ -26,9 +26,8 @@ public class WalkingSkeletonIT extends DatabaseTest {
     }
 
     @Before
-    public void setUpBookmarkServer() throws SQLException {
-        PostgresBookmarkServer bookmarServer = new PostgresBookmarkServer(connection);
-        bookmarServer.clearBookmark();
+    public void clearLastMessage() throws SQLException {
+        lastMessage.clear();
     }
 
     @Test
