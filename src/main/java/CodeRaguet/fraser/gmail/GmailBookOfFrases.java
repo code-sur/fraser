@@ -1,9 +1,6 @@
 package CodeRaguet.fraser.gmail;
 
-import CodeRaguet.fraser.model.BookOfMessages;
-import CodeRaguet.fraser.model.Bookmark;
-import CodeRaguet.fraser.model.Frase;
-import CodeRaguet.fraser.model.NoBookmarkException;
+import CodeRaguet.fraser.model.*;
 import com.google.api.services.gmail.model.Message;
 
 import java.util.Collections;
@@ -25,7 +22,7 @@ public class GmailBookOfFrases implements BookOfMessages {
     }
 
     @Override
-    public Frase next() {
+    public Frase next() throws BookmarkException {
         List<Message> messagesWithFrase = gmailService.messagesWithFrase();
         Collections.reverse(messagesWithFrase);
 
@@ -33,7 +30,7 @@ public class GmailBookOfFrases implements BookOfMessages {
         Iterator<Message> messageIterator = messagesWithFrase.iterator();
         Frase bookmarkAt;
         try {
-            bookmarkAt = bookmark.isAt();
+            bookmarkAt = bookmark.isOn();
             do {
                 messageText = messageIterator.next().getSnippet();
             } while (messageText.equals(bookmarkAt.toString()));
@@ -42,7 +39,7 @@ public class GmailBookOfFrases implements BookOfMessages {
         }
 
         CodeRaguet.fraser.model.Message message = new CodeRaguet.fraser.model.Message(messageText);
-        bookmark.setAt(message);
+        bookmark.placeOn(message);
 
         return new Frase(messageText);
     }

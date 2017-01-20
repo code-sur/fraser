@@ -1,7 +1,7 @@
 package CodeRaguet.fraser.model;
 
 public interface Bookmark {
-    Frase isAt() throws NoBookmarkException;
+    Frase isOn() throws NoBookmarkException;
 
-    void setAt(Message frase);
+    void placeOn(Message frase) throws BookmarkException;
 }

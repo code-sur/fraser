@@ -1,6 +1,6 @@
 package CodeRaguet.fraser.model;
 
 public interface BookOfMessages {
-    Frase next();
+    Frase next() throws BookmarkException;
 
 }

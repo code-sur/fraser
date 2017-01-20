@@ -6,6 +6,7 @@ import CodeRaguet.fraser.gmail.GmailBookOfFrases;
 import CodeRaguet.fraser.gmail.GmailService;
 import CodeRaguet.fraser.model.BookOfMessages;
 import CodeRaguet.fraser.model.Bookmark;
+import CodeRaguet.fraser.model.BookmarkException;
 import CodeRaguet.fraser.model.FrasesPublisher;
 import CodeRaguet.fraser.twitter.TwitterFrasesPublisher;
 import CodeRaguet.fraser.twitter.TwitterService;
@@ -42,7 +43,7 @@ public class Main {
         }
     }
 
-    private void run() {
+    private void run() throws BookmarkException {
         frasesPublisher.publish(bookOfMessages.next());
     }
 

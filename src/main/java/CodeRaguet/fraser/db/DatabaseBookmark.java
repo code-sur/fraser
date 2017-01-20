@@ -1,15 +1,14 @@
 package CodeRaguet.fraser.db;
 
-import CodeRaguet.fraser.model.Bookmark;
-import CodeRaguet.fraser.model.Frase;
-import CodeRaguet.fraser.model.Message;
-import CodeRaguet.fraser.model.NoBookmarkException;
+import CodeRaguet.fraser.model.*;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DatabaseBookmark implements Bookmark {
 
-    public static final String BOOKMARK_TABLE = "BOOKMARK";
     private final Connection connection;
 
     public DatabaseBookmark(Connection connection) {
@@ -17,7 +16,7 @@ public class DatabaseBookmark implements Bookmark {
     }
 
     @Override
-    public Frase isAt() throws NoBookmarkException {
+    public Frase isOn() throws NoBookmarkException {
 
         ResultSet resultSet;
         String fraseText;
@@ -41,14 +40,14 @@ public class DatabaseBookmark implements Bookmark {
     }
 
     @Override
-    public void setAt(Message message) {
+    public void placeOn(Message message) throws BookmarkException {
         try {
             String sql = String.format("UPDATE LAST_MESSAGE SET TEXT = '%s'", message.getText());
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
             stmt.close();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new BookmarkException(String.format("Can't place bookmark on message: %s", message.toString()), e);
         }
     }
 
