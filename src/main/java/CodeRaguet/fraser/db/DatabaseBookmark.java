@@ -1,18 +1,18 @@
-package CodeRaguet.fraser;
+package CodeRaguet.fraser.db;
 
 import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.model.Frase;
+import CodeRaguet.fraser.model.Message;
 import CodeRaguet.fraser.model.NoBookmarkException;
 
 import java.sql.*;
 
-public class PostgresBookmark implements Bookmark {
+public class DatabaseBookmark implements Bookmark {
 
-    public static final String FRASE_TEXT_COLUMN = "FRASE";
     public static final String BOOKMARK_TABLE = "BOOKMARK";
     private final Connection connection;
 
-    public PostgresBookmark(Connection connection) {
+    public DatabaseBookmark(Connection connection) {
         this.connection = connection;
     }
 
@@ -24,9 +24,9 @@ public class PostgresBookmark implements Bookmark {
         try {
             Statement statement = connection.createStatement();
 
-            resultSet = statement.executeQuery(String.format("SELECT %s from %s", FRASE_TEXT_COLUMN, BOOKMARK_TABLE));
+            resultSet = statement.executeQuery(String.format("SELECT %s from %s", "TEXT", "LAST_MESSAGE"));
             if (resultSet.next()) {
-                fraseText = resultSet.getString(FRASE_TEXT_COLUMN);
+                fraseText = resultSet.getString("TEXT");
             } else {
                 throw new NoBookmarkException();
             }
@@ -41,9 +41,9 @@ public class PostgresBookmark implements Bookmark {
     }
 
     @Override
-    public void setAt(Frase frase) {
+    public void setAt(Message message) {
         try {
-            String sql = String.format("UPDATE BOOKMARK SET FRASE = '%s'", frase);
+            String sql = String.format("UPDATE LAST_MESSAGE SET TEXT = '%s'", message.getText());
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
             stmt.close();

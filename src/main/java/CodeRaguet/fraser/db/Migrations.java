@@ -1,4 +1,4 @@
-package CodeRaguet.fraser;
+package CodeRaguet.fraser.db;
 
 import com.heroku.sdk.jdbc.DatabaseUrl;
 import org.flywaydb.core.Flyway;

@@ -1,2 +1,2 @@
 fraser: java -jar target/fraser.jar
-release: java -cp target/fraser.jar CodeRaguet.fraser.Migrations
+release: java -cp target/fraser.jar CodeRaguet.fraser.db.Migrations

@@ -6,46 +6,45 @@ import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.model.NoBookmarkException;
 import com.google.api.services.gmail.model.Message;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 public class GmailBookOfFrases implements BookOfFrases {
 
+    private Bookmark bookmark;
     private GmailService gmailService;
 
     public GmailBookOfFrases(GmailService gmailService) {
         this.gmailService = gmailService;
     }
 
-    @Override
-    public Frase next() {
-        List<Message> frases = gmailService.messagesWithFrase();
-
-        return new Frase(frases.get(frases.size() - 1).getSnippet());
+    public GmailBookOfFrases(GmailService gmailService, Bookmark bookmark) {
+        this(gmailService);
+        this.bookmark = bookmark;
     }
 
     @Override
-    public Frase nextFraseAfter(Bookmark bookmark) {
+    public Frase next() {
         List<Message> messagesWithFrase = gmailService.messagesWithFrase();
         Collections.reverse(messagesWithFrase);
 
-        String fraseText;
+        String messageText;
         Iterator<Message> messageIterator = messagesWithFrase.iterator();
         Frase bookmarkAt;
         try {
             bookmarkAt = bookmark.isAt();
             do {
-                fraseText = messageIterator.next().getSnippet();
-            } while (fraseText.equals(bookmarkAt.toString()));
+                messageText = messageIterator.next().getSnippet();
+            } while (messageText.equals(bookmarkAt.toString()));
         } catch (NoBookmarkException e) {
-            fraseText = messagesWithFrase.get(0).getSnippet();
+            messageText = messagesWithFrase.get(0).getSnippet();
         }
 
-        Frase frase = new Frase(fraseText);
-        bookmark.setAt(frase);
-        return frase;
+        CodeRaguet.fraser.model.Message message = new CodeRaguet.fraser.model.Message(messageText);
+        bookmark.setAt(message);
+
+        return new Frase(messageText);
     }
 
 }
