@@ -13,7 +13,7 @@ import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PublishedFrases implements Publications {
+public class PublishedFrases {
 
     private final Twitter twitter;
 
@@ -29,7 +29,6 @@ public class PublishedFrases implements Publications {
         twitter = twitterFactory.getInstance();
     }
 
-    @Override
     public void hasRecived(Frase firstFrase) {
         List<String> tweets = new ArrayList<>();
         try {
