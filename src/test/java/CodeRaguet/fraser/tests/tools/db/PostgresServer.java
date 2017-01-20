@@ -20,7 +20,7 @@ public class PostgresServer implements MessagesRead {
     }
 
     @Override
-    public void withBookmarkAt(Message message) {
+    public void setAt(Message message) {
         String sql = String.format("INSERT INTO %s (TEXT) VALUES ('%s')", LAST_MESSAGE_TABLE, message.getText());
         executeSQLStatement(sql);
 

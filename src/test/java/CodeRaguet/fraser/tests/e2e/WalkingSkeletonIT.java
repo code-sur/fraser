@@ -19,7 +19,7 @@ import java.sql.SQLException;
 public class WalkingSkeletonIT extends DatabaseTest {
 
     private final FraserRunner fraser = new FraserRunner(testENV);
-    private final MessagesRead bookOfMessages = new PostgresServer(connection);
+    private final MessagesRead lastMessage = new PostgresServer(connection);
     private final Publications publications = new TwitterServer(testENV);
 
     @Before
@@ -36,11 +36,11 @@ public class WalkingSkeletonIT extends DatabaseTest {
 
     @Test
     public void walkingSkeleton() throws IOException, InterruptedException {
-        bookOfMessages.withBookmarkAt(Messages.first());
+        lastMessage.setAt(Messages.first());
 
         fraser.run();
 
-        bookOfMessages.bookmarkShouldBeAt(Messages.second());
+        lastMessage.bookmarkShouldBeAt(Messages.second());
         publications.hasRecived(Frases.second());
     }
 
