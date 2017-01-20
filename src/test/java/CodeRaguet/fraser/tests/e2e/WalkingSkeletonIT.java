@@ -31,7 +31,7 @@ public class WalkingSkeletonIT extends DatabaseTest {
     }
 
     @Test
-    public void walkingSkeleton() throws IOException, InterruptedException {
+    public void walkingSkeleton() {
         lastMessage.setAt(Messages.first());
 
         fraser.run();
@@ -41,7 +41,7 @@ public class WalkingSkeletonIT extends DatabaseTest {
     }
 
     @Test
-    public void supportLongMessages() throws IOException, InterruptedException {
+    public void supportLongMessages() {
         Message beforeLongMessage = Messages.second();
         lastMessage.setAt(beforeLongMessage);
 
