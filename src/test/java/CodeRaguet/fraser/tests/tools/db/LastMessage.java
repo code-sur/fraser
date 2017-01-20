@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import static CodeRaguet.fraser.db.DatabaseBookmark.BOOKMARK_TABLE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LastMessage implements MessagesRead {
@@ -23,7 +24,6 @@ public class LastMessage implements MessagesRead {
     public void setAt(Message message) {
         String sql = String.format("INSERT INTO %s (TEXT) VALUES ('%s')", LAST_MESSAGE_TABLE, message.getText());
         executeSQLStatement(sql);
-
     }
 
     @Override
@@ -45,6 +45,11 @@ public class LastMessage implements MessagesRead {
 
         Message savedMessage = new Message(messageText);
         assertThat(message).isEqualTo(savedMessage);
+    }
+
+    public void clear() {
+        String sql = String.format("TRUNCATE TABLE %s", LAST_MESSAGE_TABLE);
+        executeSQLStatement(sql);
     }
 
     private void executeSQLStatement(String sql) {
