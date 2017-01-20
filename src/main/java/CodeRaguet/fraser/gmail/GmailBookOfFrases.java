@@ -1,6 +1,6 @@
 package CodeRaguet.fraser.gmail;
 
-import CodeRaguet.fraser.model.BookOfFrases;
+import CodeRaguet.fraser.model.BookOfMessages;
 import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.model.NoBookmarkException;
@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-public class GmailBookOfFrases implements BookOfFrases {
+public class GmailBookOfFrases implements BookOfMessages {
 
     private Bookmark bookmark;
     private GmailService gmailService;

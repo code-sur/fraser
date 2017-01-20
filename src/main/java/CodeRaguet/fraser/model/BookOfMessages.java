@@ -1,6 +1,6 @@
 package CodeRaguet.fraser.model;
 
-public interface BookOfFrases {
+public interface BookOfMessages {
     Frase next();
 
 }

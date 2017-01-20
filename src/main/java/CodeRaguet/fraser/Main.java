@@ -4,7 +4,7 @@ package CodeRaguet.fraser;
 import CodeRaguet.fraser.db.DatabaseBookmark;
 import CodeRaguet.fraser.gmail.GmailBookOfFrases;
 import CodeRaguet.fraser.gmail.GmailService;
-import CodeRaguet.fraser.model.BookOfFrases;
+import CodeRaguet.fraser.model.BookOfMessages;
 import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.model.FrasesPublisher;
 import CodeRaguet.fraser.twitter.TwitterFrasesPublisher;
@@ -15,12 +15,12 @@ import java.sql.Connection;
 
 public class Main {
 
-    private final BookOfFrases bookOfFrases;
+    private final BookOfMessages bookOfMessages;
     private final FrasesPublisher frasesPublisher;
 
     private Main(GmailService gmailService, TwitterService twitterService, Connection connection) {
         Bookmark bookmark = new DatabaseBookmark(connection);
-        bookOfFrases = new GmailBookOfFrases(gmailService, bookmark);
+        bookOfMessages = new GmailBookOfFrases(gmailService, bookmark);
         frasesPublisher = new TwitterFrasesPublisher(twitterService);
     }
 
@@ -43,7 +43,7 @@ public class Main {
     }
 
     private void run() {
-        frasesPublisher.publish(bookOfFrases.next());
+        frasesPublisher.publish(bookOfMessages.next());
     }
 
 }
