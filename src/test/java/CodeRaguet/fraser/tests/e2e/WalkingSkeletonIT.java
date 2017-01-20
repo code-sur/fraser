@@ -18,14 +18,9 @@ import java.sql.SQLException;
 
 public class WalkingSkeletonIT extends DatabaseTest {
 
-    private final FraserRunner fraser = new FraserRunner();
+    private final FraserRunner fraser = new FraserRunner(testENV);
     private final MessagesRead bookOfMessages = new PostgresServer(connection);
     private final Publications publications = new TwitterServer(testENV);
-
-    @Before
-    public void setUpFraser() {
-        fraser.with(testENV);
-    }
 
     @Before
     public void setUpPublicationsServer() {
