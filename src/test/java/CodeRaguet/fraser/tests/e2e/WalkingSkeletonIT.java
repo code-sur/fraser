@@ -5,7 +5,7 @@ import CodeRaguet.fraser.model.Message;
 import CodeRaguet.fraser.tests.tools.FraserRunner;
 import CodeRaguet.fraser.tests.tools.PublishedFrases;
 import CodeRaguet.fraser.tests.tools.db.DatabaseTest;
-import CodeRaguet.fraser.tests.tools.db.BookmarkHandler;
+import CodeRaguet.fraser.tests.tools.BookmarkHandler;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
