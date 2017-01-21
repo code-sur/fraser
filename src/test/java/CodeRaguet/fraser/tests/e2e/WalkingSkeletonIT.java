@@ -43,6 +43,7 @@ public class WalkingSkeletonIT extends DatabaseTest {
     }
 
     @Test
+    @Ignore
     public void runWithoutLastMessage() throws IOException, InterruptedException {
         //no last message
 
