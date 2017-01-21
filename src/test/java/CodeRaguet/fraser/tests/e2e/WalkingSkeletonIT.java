@@ -2,10 +2,10 @@ package CodeRaguet.fraser.tests.e2e;
 
 
 import CodeRaguet.fraser.model.Message;
-import CodeRaguet.fraser.tests.tools.FraserRunner;
-import CodeRaguet.fraser.tests.tools.PublishedFrases;
+import CodeRaguet.fraser.tests.tools.e2e.FraserRunner;
+import CodeRaguet.fraser.tests.tools.e2e.PublishedFrases;
 import CodeRaguet.fraser.tests.tools.db.DatabaseTest;
-import CodeRaguet.fraser.tests.tools.BookmarkHandler;
+import CodeRaguet.fraser.tests.tools.e2e.BookmarkHandler;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package CodeRaguet.fraser.tests.tools;
+package CodeRaguet.fraser.tests.tools.e2e;
 
 import CodeRaguet.fraser.model.Message;
 
