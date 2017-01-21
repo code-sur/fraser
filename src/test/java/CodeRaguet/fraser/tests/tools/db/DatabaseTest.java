@@ -16,8 +16,8 @@ import java.sql.Statement;
 
 abstract public class DatabaseTest extends ENVTest {
 
-    protected static Connection connection;
-    protected final Bookmark bookmark = new DatabaseBookmark(connection);
+    private static Connection connection;
+    protected Bookmark bookmark;
 
     @BeforeClass
     public static void createConnection() throws SQLException {
@@ -31,7 +31,12 @@ abstract public class DatabaseTest extends ENVTest {
     }
 
     @Before
-    public void clearBookmark() {
+    public void createBookmark() {
+        bookmark = new DatabaseBookmark(connection);
+    }
+
+    @Before
+    public void clearTables() {
         String sql = String.format("TRUNCATE TABLE %s", DatabaseBookmark.LAST_MESSAGE_TABLE);
         executeSQLStatement(sql);
     }

@@ -18,8 +18,13 @@ import static CodeRaguet.fraser.tests.tools.fixtures.Messages.*;
 public class WalkingSkeletonIT extends DatabaseTest {
 
     private final FraserRunner fraser = new FraserRunner(testENV);
-    private final BookmarkHandler bookmarkHandler = new BookmarkHandler(bookmark);
+    private BookmarkHandler bookmarkHandler;
     private final PublishedFrases publishedFrases = new PublishedFrases(testENV);
+
+    @Before
+    public void setUpBookmarkHandler() {
+        bookmarkHandler = new BookmarkHandler(bookmark);
+    }
 
     @Before
     public void setUpPublishedFrases() {
