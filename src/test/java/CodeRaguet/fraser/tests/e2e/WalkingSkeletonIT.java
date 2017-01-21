@@ -6,13 +6,15 @@ import CodeRaguet.fraser.tests.tools.FraserRunner;
 import CodeRaguet.fraser.tests.tools.PublishedFrases;
 import CodeRaguet.fraser.tests.tools.db.DatabaseTest;
 import CodeRaguet.fraser.tests.tools.db.LastMessage;
-import CodeRaguet.fraser.tests.tools.fixtures.Frases;
-import CodeRaguet.fraser.tests.tools.fixtures.Messages;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.sql.SQLException;
+
+import static CodeRaguet.fraser.tests.tools.fixtures.Frases.*;
+import static CodeRaguet.fraser.tests.tools.fixtures.Messages.*;
 
 public class WalkingSkeletonIT extends DatabaseTest {
 
@@ -31,24 +33,35 @@ public class WalkingSkeletonIT extends DatabaseTest {
     }
 
     @Test
-    public void walkingSkeleton() {
-        lastMessage.setAt(Messages.first());
+    public void runWithLastMessage() throws IOException, InterruptedException {
+        lastMessage.setAt(firstMessage());
 
         fraser.run();
 
-        lastMessage.shouldBeAt(Messages.second());
-        publishedFrases.hasRecived(Frases.second());
+        lastMessage.shouldBeAt(secondMessage());
+        publishedFrases.hasRecived(secondFrase());
     }
 
     @Test
+    public void runWithoutLastMessage() throws IOException, InterruptedException {
+        //no last message
+
+        fraser.run();
+
+        lastMessage.shouldBeAt(firstMessage());
+        publishedFrases.hasRecived(firstFrase());
+    }
+
+    @Test
+    @Ignore
     public void supportLongMessages() {
-        Message beforeLongMessage = Messages.second();
+        Message beforeLongMessage = secondMessage();
         lastMessage.setAt(beforeLongMessage);
 
         fraser.run();
 
-        lastMessage.shouldBeAt(Messages.longMessage());
-        publishedFrases.hasRecived(Frases.longFrase());
+        lastMessage.shouldBeAt(longMessage());
+        publishedFrases.hasRecived(longFrase());
     }
 
 }

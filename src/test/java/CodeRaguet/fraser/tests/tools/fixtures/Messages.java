@@ -4,11 +4,11 @@ import CodeRaguet.fraser.model.Message;
 
 public class Messages {
 
-    public static Message first() {
+    public static Message firstMessage() {
         return new Message("El infierno es el olvido");
     }
 
-    public static Message second() {
+    public static Message secondMessage() {
         return new Message("No te llevas nada");
     }
 
