@@ -9,21 +9,21 @@ import java.sql.Statement;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LastMessage {
+public class BookmarkHandler {
 
     private static final String LAST_MESSAGE_TABLE = "LAST_MESSAGE";
     private final Connection connection;
 
-    public LastMessage(Connection connection) {
+    public BookmarkHandler(Connection connection) {
         this.connection = connection;
     }
 
-    public void setAt(Message message) {
+    public void placeBookmarkOn(Message message) {
         String sql = String.format("INSERT INTO %s (TEXT) VALUES ('%s')", LAST_MESSAGE_TABLE, message.getText());
         executeSQLStatement(sql);
     }
 
-    public void shouldBeAt(Message message) {
+    public void bookmarkShouldBeOn(Message message) {
         ResultSet resultSet;
         String messageText;
         try {
@@ -43,7 +43,7 @@ public class LastMessage {
         assertThat(savedMessage).isEqualTo(message);
     }
 
-    public void clear() {
+    public void clearBookmark() {
         String sql = String.format("TRUNCATE TABLE %s", LAST_MESSAGE_TABLE);
         executeSQLStatement(sql);
     }

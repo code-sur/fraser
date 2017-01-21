@@ -5,7 +5,7 @@ import CodeRaguet.fraser.model.Message;
 import CodeRaguet.fraser.tests.tools.FraserRunner;
 import CodeRaguet.fraser.tests.tools.PublishedFrases;
 import CodeRaguet.fraser.tests.tools.db.DatabaseTest;
-import CodeRaguet.fraser.tests.tools.db.LastMessage;
+import CodeRaguet.fraser.tests.tools.db.BookmarkHandler;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -19,7 +19,7 @@ import static CodeRaguet.fraser.tests.tools.fixtures.Messages.*;
 public class WalkingSkeletonIT extends DatabaseTest {
 
     private final FraserRunner fraser = new FraserRunner(testENV);
-    private final LastMessage lastMessage = new LastMessage(connection);
+    private final BookmarkHandler bookmarkHandler = new BookmarkHandler(connection);
     private final PublishedFrases publishedFrases = new PublishedFrases(testENV);
 
     @Before
@@ -29,16 +29,16 @@ public class WalkingSkeletonIT extends DatabaseTest {
 
     @Before
     public void clearLastMessage() throws SQLException {
-        lastMessage.clear();
+        bookmarkHandler.clearBookmark();
     }
 
     @Test
     public void runWithLastMessage() throws IOException, InterruptedException {
-        lastMessage.setAt(firstMessage());
+        bookmarkHandler.placeBookmarkOn(firstMessage());
 
         fraser.run();
 
-        lastMessage.shouldBeAt(secondMessage());
+        bookmarkHandler.bookmarkShouldBeOn(secondMessage());
         publishedFrases.hasRecived(secondFrase());
     }
 
@@ -49,7 +49,7 @@ public class WalkingSkeletonIT extends DatabaseTest {
 
         fraser.run();
 
-        lastMessage.shouldBeAt(firstMessage());
+        bookmarkHandler.bookmarkShouldBeOn(firstMessage());
         publishedFrases.hasRecived(firstFrase());
     }
 
@@ -57,11 +57,11 @@ public class WalkingSkeletonIT extends DatabaseTest {
     @Ignore
     public void supportLongMessages() {
         Message beforeLongMessage = secondMessage();
-        lastMessage.setAt(beforeLongMessage);
+        bookmarkHandler.placeBookmarkOn(beforeLongMessage);
 
         fraser.run();
 
-        lastMessage.shouldBeAt(longMessage());
+        bookmarkHandler.bookmarkShouldBeOn(longMessage());
         publishedFrases.hasRecived(longFrase());
     }
 
