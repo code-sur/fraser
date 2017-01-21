@@ -1,18 +1,23 @@
 package CodeRaguet.fraser.tests.tools.db;
 
 import CodeRaguet.fraser.ENV;
+import CodeRaguet.fraser.db.DatabaseBookmark;
+import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.tests.tools.ENVTest;
 import org.flywaydb.core.Flyway;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 abstract public class DatabaseTest extends ENVTest {
 
     protected static Connection connection;
+    protected final Bookmark bookmark = new DatabaseBookmark(connection);
 
     @BeforeClass
     public static void createConnection() throws SQLException {
@@ -23,6 +28,22 @@ abstract public class DatabaseTest extends ENVTest {
         flyway.setDataSource(jdbcURL, "fraser", "fraser");
         flyway.clean();
         flyway.migrate();
+    }
+
+    @Before
+    public void clearBookmark() {
+        String sql = String.format("TRUNCATE TABLE %s", DatabaseBookmark.LAST_MESSAGE_TABLE);
+        executeSQLStatement(sql);
+    }
+
+    private void executeSQLStatement(String sql) {
+        try {
+            Statement stmt = connection.createStatement();
+            stmt.execute(sql);
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @AfterClass

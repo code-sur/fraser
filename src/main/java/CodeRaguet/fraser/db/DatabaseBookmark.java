@@ -9,6 +9,7 @@ import java.sql.Statement;
 
 public class DatabaseBookmark implements Bookmark {
 
+    public static final String LAST_MESSAGE_TABLE = "LAST_MESSAGE";
     private final Connection connection;
 
     public DatabaseBookmark(Connection connection) {
