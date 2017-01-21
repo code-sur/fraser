@@ -20,7 +20,6 @@ public class DatabaseBookmarkIT extends DatabaseTest {
     }
 
     @Test
-    @Ignore
     public void placeOnLongMessage() throws BookmarkException, NoBookmarkException {
         bookmark.placeOn(longMessage());
 

@@ -7,7 +7,6 @@ import CodeRaguet.fraser.tests.tools.e2e.BookmarkHandler;
 import CodeRaguet.fraser.tests.tools.e2e.FraserRunner;
 import CodeRaguet.fraser.tests.tools.e2e.PublishedFrases;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static CodeRaguet.fraser.tests.tools.fixtures.Frases.*;
@@ -50,7 +49,6 @@ public class WalkingSkeletonIT extends DatabaseTest {
     }
 
     @Test
-    @Ignore
     public void supportLongMessages() {
         Message beforeLongMessage = secondMessage();
         bookmarkHandler.placeBookmarkOn(beforeLongMessage);
