@@ -10,8 +10,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.io.IOException;
-
 import static CodeRaguet.fraser.tests.tools.fixtures.Frases.*;
 import static CodeRaguet.fraser.tests.tools.fixtures.Messages.*;
 
@@ -32,7 +30,7 @@ public class WalkingSkeletonIT extends DatabaseTest {
     }
 
     @Test
-    public void runWithLastMessage() throws IOException, InterruptedException {
+    public void withPreviousBookmark() {
         bookmarkHandler.placeBookmarkOn(firstMessage());
 
         fraser.run();
@@ -42,8 +40,7 @@ public class WalkingSkeletonIT extends DatabaseTest {
     }
 
     @Test
-    @Ignore
-    public void runWithoutLastMessage() throws IOException, InterruptedException {
+    public void runWithoutPreviousBookmark() {
         //no bookmark
 
         fraser.run();
