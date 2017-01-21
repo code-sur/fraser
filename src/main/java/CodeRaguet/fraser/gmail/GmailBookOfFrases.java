@@ -28,7 +28,7 @@ public class GmailBookOfFrases implements BookOfMessages {
 
         String messageText;
         Iterator<Message> messageIterator = messagesWithFrase.iterator();
-        Frase bookmarkAt;
+        CodeRaguet.fraser.model.Message bookmarkAt;
         try {
             bookmarkAt = bookmark.isOn();
             do {

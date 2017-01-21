@@ -1,6 +1,9 @@
 package CodeRaguet.fraser.db;
 
-import CodeRaguet.fraser.model.*;
+import CodeRaguet.fraser.model.Bookmark;
+import CodeRaguet.fraser.model.BookmarkException;
+import CodeRaguet.fraser.model.Message;
+import CodeRaguet.fraser.model.NoBookmarkException;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -17,7 +20,7 @@ public class DatabaseBookmark implements Bookmark {
     }
 
     @Override
-    public Frase isOn() throws NoBookmarkException {
+    public Message isOn() throws NoBookmarkException {
 
         ResultSet resultSet;
         String fraseText;
@@ -37,19 +40,36 @@ public class DatabaseBookmark implements Bookmark {
             throw new RuntimeException(e);
         }
 
-        return new Frase(fraseText);
+        return new Message(fraseText);
     }
 
     @Override
     public void placeOn(Message message) throws BookmarkException {
+        String update = String.format("UPDATE LAST_MESSAGE SET TEXT = '%s'", message.getText());
+        String insert = String.format("INSERT INTO LAST_MESSAGE (TEXT) VALUES ('%s')", message.getText());
+        String sql = bookmarkExists() ? update : insert;
         try {
-            String sql = String.format("UPDATE LAST_MESSAGE SET TEXT = '%s'", message.getText());
-            Statement stmt = connection.createStatement();
-            stmt.execute(sql);
-            stmt.close();
+            executeSQL(sql);
         } catch (SQLException e) {
             throw new BookmarkException(String.format("Can't place bookmark on message: %s", message.toString()), e);
         }
+    }
+
+    private boolean bookmarkExists() {
+        boolean bookmarkExists = false;
+        try {
+            if (isOn() != null) {
+                bookmarkExists = true;
+            }
+        } catch (NoBookmarkException ignored) {
+        }
+        return bookmarkExists;
+    }
+
+    private void executeSQL(String sql) throws SQLException {
+        Statement stmt = connection.createStatement();
+        stmt.execute(sql);
+        stmt.close();
     }
 
 }
