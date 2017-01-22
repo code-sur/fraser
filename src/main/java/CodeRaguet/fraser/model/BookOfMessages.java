@@ -5,7 +5,6 @@ import CodeRaguet.fraser.model.exceptions.BookmarkException;
 import CodeRaguet.fraser.model.exceptions.NoBookmarkException;
 
 import java.util.Iterator;
-import java.util.List;
 
 public class BookOfMessages {
 
@@ -18,23 +17,24 @@ public class BookOfMessages {
     }
 
     public Message next() throws BookmarkException {
-        List<Message> messagesWithFrase = gmailService.messagesWithFrase();
-
-        Message message;
-        Iterator<Message> messageIterator = messagesWithFrase.iterator();
-        Message bookmarkAt;
-        try {
-            bookmarkAt = bookmark.isOn();
-            do {
-                message = messageIterator.next();
-            } while (!message.equals(bookmarkAt));
-            message = messageIterator.next();
-        } catch (NoBookmarkException e) {
-            message = messagesWithFrase.get(0);
-        }
+        Iterator<Message> messagesWithFrase = gmailService.messagesWithFrase().iterator();
+        Message message = getMessageAfterBookmark(messagesWithFrase);
         bookmark.placeOn(message);
-
         return message;
     }
+
+    private Message getMessageAfterBookmark(Iterator<Message> messages) {
+        Message message = messages.next();
+        try {
+            if (bookmark.isOn().equals(message)) {
+                message = messages.next();
+            } else {
+                message = getMessageAfterBookmark(messages);
+            }
+        } catch (NoBookmarkException ignored) {
+        }
+        return message;
+    }
+
 
 }
