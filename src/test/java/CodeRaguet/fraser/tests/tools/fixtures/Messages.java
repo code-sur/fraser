@@ -19,11 +19,8 @@ public class Messages {
         return new Message("This is a 140 characters long frase. Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah... 140 characters!");
     }
 
-    public static List<com.google.api.services.gmail.model.Message> allMessagesAsList() {
-        return null;
+    public static List<Message> allMessagesAsList() {
+        return Arrays.asList(firstMessage(), secondMessage(), longMessage());
     }
 
-    public static List<String> allMessagesAsString() {
-        return Arrays.asList(firstMessage().getText(), secondMessage().getText(), longMessage().getText());
-    }
 }
