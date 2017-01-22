@@ -27,4 +27,7 @@ public class Messages {
         return Arrays.asList(firstMessage(), secondMessage(), longMessage());
     }
 
+    public static Message lastMessage() {
+        return thirdMessage();
+    }
 }

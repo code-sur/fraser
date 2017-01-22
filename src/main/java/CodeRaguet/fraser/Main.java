@@ -8,6 +8,7 @@ import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.model.FrasesPublisher;
 import CodeRaguet.fraser.model.exceptions.BookmarkException;
+import CodeRaguet.fraser.model.exceptions.NoMoreMessagesException;
 import CodeRaguet.fraser.twitter.TwitterFrasesPublisher;
 import CodeRaguet.fraser.twitter.TwitterService;
 import com.heroku.sdk.jdbc.DatabaseUrl;
@@ -43,7 +44,7 @@ public class Main {
         }
     }
 
-    private void run() throws BookmarkException {
+    private void run() throws BookmarkException, NoMoreMessagesException {
         frasesPublisher.publish(new Frase(bookOfMessages.next().getText()));
     }
 
