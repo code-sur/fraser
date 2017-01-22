@@ -3,7 +3,7 @@ package CodeRaguet.fraser;
 
 import CodeRaguet.fraser.db.DatabaseBookmark;
 import CodeRaguet.fraser.gmail.GmailService;
-import CodeRaguet.fraser.model.BookOfFrases;
+import CodeRaguet.fraser.model.BookOfMessages;
 import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.model.FrasesPublisher;
@@ -16,12 +16,12 @@ import java.sql.Connection;
 
 public class Main {
 
-    private final BookOfFrases bookOfMessages;
+    private final BookOfMessages bookOfMessages;
     private final FrasesPublisher frasesPublisher;
 
     private Main(GmailService gmailService, TwitterService twitterService, Connection connection) {
         Bookmark bookmark = new DatabaseBookmark(connection);
-        bookOfMessages = new BookOfFrases(gmailService, bookmark);
+        bookOfMessages = new BookOfMessages(gmailService, bookmark);
         frasesPublisher = new TwitterFrasesPublisher(twitterService);
     }
 

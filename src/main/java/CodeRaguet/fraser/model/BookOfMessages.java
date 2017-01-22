@@ -7,12 +7,12 @@ import CodeRaguet.fraser.model.exceptions.NoBookmarkException;
 import java.util.Iterator;
 import java.util.List;
 
-public class BookOfFrases {
+public class BookOfMessages {
 
     private Bookmark bookmark;
     private GmailService gmailService;
 
-    public BookOfFrases(GmailService gmailService, Bookmark bookmark) {
+    public BookOfMessages(GmailService gmailService, Bookmark bookmark) {
         this.gmailService = gmailService;
         this.bookmark = bookmark;
     }
