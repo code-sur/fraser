@@ -3,8 +3,8 @@ package CodeRaguet.fraser.tests.unit;
 import CodeRaguet.fraser.model.BookOfFrases;
 import CodeRaguet.fraser.gmail.GmailService;
 import CodeRaguet.fraser.model.Bookmark;
-import CodeRaguet.fraser.model.BookmarkException;
-import CodeRaguet.fraser.model.NoBookmarkException;
+import CodeRaguet.fraser.model.exceptions.BookmarkException;
+import CodeRaguet.fraser.model.exceptions.NoBookmarkException;
 import org.junit.Before;
 import org.junit.Test;
 

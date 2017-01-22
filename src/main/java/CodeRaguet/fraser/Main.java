@@ -5,7 +5,7 @@ import CodeRaguet.fraser.db.DatabaseBookmark;
 import CodeRaguet.fraser.model.BookOfFrases;
 import CodeRaguet.fraser.gmail.GmailService;
 import CodeRaguet.fraser.model.Bookmark;
-import CodeRaguet.fraser.model.BookmarkException;
+import CodeRaguet.fraser.model.exceptions.BookmarkException;
 import CodeRaguet.fraser.model.FrasesPublisher;
 import CodeRaguet.fraser.twitter.TwitterFrasesPublisher;
 import CodeRaguet.fraser.twitter.TwitterService;

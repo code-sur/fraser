@@ -1,6 +1,8 @@
 package CodeRaguet.fraser.model;
 
 import CodeRaguet.fraser.gmail.GmailService;
+import CodeRaguet.fraser.model.exceptions.BookmarkException;
+import CodeRaguet.fraser.model.exceptions.NoBookmarkException;
 
 import java.util.Iterator;
 import java.util.List;

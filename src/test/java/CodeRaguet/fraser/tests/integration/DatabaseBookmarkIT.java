@@ -1,9 +1,8 @@
 package CodeRaguet.fraser.tests.integration;
 
-import CodeRaguet.fraser.model.BookmarkException;
-import CodeRaguet.fraser.model.NoBookmarkException;
+import CodeRaguet.fraser.model.exceptions.BookmarkException;
+import CodeRaguet.fraser.model.exceptions.NoBookmarkException;
 import CodeRaguet.fraser.tests.tools.db.DatabaseTest;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static CodeRaguet.fraser.tests.tools.fixtures.Messages.firstMessage;
