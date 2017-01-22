@@ -2,11 +2,12 @@ package CodeRaguet.fraser;
 
 
 import CodeRaguet.fraser.db.DatabaseBookmark;
-import CodeRaguet.fraser.model.BookOfFrases;
 import CodeRaguet.fraser.gmail.GmailService;
+import CodeRaguet.fraser.model.BookOfFrases;
 import CodeRaguet.fraser.model.Bookmark;
-import CodeRaguet.fraser.model.exceptions.BookmarkException;
+import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.model.FrasesPublisher;
+import CodeRaguet.fraser.model.exceptions.BookmarkException;
 import CodeRaguet.fraser.twitter.TwitterFrasesPublisher;
 import CodeRaguet.fraser.twitter.TwitterService;
 import com.heroku.sdk.jdbc.DatabaseUrl;
@@ -43,7 +44,7 @@ public class Main {
     }
 
     private void run() throws BookmarkException {
-        frasesPublisher.publish(bookOfMessages.next());
+        frasesPublisher.publish(new Frase(bookOfMessages.next().getText()));
     }
 
 }

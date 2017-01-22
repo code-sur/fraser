@@ -17,7 +17,7 @@ public class BookOfFrases {
         this.bookmark = bookmark;
     }
 
-    public Frase next() throws BookmarkException {
+    public Message next() throws BookmarkException {
         List<Message> messagesWithFrase = gmailService.messagesWithFrase();
 
         Message message;
@@ -34,7 +34,7 @@ public class BookOfFrases {
         }
         bookmark.placeOn(message);
 
-        return new Frase(message.getText());
+        return message;
     }
 
 }

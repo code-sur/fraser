@@ -1,14 +1,14 @@
 package CodeRaguet.fraser.tests.unit;
 
-import CodeRaguet.fraser.model.BookOfFrases;
 import CodeRaguet.fraser.gmail.GmailService;
+import CodeRaguet.fraser.model.BookOfFrases;
 import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.model.exceptions.BookmarkException;
 import CodeRaguet.fraser.model.exceptions.NoBookmarkException;
+import CodeRaguet.fraser.tests.tools.fixtures.Messages;
 import org.junit.Before;
 import org.junit.Test;
 
-import static CodeRaguet.fraser.tests.tools.fixtures.Frases.thirdFrase;
 import static CodeRaguet.fraser.tests.tools.fixtures.Messages.allMessagesAsList;
 import static CodeRaguet.fraser.tests.tools.fixtures.Messages.secondMessage;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,7 +31,7 @@ public class BookOfMessagesTest {
     public void getNextFraseAfterBookmark() throws BookmarkException, NoBookmarkException {
         when(bookmarkMock.isOn()).thenReturn(secondMessage());
 
-        assertThat(bookOfmessages.next()).isEqualTo(thirdFrase());
+        assertThat(bookOfmessages.next()).isEqualTo(Messages.thirdMessage());
     }
 
 }
