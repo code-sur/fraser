@@ -1,6 +1,6 @@
 package CodeRaguet.fraser.tests.unit;
 
-import CodeRaguet.fraser.gmail.GmailBookOfFrases;
+import CodeRaguet.fraser.gmail.BookOfFrases;
 import CodeRaguet.fraser.gmail.GmailService;
 import CodeRaguet.fraser.model.BookOfMessages;
 import CodeRaguet.fraser.model.Bookmark;
@@ -25,7 +25,7 @@ public class BookOfMessagesTest {
     public void setUpBookOfMessages() {
         GmailService gmailServiceMock = mock(GmailService.class);
         when(gmailServiceMock.messagesWithFrase()).thenReturn(allMessagesAsList());
-        bookOfmessages = new GmailBookOfFrases(gmailServiceMock, bookmarkMock);
+        bookOfmessages = new BookOfFrases(gmailServiceMock, bookmarkMock);
     }
 
     @Test

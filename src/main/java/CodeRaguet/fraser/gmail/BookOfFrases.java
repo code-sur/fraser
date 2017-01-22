@@ -5,12 +5,12 @@ import CodeRaguet.fraser.model.*;
 import java.util.Iterator;
 import java.util.List;
 
-public class GmailBookOfFrases implements BookOfMessages {
+public class BookOfFrases implements BookOfMessages {
 
     private Bookmark bookmark;
     private GmailService gmailService;
 
-    public GmailBookOfFrases(GmailService gmailService, Bookmark bookmark) {
+    public BookOfFrases(GmailService gmailService, Bookmark bookmark) {
         this.gmailService = gmailService;
         this.bookmark = bookmark;
     }
