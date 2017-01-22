@@ -1,6 +1,6 @@
-package CodeRaguet.fraser.gmail;
+package CodeRaguet.fraser.model;
 
-import CodeRaguet.fraser.model.*;
+import CodeRaguet.fraser.gmail.GmailService;
 
 import java.util.Iterator;
 import java.util.List;

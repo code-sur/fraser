@@ -1,6 +1,6 @@
 package CodeRaguet.fraser.tests.unit;
 
-import CodeRaguet.fraser.gmail.BookOfFrases;
+import CodeRaguet.fraser.model.BookOfFrases;
 import CodeRaguet.fraser.gmail.GmailService;
 import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.model.BookmarkException;
