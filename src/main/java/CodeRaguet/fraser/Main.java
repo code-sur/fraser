@@ -4,7 +4,6 @@ package CodeRaguet.fraser;
 import CodeRaguet.fraser.db.DatabaseBookmark;
 import CodeRaguet.fraser.gmail.BookOfFrases;
 import CodeRaguet.fraser.gmail.GmailService;
-import CodeRaguet.fraser.model.BookOfMessages;
 import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.model.BookmarkException;
 import CodeRaguet.fraser.model.FrasesPublisher;
@@ -16,7 +15,7 @@ import java.sql.Connection;
 
 public class Main {
 
-    private final BookOfMessages bookOfMessages;
+    private final BookOfFrases bookOfMessages;
     private final FrasesPublisher frasesPublisher;
 
     private Main(GmailService gmailService, TwitterService twitterService, Connection connection) {

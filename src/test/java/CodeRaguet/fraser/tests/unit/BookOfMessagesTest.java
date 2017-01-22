@@ -2,7 +2,6 @@ package CodeRaguet.fraser.tests.unit;
 
 import CodeRaguet.fraser.gmail.BookOfFrases;
 import CodeRaguet.fraser.gmail.GmailService;
-import CodeRaguet.fraser.model.BookOfMessages;
 import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.model.BookmarkException;
 import CodeRaguet.fraser.model.NoBookmarkException;
@@ -18,7 +17,7 @@ import static org.mockito.Mockito.when;
 
 public class BookOfMessagesTest {
 
-    private BookOfMessages bookOfmessages;
+    private BookOfFrases bookOfmessages;
     private Bookmark bookmarkMock = mock(Bookmark.class);
 
     @Before

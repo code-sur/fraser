@@ -5,7 +5,7 @@ import CodeRaguet.fraser.model.*;
 import java.util.Iterator;
 import java.util.List;
 
-public class BookOfFrases implements BookOfMessages {
+public class BookOfFrases {
 
     private Bookmark bookmark;
     private GmailService gmailService;
@@ -15,7 +15,6 @@ public class BookOfFrases implements BookOfMessages {
         this.bookmark = bookmark;
     }
 
-    @Override
     public Frase next() throws BookmarkException {
         List<Message> messagesWithFrase = gmailService.messagesWithFrase();
 
