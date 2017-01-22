@@ -26,11 +26,11 @@ public class GmailBookOfFrases implements BookOfMessages {
             bookmarkAt = bookmark.isOn();
             do {
                 message = messageIterator.next();
-            } while (message.equals(bookmarkAt));
+            } while (!message.equals(bookmarkAt));
+            message = messageIterator.next();
         } catch (NoBookmarkException e) {
             message = messagesWithFrase.get(0);
         }
-
         bookmark.placeOn(message);
 
         return new Frase(message.getText());

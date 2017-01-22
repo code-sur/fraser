@@ -18,4 +18,7 @@ public class Frases {
         return new Frase(longMessage().getText());
     }
 
+    public static Frase thirdFrase() {
+        return longFrase();
+    }
 }
