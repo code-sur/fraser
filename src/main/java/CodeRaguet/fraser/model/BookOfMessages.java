@@ -1,6 +1,5 @@
 package CodeRaguet.fraser.model;
 
-import CodeRaguet.fraser.gmail.GmailService;
 import CodeRaguet.fraser.model.exceptions.BookmarkException;
 import CodeRaguet.fraser.model.exceptions.NoBookmarkException;
 import CodeRaguet.fraser.model.exceptions.NoMoreMessagesException;
@@ -11,16 +10,16 @@ import java.util.NoSuchElementException;
 public class BookOfMessages {
 
     private Bookmark bookmark;
-    private GmailService gmailService;
+    private PostOffice postOffice;
     private Message messageAtBookmark;
 
-    public BookOfMessages(GmailService gmailService, Bookmark bookmark) {
-        this.gmailService = gmailService;
+    public BookOfMessages(PostOffice postOffice, Bookmark bookmark) {
+        this.postOffice = postOffice;
         this.bookmark = bookmark;
     }
 
     public Message next() throws BookmarkException, NoMoreMessagesException {
-        Iterator<Message> messagesWithFrase = gmailService.messagesWithSubjectF().iterator();
+        Iterator<Message> messagesWithFrase = postOffice.messagesWithSubjectF().iterator();
         Message message = getMessageAfterBookmark(messagesWithFrase);
         bookmark.placeOn(message);
         return message;

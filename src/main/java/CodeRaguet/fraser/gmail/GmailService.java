@@ -1,6 +1,7 @@
 package CodeRaguet.fraser.gmail;
 
 
+import CodeRaguet.fraser.model.PostOffice;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class GmailService {
+public class GmailService implements PostOffice {
 
     private static final String USER_ID = "me";
     private final List<String> SCOPES;

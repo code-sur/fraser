@@ -3,6 +3,7 @@ package CodeRaguet.fraser.tests.integration;
 import CodeRaguet.fraser.ENV;
 import CodeRaguet.fraser.gmail.GmailService;
 import CodeRaguet.fraser.model.Message;
+import CodeRaguet.fraser.model.PostOffice;
 import CodeRaguet.fraser.tests.tools.ENVTest;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,18 +15,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class GmailServiceIT extends ENVTest {
 
-    private GmailService gmailService;
+    private PostOffice postOffice;
 
     @Before
     public void setUpGmailService() {
         String clientSecret = testENV.getProperty(ENV.GMAIL_CLIENT_SECRET.name());
         String refreshToken = testENV.getProperty(ENV.GMAIL_REFRESH_TOKEN.name());
-        gmailService = new GmailService(clientSecret, refreshToken);
+        postOffice = new GmailService(clientSecret, refreshToken);
     }
 
     @Test
     public void getMessagesWithSubjectF() {
-        List<Message> messages = gmailService.messagesWithSubjectF();
+        List<Message> messages = postOffice.messagesWithSubjectF();
 
         assertThat(messages).isEqualTo(messagesSubjectF());
     }

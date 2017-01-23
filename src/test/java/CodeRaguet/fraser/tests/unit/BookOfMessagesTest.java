@@ -3,6 +3,7 @@ package CodeRaguet.fraser.tests.unit;
 import CodeRaguet.fraser.gmail.GmailService;
 import CodeRaguet.fraser.model.BookOfMessages;
 import CodeRaguet.fraser.model.Bookmark;
+import CodeRaguet.fraser.model.PostOffice;
 import CodeRaguet.fraser.model.exceptions.BookmarkException;
 import CodeRaguet.fraser.model.exceptions.NoBookmarkException;
 import CodeRaguet.fraser.model.exceptions.NoMoreMessagesException;
@@ -21,9 +22,9 @@ public class BookOfMessagesTest {
 
     @Before
     public void setUpBookOfMessages() {
-        GmailService gmailService = mock(GmailService.class);
-        when(gmailService.messagesWithSubjectF()).thenReturn(allValidMessages());
-        bookOfmessages = new BookOfMessages(gmailService, bookmark);
+        PostOffice postOffice = mock(GmailService.class);
+        when(postOffice.messagesWithSubjectF()).thenReturn(allValidMessages());
+        bookOfmessages = new BookOfMessages(postOffice, bookmark);
     }
 
     @Test
