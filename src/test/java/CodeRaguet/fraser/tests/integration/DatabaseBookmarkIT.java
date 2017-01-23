@@ -12,14 +12,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DatabaseBookmarkIT extends DatabaseTest {
 
     @Test
-    public void shouldNotFailWithoutBookmark() throws BookmarkException, NoBookmarkException {
+    public void shouldNotFailWithoutBookmark() throws BookmarkException {
         bookmark.placeOn(firstMessage());
 
         assertThat(bookmark.isOn()).isEqualTo(firstMessage());
     }
 
     @Test
-    public void placeOnLongMessage() throws BookmarkException, NoBookmarkException {
+    public void placeOnLongMessage() throws BookmarkException {
         bookmark.placeOn(longMessage());
 
         assertThat(bookmark.isOn()).isEqualTo(longMessage());

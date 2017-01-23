@@ -27,21 +27,21 @@ public class BookOfMessagesTest {
     }
 
     @Test
-    public void getFirstMessageWhenNoBookmark() throws NoBookmarkException, BookmarkException, NoMoreMessagesException {
+    public void getFirstMessageWhenNoBookmark() throws BookmarkException, NoMoreMessagesException {
         when(bookmark.isOn()).thenThrow(NoBookmarkException.class);
 
         assertThat(bookOfmessages.next()).isEqualTo(firstMessage());
     }
 
     @Test
-    public void getNextFraseAfterBookmark() throws BookmarkException, NoBookmarkException, NoMoreMessagesException {
+    public void getNextFraseAfterBookmark() throws BookmarkException, NoMoreMessagesException {
         when(bookmark.isOn()).thenReturn(secondMessage());
 
         assertThat(bookOfmessages.next()).isEqualTo(thirdMessage());
     }
 
     @Test(expected = NoMoreMessagesException.class)
-    public void failIfNoMoreMessages() throws NoBookmarkException, BookmarkException, NoMoreMessagesException {
+    public void failIfNoMoreMessages() throws BookmarkException, NoMoreMessagesException {
         when(bookmark.isOn()).thenReturn(lastMessage());
 
         bookOfmessages.next();
