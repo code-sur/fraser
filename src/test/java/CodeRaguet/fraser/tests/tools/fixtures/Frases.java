@@ -21,4 +21,8 @@ public class Frases {
     public static Frase nextFraseNotFromStranger() {
         return new Frase(nextMessageNotFromStranger().getText());
     }
+
+    public static Frase someFrase() {
+        return new Frase(someMessage().getText());
+    }
 }

@@ -50,4 +50,8 @@ public class Messages {
     private static Message messageFromStranger() {
         return new Message("Frase from stranger.");
     }
+
+    public static Message someMessage() {
+        return firstMessage();
+    }
 }
