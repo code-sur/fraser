@@ -1,11 +1,14 @@
 package CodeRaguet.fraser;
 
 
-import CodeRaguet.fraser.gmail.GmailBookOfFrases;
+import CodeRaguet.fraser.db.DatabaseBookmark;
 import CodeRaguet.fraser.gmail.GmailService;
-import CodeRaguet.fraser.model.BookOfFrases;
+import CodeRaguet.fraser.model.BookOfMessages;
 import CodeRaguet.fraser.model.Bookmark;
+import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.model.FrasesPublisher;
+import CodeRaguet.fraser.model.exceptions.BookmarkException;
+import CodeRaguet.fraser.model.exceptions.NoMoreMessagesException;
 import CodeRaguet.fraser.twitter.TwitterFrasesPublisher;
 import CodeRaguet.fraser.twitter.TwitterService;
 import com.heroku.sdk.jdbc.DatabaseUrl;
@@ -14,14 +17,13 @@ import java.sql.Connection;
 
 public class Main {
 
-    private final BookOfFrases bookOfFrases;
+    private final BookOfMessages bookOfMessages;
     private final FrasesPublisher frasesPublisher;
-    private Bookmark bookmark;
 
     private Main(GmailService gmailService, TwitterService twitterService, Connection connection) {
-        bookOfFrases = new GmailBookOfFrases(gmailService);
+        Bookmark bookmark = new DatabaseBookmark(connection);
+        bookOfMessages = new BookOfMessages(gmailService, bookmark);
         frasesPublisher = new TwitterFrasesPublisher(twitterService);
-        bookmark = new PostgresBookmark(connection);
     }
 
     public static void main(String... args) {
@@ -42,8 +44,8 @@ public class Main {
         }
     }
 
-    private void run() {
-        frasesPublisher.publish(bookOfFrases.nextFraseAfter(bookmark));
+    private void run() throws BookmarkException, NoMoreMessagesException {
+        frasesPublisher.publish(new Frase(bookOfMessages.next().getText()));
     }
 
 }

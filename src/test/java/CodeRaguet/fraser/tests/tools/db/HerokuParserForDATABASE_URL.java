@@ -1,9 +1,9 @@
-package CodeRaguet.fraser.tests.tools;
+package CodeRaguet.fraser.tests.tools.db;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class HerokuDBURLParser {
+public class HerokuParserForDATABASE_URL {
 
     public static String parse(String database_url) {
         String regex = "postgres://(\\w+):(\\w+)@(\\w+):(\\d+)/(\\w+)";

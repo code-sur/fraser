@@ -1,4 +1,4 @@
-package CodeRaguet.fraser.tests.tools;
+package CodeRaguet.fraser.tests.tools.e2e;
 
 import CodeRaguet.fraser.ENV;
 import CodeRaguet.fraser.model.Frase;
@@ -13,11 +13,11 @@ import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TwitterServer {
+public class PublishedFrases {
 
     private final Twitter twitter;
 
-    public TwitterServer(Properties env) {
+    public PublishedFrases(Properties env) {
         ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
         configurationBuilder
                 .setDebugEnabled(true)
