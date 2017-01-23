@@ -18,7 +18,7 @@ public class Frases {
         return new Frase(longMessage().getText());
     }
 
-    public static Frase thirdFrase() {
-        return longFrase();
+    public static Frase nextFraseNotFromStranger() {
+        return new Frase(nextMessageNotFromStranger().getText());
     }
 }

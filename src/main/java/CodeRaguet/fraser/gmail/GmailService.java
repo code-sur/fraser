@@ -82,7 +82,7 @@ public class GmailService {
         return GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
     }
 
-    public List<CodeRaguet.fraser.model.Message> messagesWithFrase() {
+    public List<CodeRaguet.fraser.model.Message> messagesWithSubjectF() {
         List<Thread> threadsWithFrase = selectThreadsWithFrase();
         List<CodeRaguet.fraser.model.Message> messagesWithFrase = new ArrayList<>();
         threadsWithFrase.forEach(thread -> messagesWithFrase.add(new CodeRaguet.fraser.model.Message(selectMessageWithFrase(thread).getSnippet())));

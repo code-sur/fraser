@@ -20,7 +20,7 @@ public class BookOfMessages {
     }
 
     public Message next() throws BookmarkException, NoMoreMessagesException {
-        Iterator<Message> messagesWithFrase = gmailService.messagesWithFrase().iterator();
+        Iterator<Message> messagesWithFrase = gmailService.messagesWithSubjectF().iterator();
         Message message = getMessageAfterBookmark(messagesWithFrase);
         bookmark.placeOn(message);
         return message;

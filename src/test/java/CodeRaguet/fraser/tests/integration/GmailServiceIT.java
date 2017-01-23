@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static CodeRaguet.fraser.tests.tools.fixtures.Messages.allMessagesAsList;
+import static CodeRaguet.fraser.tests.tools.fixtures.Messages.messagesSubjectF;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class GmailServiceIT extends ENVTest {
@@ -24,10 +24,10 @@ public class GmailServiceIT extends ENVTest {
     }
 
     @Test
-    public void fetchAllmessagesWithFrase() {
-        List<Message> messages = gmailService.messagesWithFrase();
+    public void getMessagesWithSubjectF() {
+        List<Message> messages = gmailService.messagesWithSubjectF();
 
-        assertThat(messages).isEqualTo(allMessagesAsList());
+        assertThat(messages).isEqualTo(messagesSubjectF());
     }
 
 }
