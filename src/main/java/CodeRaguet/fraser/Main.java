@@ -2,7 +2,7 @@ package CodeRaguet.fraser;
 
 
 import CodeRaguet.fraser.db.DatabaseBookmark;
-import CodeRaguet.fraser.gmail.GmailService;
+import CodeRaguet.fraser.gmail.GmailPostOffice;
 import CodeRaguet.fraser.model.*;
 import CodeRaguet.fraser.twitter.TwitterFrasesPublisher;
 import CodeRaguet.fraser.twitter.TwitterService;
@@ -41,7 +41,7 @@ public class Main {
     private static PostOffice getPostOffice() {
         String clientSecret = ENV.GMAIL_CLIENT_SECRET.value();
         String refreshToken = ENV.GMAIL_REFRESH_TOKEN.value();
-        return new GmailService(clientSecret, refreshToken);
+        return new GmailPostOffice(clientSecret, refreshToken);
     }
 
 }

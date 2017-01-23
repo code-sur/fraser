@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class GmailService implements PostOffice {
+public class GmailPostOffice implements PostOffice {
 
     private static final String USER_ID = "me";
     private final List<String> SCOPES;
@@ -38,7 +38,7 @@ public class GmailService implements PostOffice {
     private String clientSecret;
     private Gmail service;
 
-    public GmailService(String clientSecret, String refreshToken) {
+    public GmailPostOffice(String clientSecret, String refreshToken) {
         try {
             HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         } catch (IOException | GeneralSecurityException e) {

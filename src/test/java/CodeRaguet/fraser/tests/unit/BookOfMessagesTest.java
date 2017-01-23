@@ -1,6 +1,5 @@
 package CodeRaguet.fraser.tests.unit;
 
-import CodeRaguet.fraser.gmail.GmailService;
 import CodeRaguet.fraser.model.BookOfMessages;
 import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.model.PostOffice;
@@ -22,7 +21,7 @@ public class BookOfMessagesTest {
 
     @Before
     public void setUpBookOfMessages() {
-        PostOffice postOffice = mock(GmailService.class);
+        PostOffice postOffice = mock(PostOffice.class);
         when(postOffice.messagesWithSubjectF()).thenReturn(allValidMessages());
         bookOfmessages = new BookOfMessages(postOffice, bookmark);
     }
