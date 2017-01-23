@@ -27,7 +27,7 @@ public class Messages {
         return new Message("This is a 140 characters long frase. Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah... 140 characters!");
     }
 
-    public static List<Message> allMessagesAsList() {
+    public static List<Message> allValidMessages() {
         return Arrays.asList(firstMessage(), secondMessage(), thirdMessage(), fourthMessage());
     }
 

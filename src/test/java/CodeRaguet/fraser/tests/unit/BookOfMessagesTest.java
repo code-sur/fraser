@@ -22,7 +22,7 @@ public class BookOfMessagesTest {
     @Before
     public void setUpBookOfMessages() {
         GmailService gmailService = mock(GmailService.class);
-        when(gmailService.messagesWithSubjectF()).thenReturn(allMessagesAsList());
+        when(gmailService.messagesWithSubjectF()).thenReturn(allValidMessages());
         bookOfmessages = new BookOfMessages(gmailService, bookmark);
     }
 
