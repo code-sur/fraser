@@ -3,10 +3,7 @@ package CodeRaguet.fraser;
 
 import CodeRaguet.fraser.db.DatabaseBookmark;
 import CodeRaguet.fraser.gmail.GmailService;
-import CodeRaguet.fraser.model.BookOfMessages;
-import CodeRaguet.fraser.model.Bookmark;
-import CodeRaguet.fraser.model.Frase;
-import CodeRaguet.fraser.model.FrasesPublisher;
+import CodeRaguet.fraser.model.*;
 import CodeRaguet.fraser.model.exceptions.BookmarkException;
 import CodeRaguet.fraser.model.exceptions.NoMoreMessagesException;
 import CodeRaguet.fraser.twitter.TwitterFrasesPublisher;
@@ -52,7 +49,7 @@ public class Main {
     }
 
     private void run() throws BookmarkException, NoMoreMessagesException {
-        frasesPublisher.publish(new Frase(bookOfMessages.next().getText()));
+        new Fraser(frasesPublisher, bookOfMessages).run();
     }
 
 }
