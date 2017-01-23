@@ -27,21 +27,28 @@ public class Main {
     }
 
     public static void main(String... args) {
-        String clientSecret = ENV.GMAIL_CLIENT_SECRET.value();
-        String refreshToken = ENV.GMAIL_REFRESH_TOKEN.value();
-        GmailService gmailService = new GmailService(clientSecret, refreshToken);
-
-        String consumerKey = ENV.TWITTER_CONSUMER_KEY.value();
-        String consumerSecret = ENV.TWITTER_CONSUMER_SECRET.value();
-        String accessToken = ENV.TWITTER_ACCESS_TOKEN.value();
-        String accessTokenSecret = ENV.TWITTER_ACCESS_TOKEN_SECRET.value();
-        TwitterService twitterService = new TwitterService(consumerKey, consumerSecret, accessToken, accessTokenSecret);
+        GmailService gmailService = getGmailService();
+        TwitterService twitterService = getTwitterService();
 
         try (Connection connection = DatabaseUrl.extract().getConnection()) {
             new Main(gmailService, twitterService, connection).run();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static TwitterService getTwitterService() {
+        String consumerKey = ENV.TWITTER_CONSUMER_KEY.value();
+        String consumerSecret = ENV.TWITTER_CONSUMER_SECRET.value();
+        String accessToken = ENV.TWITTER_ACCESS_TOKEN.value();
+        String accessTokenSecret = ENV.TWITTER_ACCESS_TOKEN_SECRET.value();
+        return new TwitterService(consumerKey, consumerSecret, accessToken, accessTokenSecret);
+    }
+
+    private static GmailService getGmailService() {
+        String clientSecret = ENV.GMAIL_CLIENT_SECRET.value();
+        String refreshToken = ENV.GMAIL_REFRESH_TOKEN.value();
+        return new GmailService(clientSecret, refreshToken);
     }
 
     private void run() throws BookmarkException, NoMoreMessagesException {
