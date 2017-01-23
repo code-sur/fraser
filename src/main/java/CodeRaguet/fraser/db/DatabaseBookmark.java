@@ -1,8 +1,8 @@
 package CodeRaguet.fraser.db;
 
 import CodeRaguet.fraser.model.Bookmark;
-import CodeRaguet.fraser.model.exceptions.BookmarkException;
 import CodeRaguet.fraser.model.Message;
+import CodeRaguet.fraser.model.exceptions.BookmarkException;
 import CodeRaguet.fraser.model.exceptions.NoBookmarkException;
 
 import java.sql.Connection;
@@ -21,7 +21,6 @@ public class DatabaseBookmark implements Bookmark {
 
     @Override
     public Message isOn() throws NoBookmarkException {
-
         ResultSet resultSet;
         String fraseText;
         try {

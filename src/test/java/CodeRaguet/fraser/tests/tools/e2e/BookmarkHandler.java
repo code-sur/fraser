@@ -1,8 +1,8 @@
 package CodeRaguet.fraser.tests.tools.e2e;
 
 import CodeRaguet.fraser.model.Bookmark;
-import CodeRaguet.fraser.model.exceptions.BookmarkException;
 import CodeRaguet.fraser.model.Message;
+import CodeRaguet.fraser.model.exceptions.BookmarkException;
 import CodeRaguet.fraser.model.exceptions.NoBookmarkException;
 
 import static org.assertj.core.api.Assertions.assertThat;

@@ -6,7 +6,6 @@ import CodeRaguet.fraser.model.Bookmark;
 import CodeRaguet.fraser.model.exceptions.BookmarkException;
 import CodeRaguet.fraser.model.exceptions.NoBookmarkException;
 import CodeRaguet.fraser.model.exceptions.NoMoreMessagesException;
-import CodeRaguet.fraser.tests.tools.fixtures.Messages;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,9 +21,9 @@ public class BookOfMessagesTest {
 
     @Before
     public void setUpBookOfMessages() {
-        GmailService gmailServiceMock = mock(GmailService.class);
-        when(gmailServiceMock.messagesWithFrase()).thenReturn(allMessagesAsList());
-        bookOfmessages = new BookOfMessages(gmailServiceMock, bookmark);
+        GmailService gmailService = mock(GmailService.class);
+        when(gmailService.messagesWithFrase()).thenReturn(allMessagesAsList());
+        bookOfmessages = new BookOfMessages(gmailService, bookmark);
     }
 
     @Test
@@ -43,7 +42,7 @@ public class BookOfMessagesTest {
 
     @Test(expected = NoMoreMessagesException.class)
     public void failIfNoMoreMessages() throws NoBookmarkException, BookmarkException, NoMoreMessagesException {
-        when(bookmark.isOn()).thenReturn(Messages.lastMessage());
+        when(bookmark.isOn()).thenReturn(lastMessage());
 
         bookOfmessages.next();
     }
