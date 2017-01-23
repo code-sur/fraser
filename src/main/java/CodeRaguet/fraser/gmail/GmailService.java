@@ -36,7 +36,6 @@ public class GmailService {
     private DataStoreFactory DATA_STORE_FACTORY;
     private String clientSecret;
     private Gmail service;
-    private Long threadsMaxResults = 100L;
 
     public GmailService(String clientSecret, String refreshToken) {
         try {
@@ -83,10 +82,11 @@ public class GmailService {
         return GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
     }
 
-    public List<Message> messagesWithFrase() {
+    public List<CodeRaguet.fraser.model.Message> messagesWithFrase() {
         List<Thread> threadsWithFrase = selectThreadsWithFrase();
-        List<Message> messagesWithFrase = new ArrayList<>();
-        threadsWithFrase.forEach(thread -> messagesWithFrase.add(selectMessageWithFrase(thread)));
+        List<CodeRaguet.fraser.model.Message> messagesWithFrase = new ArrayList<>();
+        threadsWithFrase.forEach(thread -> messagesWithFrase.add(new CodeRaguet.fraser.model.Message(selectMessageWithFrase(thread).getSnippet())));
+        Collections.reverse(messagesWithFrase);
         return messagesWithFrase;
     }
 
@@ -107,6 +107,7 @@ public class GmailService {
     }
 
     private ListThreadsResponse getResponse(String pageToken) throws IOException {
+        Long threadsMaxResults = 100L;
         return service.users().threads().list(USER_ID)
                 .setMaxResults(threadsMaxResults)
                 .setQ("subject:f")
@@ -122,7 +123,4 @@ public class GmailService {
         }
     }
 
-    public void setThreadsMaxResults(Long threadsMaxResults) {
-        this.threadsMaxResults = threadsMaxResults;
-    }
 }

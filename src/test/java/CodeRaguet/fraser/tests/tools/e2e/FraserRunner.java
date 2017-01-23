@@ -1,4 +1,4 @@
-package CodeRaguet.fraser.tests.tools;
+package CodeRaguet.fraser.tests.tools.e2e;
 
 
 import java.io.IOException;
@@ -15,10 +15,14 @@ public class FraserRunner {
         env.forEach((name, value) -> this.env.put(name.toString(), value.toString()));
     }
 
-    public void run() throws IOException, InterruptedException {
-        processBuilder.redirectErrorStream(true);
-        Process p = processBuilder.start();
-        p.waitFor();
+    public void run() {
+        try {
+            processBuilder.redirectErrorStream(true);
+            Process p = processBuilder.start();
+            p.waitFor();
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
