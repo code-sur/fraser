@@ -2,6 +2,7 @@ package CodeRaguet.fraser.tests.unit;
 
 import CodeRaguet.fraser.model.BookOfMessages;
 import CodeRaguet.fraser.model.Bookmark;
+import CodeRaguet.fraser.model.MessageFilter;
 import CodeRaguet.fraser.model.PostOffice;
 import CodeRaguet.fraser.model.exceptions.BookmarkException;
 import CodeRaguet.fraser.model.exceptions.NoBookmarkException;
@@ -22,8 +23,9 @@ public class BookOfMessagesTest {
     @Before
     public void setUpBookOfMessages() {
         PostOffice postOffice = mock(PostOffice.class);
-        when(postOffice.messagesWithSubjectF()).thenReturn(allValidMessages());
-        bookOfmessages = new BookOfMessages(postOffice, bookmark);
+        MessageFilter messageFilter = mock(MessageFilter.class);
+        when(postOffice.messagesFilteredBy(messageFilter)).thenReturn(allValidMessages());
+        bookOfmessages = new BookOfMessages(postOffice, bookmark, messageFilter);
     }
 
     @Test

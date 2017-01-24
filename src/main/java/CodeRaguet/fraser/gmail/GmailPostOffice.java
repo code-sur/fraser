@@ -1,6 +1,7 @@
 package CodeRaguet.fraser.gmail;
 
 
+import CodeRaguet.fraser.model.MessageFilter;
 import CodeRaguet.fraser.model.PostOffice;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
@@ -83,7 +84,16 @@ public class GmailPostOffice implements PostOffice {
         return GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
     }
 
-    public List<CodeRaguet.fraser.model.Message> messagesWithSubjectF() {
+    public List<CodeRaguet.fraser.model.Message> messagesFilteredBy() {
+        List<Thread> threadsWithFrase = selectThreadsWithFrase();
+        List<CodeRaguet.fraser.model.Message> messagesWithFrase = new ArrayList<>();
+        threadsWithFrase.forEach(thread -> messagesWithFrase.add(new CodeRaguet.fraser.model.Message(selectMessageWithFrase(thread).getSnippet())));
+        Collections.reverse(messagesWithFrase);
+        return messagesWithFrase;
+    }
+
+    @Override
+    public List<CodeRaguet.fraser.model.Message> messagesFilteredBy(MessageFilter filter) {
         List<Thread> threadsWithFrase = selectThreadsWithFrase();
         List<CodeRaguet.fraser.model.Message> messagesWithFrase = new ArrayList<>();
         threadsWithFrase.forEach(thread -> messagesWithFrase.add(new CodeRaguet.fraser.model.Message(selectMessageWithFrase(thread).getSnippet())));

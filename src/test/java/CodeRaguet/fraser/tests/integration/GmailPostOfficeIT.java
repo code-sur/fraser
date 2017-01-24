@@ -26,7 +26,7 @@ public class GmailPostOfficeIT extends ENVTest {
 
     @Test
     public void getMessagesWithSubjectF() {
-        List<Message> messages = postOffice.messagesWithSubjectF();
+        List<Message> messages = postOffice.messagesFilteredBy();
 
         assertThat(messages).isEqualTo(messagesSubjectF());
     }

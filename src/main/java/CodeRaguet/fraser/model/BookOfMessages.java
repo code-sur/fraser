@@ -12,14 +12,16 @@ public class BookOfMessages {
     private Bookmark bookmark;
     private PostOffice postOffice;
     private Message messageAtBookmark;
+    private MessageFilter messageFilter;
 
-    public BookOfMessages(PostOffice postOffice, Bookmark bookmark) {
+    public BookOfMessages(PostOffice postOffice, Bookmark bookmark, MessageFilter messageFilter) {
         this.postOffice = postOffice;
         this.bookmark = bookmark;
+        this.messageFilter = messageFilter;
     }
 
     public Message next() throws BookmarkException, NoMoreMessagesException {
-        Iterator<Message> messagesWithFrase = postOffice.messagesWithSubjectF().iterator();
+        Iterator<Message> messagesWithFrase = postOffice.messagesFilteredBy(messageFilter).iterator();
         Message message = getMessageAfterBookmark(messagesWithFrase);
         bookmark.placeOn(message);
         return message;
