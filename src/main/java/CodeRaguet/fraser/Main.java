@@ -19,7 +19,7 @@ public class Main {
 
         try (Connection connection = DatabaseUrl.extract().getConnection()) {
             BookOfMessages bookOfMessages = getBookOfMessages(postOffice, connection);
-            new Fraser(frasesPublisher, bookOfMessages).run();
+            new FraserApplication(frasesPublisher, bookOfMessages).run();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

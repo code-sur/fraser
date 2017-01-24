@@ -3,12 +3,12 @@ package CodeRaguet.fraser.model;
 import CodeRaguet.fraser.model.exceptions.BookmarkException;
 import CodeRaguet.fraser.model.exceptions.NoMoreMessagesException;
 
-public class Fraser {
+public class FraserApplication {
 
     private final BookOfMessages bookOfMessages;
     private final FrasesPublisher frasesPublisher;
 
-    public Fraser(FrasesPublisher frasesPublisher, BookOfMessages bookOfMessages) {
+    public FraserApplication(FrasesPublisher frasesPublisher, BookOfMessages bookOfMessages) {
         this.bookOfMessages = bookOfMessages;
         this.frasesPublisher = frasesPublisher;
     }

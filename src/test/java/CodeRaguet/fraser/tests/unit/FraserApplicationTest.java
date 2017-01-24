@@ -1,7 +1,7 @@
 package CodeRaguet.fraser.tests.unit;
 
 import CodeRaguet.fraser.model.BookOfMessages;
-import CodeRaguet.fraser.model.Fraser;
+import CodeRaguet.fraser.model.FraserApplication;
 import CodeRaguet.fraser.model.FrasesPublisher;
 import CodeRaguet.fraser.model.exceptions.BookmarkException;
 import CodeRaguet.fraser.model.exceptions.NoMoreMessagesException;
@@ -14,9 +14,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class FraserTest {
+public class FraserApplicationTest {
 
-    private Fraser fraser;
+    private FraserApplication fraserApplication;
     private BookOfMessages bookOfMessages;
     private FrasesPublisher frasesPublisher;
 
@@ -27,19 +27,19 @@ public class FraserTest {
 
         frasesPublisher = mock(FrasesPublisher.class);
 
-        fraser = new Fraser(frasesPublisher, bookOfMessages);
+        fraserApplication = new FraserApplication(frasesPublisher, bookOfMessages);
     }
 
     @Test
     public void getNextMessage() throws NoMoreMessagesException, BookmarkException {
-        fraser.run();
+        fraserApplication.run();
 
         verify(bookOfMessages).next();
     }
 
     @Test
     public void publishFraseInMessage() throws BookmarkException, NoMoreMessagesException {
-        fraser.run();
+        fraserApplication.run();
 
         verify(frasesPublisher).publish(Frases.someFrase());
     }
