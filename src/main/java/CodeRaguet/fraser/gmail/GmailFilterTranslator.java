@@ -9,7 +9,12 @@ public class GmailFilterTranslator {
         return "subject:f";
     }
 
-    public String translate(MessageFilter messageFilter) {
-        return messageFilter.subject() != null ? "subject:" + messageFilter.subject() : "";
+    public String translate(MessageFilter filter) {
+        String subject = filter.subject() != null ? "subject:" + filter.subject() : "";
+        String allowedSenders = "";
+        for(String allowedSender : filter.allowedSenders()) {
+            allowedSenders = "from:" + allowedSender + " ";
+        }
+        return subject + allowedSenders;
     }
 }
