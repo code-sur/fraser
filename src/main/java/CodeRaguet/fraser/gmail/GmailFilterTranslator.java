@@ -10,6 +10,6 @@ public class GmailFilterTranslator {
     }
 
     public String translate(MessageFilter messageFilter) {
-        return "subject:f";
+        return "subject:" + messageFilter.subject();
     }
 }
