@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static CodeRaguet.fraser.tests.tools.fixtures.Senders.*;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,9 +16,6 @@ import static org.mockito.Mockito.when;
 
 public class GmailFilterTranslatorTest {
 
-    private static final String SENDER_1 = "sender1@any.com";
-    private static final String SENDER_2 = "sender2@any.com";
-    private static final String SENDER_3 = "sender3@any.com";
     private static final String SOME_SUBJECT = "some subject";
     private MessageFilter filter = mock(MessageFilter.class);
     private GmailFilterTranslator gmailFilterTranslator;
