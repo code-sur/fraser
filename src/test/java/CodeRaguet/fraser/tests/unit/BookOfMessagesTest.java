@@ -23,7 +23,7 @@ public class BookOfMessagesTest {
     @Before
     public void setUpBookOfMessages() {
         PostOffice postOffice = mock(PostOffice.class);
-        MessageFilter messageFilter = mock(MessageFilter.class);
+        MessageFilter messageFilter = new MessageFilter();
         when(postOffice.messagesFilteredBy(messageFilter)).thenReturn(allValidMessages());
         bookOfmessages = new BookOfMessages(postOffice, bookmark, messageFilter);
     }

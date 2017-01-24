@@ -38,8 +38,9 @@ public class GmailPostOffice implements PostOffice {
     private DataStoreFactory DATA_STORE_FACTORY;
     private String clientSecret;
     private Gmail service;
+    private GmailFilterTranslator filterTranslator;
 
-    public GmailPostOffice(String clientSecret, String refreshToken) {
+    public GmailPostOffice(String clientSecret, String refreshToken, GmailFilterTranslator filterTranslator) {
         try {
             HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         } catch (IOException | GeneralSecurityException e) {
@@ -50,6 +51,7 @@ public class GmailPostOffice implements PostOffice {
         JSON_FACTORY = JacksonFactory.getDefaultInstance();
         this.clientSecret = clientSecret;
         service = authorizeAndBuildService();
+        this.filterTranslator = filterTranslator;
     }
 
     private Gmail authorizeAndBuildService() {
@@ -113,7 +115,7 @@ public class GmailPostOffice implements PostOffice {
         Long threadsMaxResults = 100L;
         return service.users().threads().list(USER_ID)
                 .setMaxResults(threadsMaxResults)
-                .setQ("subject:f")
+                .setQ(filterTranslator.toString())
                 .setPageToken(pageToken)
                 .execute();
     }
