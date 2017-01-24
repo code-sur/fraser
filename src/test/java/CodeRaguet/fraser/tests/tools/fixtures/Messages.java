@@ -19,15 +19,43 @@ public class Messages {
         return longMessage();
     }
 
+    private static Message fourthMessage() {
+        return new Message("Fourth frase.");
+    }
+
     public static Message longMessage() {
         return new Message("This is a 140 characters long frase. Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah... 140 characters!");
     }
 
-    public static List<Message> allMessagesAsList() {
-        return Arrays.asList(firstMessage(), secondMessage(), longMessage());
+    public static List<Message> allValidMessages() {
+        return Arrays.asList(firstMessage(), secondMessage(), thirdMessage(), fourthMessage());
     }
 
     public static Message lastMessage() {
+        return fourthMessage();
+    }
+
+    public static Message beforeMessageFromStranger() {
         return thirdMessage();
+    }
+
+    public static Message nextMessageNotFromStranger() {
+        return fourthMessage();
+    }
+
+    public static List<Message> messagesSubjectF() {
+        return Arrays.asList(firstMessage(), secondMessage(), thirdMessage(), messageFromStranger(), fourthMessage());
+    }
+
+    private static Message messageFromStranger() {
+        return new Message("Frase from stranger.");
+    }
+
+    public static Message someMessage() {
+        return firstMessage();
+    }
+
+    public static List<Message> messagesSubjectFFromAllowedSenders() {
+        return Arrays.asList(firstMessage(), secondMessage(), thirdMessage(), fourthMessage());
     }
 }

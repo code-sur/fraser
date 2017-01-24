@@ -2,31 +2,13 @@ package CodeRaguet.fraser.tests.e2e;
 
 
 import CodeRaguet.fraser.model.Message;
-import CodeRaguet.fraser.tests.tools.db.DatabaseTest;
-import CodeRaguet.fraser.tests.tools.e2e.BookmarkHandler;
-import CodeRaguet.fraser.tests.tools.e2e.FraserRunner;
-import CodeRaguet.fraser.tests.tools.e2e.PublishedFrases;
-import org.junit.Before;
+import CodeRaguet.fraser.tests.tools.E2ETest;
 import org.junit.Test;
 
 import static CodeRaguet.fraser.tests.tools.fixtures.Frases.*;
 import static CodeRaguet.fraser.tests.tools.fixtures.Messages.*;
 
-public class WalkingSkeletonIT extends DatabaseTest {
-
-    private final FraserRunner fraser = new FraserRunner(testENV);
-    private BookmarkHandler bookmarkHandler;
-    private final PublishedFrases publishedFrases = new PublishedFrases(testENV);
-
-    @Before
-    public void setUpBookmarkHandler() {
-        bookmarkHandler = new BookmarkHandler(bookmark);
-    }
-
-    @Before
-    public void setUpPublishedFrases() {
-        publishedFrases.deleteFrases();
-    }
+public class WalkingSkeletonIT extends E2ETest {
 
     @Test
     public void withPreviousBookmark() {
