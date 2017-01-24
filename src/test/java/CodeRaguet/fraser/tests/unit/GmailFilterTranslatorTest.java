@@ -59,7 +59,7 @@ public class GmailFilterTranslatorTest {
         when(filter.allowedSenders()).thenReturn(singletonList(SENDER_1));
 
         assertThat(gmailFilterTranslator.translate(filter))
-                .isEqualTo(String.format("subject:%s{from:%s}", SOME_SUBJECT, SENDER_1));
+                .isEqualTo(String.format("subject:%s {from:%s}", SOME_SUBJECT, SENDER_1));
     }
 
 }

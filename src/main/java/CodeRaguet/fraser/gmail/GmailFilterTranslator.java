@@ -14,7 +14,7 @@ public class GmailFilterTranslator {
     public String translate(MessageFilter filter) {
         String subject = filter.subject() != null ? "subject:" + filter.subject() : "";
         String allowedSenders = translateAllowedSenders(filter.allowedSenders());
-        return subject + allowedSenders;
+        return String.format("%s %s", subject, allowedSenders).trim();
     }
 
     private String translateAllowedSenders(List<String> senders) {
