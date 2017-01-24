@@ -88,20 +88,20 @@ public class GmailPostOffice implements PostOffice {
 
     @Override
     public List<CodeRaguet.fraser.model.Message> messagesFilteredBy(MessageFilter filter) {
-        List<Thread> threadsWithFrase = selectThreadsWithFrase();
+        List<Thread> threadsWithFrase = selectThreadsWithFrase(filter);
         List<CodeRaguet.fraser.model.Message> messagesWithFrase = new ArrayList<>();
         threadsWithFrase.forEach(thread -> messagesWithFrase.add(new CodeRaguet.fraser.model.Message(selectMessageWithFrase(thread).getSnippet())));
         Collections.reverse(messagesWithFrase);
         return messagesWithFrase;
     }
 
-    private List<Thread> selectThreadsWithFrase() {
+    private List<Thread> selectThreadsWithFrase(MessageFilter filter) {
         List<Thread> threads = new ArrayList<>();
         ListThreadsResponse response;
         String pageToken = null;
         do {
             try {
-                response = getResponse(pageToken);
+                response = getResponse(pageToken, filter);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -111,11 +111,11 @@ public class GmailPostOffice implements PostOffice {
         return threads;
     }
 
-    private ListThreadsResponse getResponse(String pageToken) throws IOException {
+    private ListThreadsResponse getResponse(String pageToken, MessageFilter filter) throws IOException {
         Long threadsMaxResults = 100L;
         return service.users().threads().list(USER_ID)
                 .setMaxResults(threadsMaxResults)
-                .setQ(filterTranslator.toString())
+                .setQ(filterTranslator.translate(filter))
                 .setPageToken(pageToken)
                 .execute();
     }

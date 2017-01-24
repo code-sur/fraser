@@ -33,7 +33,7 @@ public class GmailPostOfficeIT extends ENVTest {
 
     @Test
     public void getMessagesWithSubjectF() {
-        when(filterTranslator.toString()).thenReturn("subject:f");
+        when(filterTranslator.translate(messageFilter)).thenReturn("subject:f");
 
         List<Message> messages = postOffice.messagesFilteredBy(messageFilter);
 
