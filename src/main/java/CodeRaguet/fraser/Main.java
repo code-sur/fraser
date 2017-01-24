@@ -2,7 +2,6 @@ package CodeRaguet.fraser;
 
 
 import CodeRaguet.fraser.db.DatabaseBookmark;
-import CodeRaguet.fraser.gmail.GmailMessageFilter;
 import CodeRaguet.fraser.gmail.GmailPostOffice;
 import CodeRaguet.fraser.model.*;
 import CodeRaguet.fraser.twitter.TwitterFrasesPublisher;
@@ -27,7 +26,7 @@ public class Main {
 
     private static BookOfMessages getBookOfMessages(PostOffice postOffice, Connection connection) {
         Bookmark bookmark = new DatabaseBookmark(connection);
-        MessageFilter messageFilter = new GmailMessageFilter();
+        MessageFilter messageFilter = new MessageFilter();
         return new BookOfMessages(postOffice, bookmark, messageFilter);
     }
 
