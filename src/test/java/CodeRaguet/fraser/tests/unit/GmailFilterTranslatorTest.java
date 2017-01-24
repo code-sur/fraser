@@ -5,10 +5,10 @@ import CodeRaguet.fraser.model.MessageFilter;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Collections;
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -18,6 +18,7 @@ public class GmailFilterTranslatorTest {
     private static final String SENDER_1 = "sender1@any.com";
     private static final String SENDER_2 = "sender2@any.com";
     private static final String SENDER_3 = "sender3@any.com";
+    private static final String SOME_SUBJECT = "some subject";
     private MessageFilter filter = mock(MessageFilter.class);
     private GmailFilterTranslator gmailFilterTranslator;
 
@@ -40,7 +41,7 @@ public class GmailFilterTranslatorTest {
 
     @Test
     public void translateOneAllowedSenders() {
-        when(filter.allowedSenders()).thenReturn(Collections.singletonList(SENDER_1));
+        when(filter.allowedSenders()).thenReturn(singletonList(SENDER_1));
 
         assertThat(gmailFilterTranslator.translate(filter)).isEqualTo(String.format("{from:%s}", SENDER_1));
     }
@@ -52,6 +53,15 @@ public class GmailFilterTranslatorTest {
 
         assertThat(gmailFilterTranslator.translate(filter))
                 .isEqualTo(String.format("{from:%s from:%s from:%s}", SENDER_1, SENDER_2, SENDER_3));
+    }
+
+    @Test
+    public void CompoundTranslatedSendersAndSubject() {
+        when(filter.subject()).thenReturn(SOME_SUBJECT);
+        when(filter.allowedSenders()).thenReturn(singletonList(SENDER_1));
+
+        assertThat(gmailFilterTranslator.translate(filter))
+                .isEqualTo(String.format("subject:%s{from:%s}", SOME_SUBJECT, SENDER_1));
     }
 
 }
