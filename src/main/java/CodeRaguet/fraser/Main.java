@@ -2,13 +2,9 @@ package CodeRaguet.fraser;
 
 
 import CodeRaguet.fraser.db.DatabaseBookmark;
-import CodeRaguet.fraser.gmail.GmailService;
-import CodeRaguet.fraser.model.BookOfMessages;
-import CodeRaguet.fraser.model.Bookmark;
-import CodeRaguet.fraser.model.Frase;
-import CodeRaguet.fraser.model.FrasesPublisher;
-import CodeRaguet.fraser.model.exceptions.BookmarkException;
-import CodeRaguet.fraser.model.exceptions.NoMoreMessagesException;
+import CodeRaguet.fraser.gmail.GmailFilterTranslator;
+import CodeRaguet.fraser.gmail.GmailPostOffice;
+import CodeRaguet.fraser.model.*;
 import CodeRaguet.fraser.twitter.TwitterFrasesPublisher;
 import CodeRaguet.fraser.twitter.TwitterService;
 import com.heroku.sdk.jdbc.DatabaseUrl;
@@ -17,35 +13,38 @@ import java.sql.Connection;
 
 public class Main {
 
-    private final BookOfMessages bookOfMessages;
-    private final FrasesPublisher frasesPublisher;
-
-    private Main(GmailService gmailService, TwitterService twitterService, Connection connection) {
-        Bookmark bookmark = new DatabaseBookmark(connection);
-        bookOfMessages = new BookOfMessages(gmailService, bookmark);
-        frasesPublisher = new TwitterFrasesPublisher(twitterService);
-    }
-
     public static void main(String... args) {
-        String clientSecret = ENV.GMAIL_CLIENT_SECRET.value();
-        String refreshToken = ENV.GMAIL_REFRESH_TOKEN.value();
-        GmailService gmailService = new GmailService(clientSecret, refreshToken);
-
-        String consumerKey = ENV.TWITTER_CONSUMER_KEY.value();
-        String consumerSecret = ENV.TWITTER_CONSUMER_SECRET.value();
-        String accessToken = ENV.TWITTER_ACCESS_TOKEN.value();
-        String accessTokenSecret = ENV.TWITTER_ACCESS_TOKEN_SECRET.value();
-        TwitterService twitterService = new TwitterService(consumerKey, consumerSecret, accessToken, accessTokenSecret);
+        PostOffice postOffice = getPostOffice();
+        FrasesPublisher frasesPublisher = getFrasesPublisher();
 
         try (Connection connection = DatabaseUrl.extract().getConnection()) {
-            new Main(gmailService, twitterService, connection).run();
+            BookOfMessages bookOfMessages = getBookOfMessages(postOffice, connection);
+            new FraserApplication(frasesPublisher, bookOfMessages).run();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void run() throws BookmarkException, NoMoreMessagesException {
-        frasesPublisher.publish(new Frase(bookOfMessages.next().getText()));
+    private static BookOfMessages getBookOfMessages(PostOffice postOffice, Connection connection) {
+        Bookmark bookmark = new DatabaseBookmark(connection);
+        MessageFilter messageFilter = new MessageFilter();
+        messageFilter.configureAllowedSenders(ENV.ALLOWED_SENDERS.value());
+        return new BookOfMessages(postOffice, bookmark, messageFilter);
+    }
+
+    private static FrasesPublisher getFrasesPublisher() {
+        String consumerKey = ENV.TWITTER_CONSUMER_KEY.value();
+        String consumerSecret = ENV.TWITTER_CONSUMER_SECRET.value();
+        String accessToken = ENV.TWITTER_ACCESS_TOKEN.value();
+        String accessTokenSecret = ENV.TWITTER_ACCESS_TOKEN_SECRET.value();
+        TwitterService twitterService = new TwitterService(consumerKey, consumerSecret, accessToken, accessTokenSecret);
+        return new TwitterFrasesPublisher(twitterService);
+    }
+
+    private static PostOffice getPostOffice() {
+        String clientSecret = ENV.GMAIL_CLIENT_SECRET.value();
+        String refreshToken = ENV.GMAIL_REFRESH_TOKEN.value();
+        return new GmailPostOffice(clientSecret, refreshToken, new GmailFilterTranslator());
     }
 
 }

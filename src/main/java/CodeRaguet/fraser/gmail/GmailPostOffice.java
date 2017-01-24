@@ -1,6 +1,8 @@
 package CodeRaguet.fraser.gmail;
 
 
+import CodeRaguet.fraser.model.MessageFilter;
+import CodeRaguet.fraser.model.PostOffice;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class GmailService {
+public class GmailPostOffice implements PostOffice {
 
     private static final String USER_ID = "me";
     private final List<String> SCOPES;
@@ -36,8 +38,9 @@ public class GmailService {
     private DataStoreFactory DATA_STORE_FACTORY;
     private String clientSecret;
     private Gmail service;
+    private GmailFilterTranslator filterTranslator;
 
-    public GmailService(String clientSecret, String refreshToken) {
+    public GmailPostOffice(String clientSecret, String refreshToken, GmailFilterTranslator filterTranslator) {
         try {
             HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         } catch (IOException | GeneralSecurityException e) {
@@ -48,6 +51,7 @@ public class GmailService {
         JSON_FACTORY = JacksonFactory.getDefaultInstance();
         this.clientSecret = clientSecret;
         service = authorizeAndBuildService();
+        this.filterTranslator = filterTranslator;
     }
 
     private Gmail authorizeAndBuildService() {
@@ -82,21 +86,22 @@ public class GmailService {
         return GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
     }
 
-    public List<CodeRaguet.fraser.model.Message> messagesWithFrase() {
-        List<Thread> threadsWithFrase = selectThreadsWithFrase();
+    @Override
+    public List<CodeRaguet.fraser.model.Message> messagesFilteredBy(MessageFilter filter) {
+        List<Thread> threadsWithFrase = selectThreadsWithFrase(filter);
         List<CodeRaguet.fraser.model.Message> messagesWithFrase = new ArrayList<>();
         threadsWithFrase.forEach(thread -> messagesWithFrase.add(new CodeRaguet.fraser.model.Message(selectMessageWithFrase(thread).getSnippet())));
         Collections.reverse(messagesWithFrase);
         return messagesWithFrase;
     }
 
-    private List<Thread> selectThreadsWithFrase() {
+    private List<Thread> selectThreadsWithFrase(MessageFilter filter) {
         List<Thread> threads = new ArrayList<>();
         ListThreadsResponse response;
         String pageToken = null;
         do {
             try {
-                response = getResponse(pageToken);
+                response = getResponse(pageToken, filter);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -106,11 +111,11 @@ public class GmailService {
         return threads;
     }
 
-    private ListThreadsResponse getResponse(String pageToken) throws IOException {
+    private ListThreadsResponse getResponse(String pageToken, MessageFilter filter) throws IOException {
         Long threadsMaxResults = 100L;
         return service.users().threads().list(USER_ID)
                 .setMaxResults(threadsMaxResults)
-                .setQ("subject:f")
+                .setQ(filterTranslator.translate(filter))
                 .setPageToken(pageToken)
                 .execute();
     }
