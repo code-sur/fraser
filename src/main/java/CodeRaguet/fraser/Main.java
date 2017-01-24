@@ -28,6 +28,7 @@ public class Main {
     private static BookOfMessages getBookOfMessages(PostOffice postOffice, Connection connection) {
         Bookmark bookmark = new DatabaseBookmark(connection);
         MessageFilter messageFilter = new MessageFilter();
+        messageFilter.configureAllowedSenders(ENV.ALLOWED_SENDERS.value());
         return new BookOfMessages(postOffice, bookmark, messageFilter);
     }
 
