@@ -1,5 +1,8 @@
-package CodeRaguet.fraser.model;
+package CodeRaguet.fraser;
 
+import CodeRaguet.fraser.model.BookOfMessages;
+import CodeRaguet.fraser.model.Frase;
+import CodeRaguet.fraser.model.FrasesPublisher;
 import CodeRaguet.fraser.model.exceptions.BookmarkException;
 import CodeRaguet.fraser.model.exceptions.NoMoreMessagesException;
 
