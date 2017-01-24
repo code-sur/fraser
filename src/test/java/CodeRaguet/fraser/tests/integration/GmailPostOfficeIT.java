@@ -13,6 +13,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static CodeRaguet.fraser.tests.tools.fixtures.Messages.messagesSubjectF;
+import static CodeRaguet.fraser.tests.tools.fixtures.Messages.messagesSubjectFFromAllowedSenders;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -32,12 +33,22 @@ public class GmailPostOfficeIT extends ENVTest {
     }
 
     @Test
-    public void getMessagesWithSubjectF() {
+    public void getMessagesFilteredBySubject() {
         when(filterTranslator.translate(messageFilter)).thenReturn("subject:f");
 
         List<Message> messages = postOffice.messagesFilteredBy(messageFilter);
 
         assertThat(messages).isEqualTo(messagesSubjectF());
+    }
+
+    @Test
+    public void getMessagesFilteredBySubjectAndSenders() {
+        String gmail_query = "subject:f {from:ignacio.code@gmail.com from:fraser.quote@gmail.com}";
+        when(filterTranslator.translate(messageFilter)).thenReturn(gmail_query);
+
+        List<Message> messages = postOffice.messagesFilteredBy(messageFilter);
+
+        assertThat(messages).isEqualTo(messagesSubjectFFromAllowedSenders());
     }
 
 }

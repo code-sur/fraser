@@ -54,4 +54,8 @@ public class Messages {
     public static Message someMessage() {
         return firstMessage();
     }
+
+    public static List<Message> messagesSubjectFFromAllowedSenders() {
+        return Arrays.asList(firstMessage(), secondMessage(), thirdMessage(), fourthMessage());
+    }
 }
