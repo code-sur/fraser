@@ -1,4 +1,4 @@
 package CodeRaguet.fraser.model;
 
-public interface MessageFilter {
+public class MessageFilter {
 }
