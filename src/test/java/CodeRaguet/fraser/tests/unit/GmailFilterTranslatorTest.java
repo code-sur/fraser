@@ -20,6 +20,11 @@ public class GmailFilterTranslatorTest {
     }
 
     @Test
+    public void translateEmptyFilter() {
+        assertThat(gmailFilterTranslator.translate(filter)).isEqualTo("");
+    }
+
+    @Test
     public void translateSubject() {
         when(filter.subject()).thenReturn("f");
 
