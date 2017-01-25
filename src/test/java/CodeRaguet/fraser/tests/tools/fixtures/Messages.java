@@ -24,7 +24,7 @@ public class Messages {
     }
 
     private static Message fifthMessage() {
-        return new Message("Frase with html entities: &quot;ñandú!!&quot;");
+        return new Message("&quot;Frase with quotation marks&quot;");
     }
 
     public static Message longMessage() {
@@ -61,5 +61,9 @@ public class Messages {
 
     public static List<Message> messagesSubjectFFromAllowedSenders() {
         return Arrays.asList(firstMessage(), secondMessage(), thirdMessage(), fourthMessage(), fifthMessage());
+    }
+
+    public static Message beforeMessageWithHTMLQuotationMarks() {
+        return fourthMessage();
     }
 }
