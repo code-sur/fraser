@@ -23,6 +23,10 @@ public class Messages {
         return new Message("Fourth frase.");
     }
 
+    private static Message fifthMessage() {
+        return new Message("&quot;Frase with quotation marks&quot;");
+    }
+
     public static Message longMessage() {
         return new Message("This is a 140 characters long frase. Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah... 140 characters!");
     }
@@ -44,7 +48,7 @@ public class Messages {
     }
 
     public static List<Message> messagesSubjectF() {
-        return Arrays.asList(firstMessage(), secondMessage(), thirdMessage(), messageFromStranger(), fourthMessage());
+        return Arrays.asList(firstMessage(), secondMessage(), thirdMessage(), messageFromStranger(), fourthMessage(), fifthMessage());
     }
 
     private static Message messageFromStranger() {
@@ -56,6 +60,10 @@ public class Messages {
     }
 
     public static List<Message> messagesSubjectFFromAllowedSenders() {
-        return Arrays.asList(firstMessage(), secondMessage(), thirdMessage(), fourthMessage());
+        return Arrays.asList(firstMessage(), secondMessage(), thirdMessage(), fourthMessage(), fifthMessage());
+    }
+
+    public static Message beforeMessageWithHTMLQuotationMarks() {
+        return fourthMessage();
     }
 }
