@@ -58,4 +58,8 @@ public class Messages {
     public static Message beforeMessageWithHTMLQuotationMarks() {
         return fourthMessage();
     }
+
+    public static Message beforeMessageWithFraseInQuotationMarks() {
+        return fifthMessage();
+    }
 }

@@ -29,4 +29,8 @@ public class Frases {
     public static Frase fraseWithQuotationMarksProperlyRendered() {
         return new Frase("\"Frase with quotation marks\"");
     }
+
+    public static Frase fraseInQuotationMarks() {
+        return new Frase("Frase in quotation marks");
+    }
 }
