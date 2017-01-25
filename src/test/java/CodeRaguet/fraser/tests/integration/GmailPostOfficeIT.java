@@ -12,8 +12,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static CodeRaguet.fraser.tests.tools.fixtures.Messages.messagesSubjectF;
-import static CodeRaguet.fraser.tests.tools.fixtures.Messages.messagesSubjectFFromAllowedSenders;
+import static CodeRaguet.fraser.tests.tools.fixtures.Messages.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -38,7 +37,7 @@ public class GmailPostOfficeIT extends ENVTest {
 
         List<Message> messages = postOffice.messagesFilteredBy(messageFilter);
 
-        assertThat(messages).isEqualTo(messagesSubjectF());
+        assertThat(messages).contains(firstMessage(), thirdMessage(), fifthMessage());
     }
 
     @Test
@@ -48,7 +47,8 @@ public class GmailPostOfficeIT extends ENVTest {
 
         List<Message> messages = postOffice.messagesFilteredBy(messageFilter);
 
-        assertThat(messages).isEqualTo(messagesSubjectFFromAllowedSenders());
+        assertThat(messages).contains(firstMessage(), thirdMessage(), fifthMessage())
+                .doesNotContain(messageFromStranger());
     }
 
 }

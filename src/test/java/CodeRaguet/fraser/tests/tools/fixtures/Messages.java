@@ -23,7 +23,7 @@ public class Messages {
         return new Message("Fourth frase.");
     }
 
-    private static Message fifthMessage() {
+    public static Message fifthMessage() {
         return new Message("&quot;Frase with quotation marks&quot;");
     }
 
@@ -47,20 +47,12 @@ public class Messages {
         return fourthMessage();
     }
 
-    public static List<Message> messagesSubjectF() {
-        return Arrays.asList(firstMessage(), secondMessage(), thirdMessage(), messageFromStranger(), fourthMessage(), fifthMessage());
-    }
-
-    private static Message messageFromStranger() {
+    public static Message messageFromStranger() {
         return new Message("Frase from stranger.");
     }
 
     public static Message someMessage() {
         return firstMessage();
-    }
-
-    public static List<Message> messagesSubjectFFromAllowedSenders() {
-        return Arrays.asList(firstMessage(), secondMessage(), thirdMessage(), fourthMessage(), fifthMessage());
     }
 
     public static Message beforeMessageWithHTMLQuotationMarks() {
