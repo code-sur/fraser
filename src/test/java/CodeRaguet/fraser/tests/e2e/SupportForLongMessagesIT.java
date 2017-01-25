@@ -1,7 +1,7 @@
 package CodeRaguet.fraser.tests.e2e;
 
 import CodeRaguet.fraser.model.Message;
-import CodeRaguet.fraser.tests.tools.E2ETest;
+import CodeRaguet.fraser.tests.tools.e2e.E2ETest;
 import org.junit.Test;
 
 import static CodeRaguet.fraser.tests.tools.fixtures.Frases.longFrase;
