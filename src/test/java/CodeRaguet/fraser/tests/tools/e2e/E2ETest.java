@@ -1,9 +1,6 @@
-package CodeRaguet.fraser.tests.tools;
+package CodeRaguet.fraser.tests.tools.e2e;
 
 import CodeRaguet.fraser.tests.tools.db.DatabaseTest;
-import CodeRaguet.fraser.tests.tools.e2e.BookmarkHandler;
-import CodeRaguet.fraser.tests.tools.e2e.FraserRunner;
-import CodeRaguet.fraser.tests.tools.e2e.PublishedFrases;
 import org.junit.Before;
 
 public class E2ETest extends DatabaseTest {
