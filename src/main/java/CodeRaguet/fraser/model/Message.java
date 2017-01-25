@@ -5,7 +5,7 @@ public class Message {
     private String text;
 
     public Message(String text) {
-        this.text = text;
+        this.text = text.replace("&quot;", "\"");
     }
 
     public String getText() {
