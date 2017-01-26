@@ -1,8 +1,8 @@
 package CodeRaguet.fraser;
 
 import CodeRaguet.fraser.model.BookOfMessages;
-import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.model.FrasesPublisher;
+import CodeRaguet.fraser.model.Message;
 import CodeRaguet.fraser.model.exceptions.BookmarkException;
 import CodeRaguet.fraser.model.exceptions.NoMoreMessagesException;
 
@@ -17,6 +17,7 @@ public class FraserApplication {
     }
 
     public void run() throws NoMoreMessagesException, BookmarkException {
-        frasesPublisher.publish(new Frase(bookOfMessages.next().getText()));
+        Message message = bookOfMessages.next();
+        frasesPublisher.publish(message.extractFrase());
     }
 }
