@@ -59,7 +59,7 @@ public class Messages {
         return fourthMessage();
     }
 
-    public static Message beforeMessageWithFraseInQuotationMarks() {
+    public static Message beforeMessageWithQuotationMarks() {
         return fifthMessage();
     }
 }
