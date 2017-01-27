@@ -5,6 +5,8 @@ import CodeRaguet.fraser.model.Message;
 import java.util.Arrays;
 import java.util.List;
 
+import static CodeRaguet.fraser.tests.tools.fixtures.Frases.fraseWithinQuotationMarks;
+
 public class Messages {
 
     public static Message firstMessage() {
@@ -23,8 +25,12 @@ public class Messages {
         return new Message("Fourth frase.");
     }
 
-    private static Message fifthMessage() {
-        return new Message("&quot;Frase with quotation marks&quot;");
+    public static Message fifthMessage() {
+        return new Message(String.format("&quot;%s&quot;", fraseWithinQuotationMarks()));
+    }
+
+    public static Message sixthMessage() {
+        return new Message(String.format("\"%s\" and text to discard", fraseWithinQuotationMarks()));
     }
 
     public static Message longMessage() {
@@ -47,11 +53,7 @@ public class Messages {
         return fourthMessage();
     }
 
-    public static List<Message> messagesSubjectF() {
-        return Arrays.asList(firstMessage(), secondMessage(), thirdMessage(), messageFromStranger(), fourthMessage(), fifthMessage());
-    }
-
-    private static Message messageFromStranger() {
+    public static Message messageFromStranger() {
         return new Message("Frase from stranger.");
     }
 
@@ -59,11 +61,11 @@ public class Messages {
         return firstMessage();
     }
 
-    public static List<Message> messagesSubjectFFromAllowedSenders() {
-        return Arrays.asList(firstMessage(), secondMessage(), thirdMessage(), fourthMessage(), fifthMessage());
+    public static Message beforeFraseWithinHTMLQuotationMarks() {
+        return fourthMessage();
     }
 
-    public static Message beforeMessageWithHTMLQuotationMarks() {
-        return fourthMessage();
+    public static Message beforeMessageWithFraseAndTextToDiscard() {
+        return fifthMessage();
     }
 }

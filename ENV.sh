@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 BASEDIR=`dirname ${BASH_SOURCE[0]} | xargs readlink -f`
 JDK="$BASEDIR/jdk"
 MAVEN="$BASEDIR/maven"
@@ -20,7 +22,12 @@ MAVEN_HOME=$MAVEN
 PATH=$MAVEN_HOME/bin:$PATH
 
 # PS1
-JDK_VERSION=`java -version 2>&1 | sed -nr 's/.*"(.*)".*/\1/p'`
-BOLD='\e[1m'
-NO_BOLD='\e[21m'
-PS1="jdk$BOLD$JDK_VERSION$NO_BOLD $PS1"
+YELLOW='\e[33m'
+DEFAULT='\e[39m'
+PS1="$YELLOW(ShellENV4J)$DEFAULT $PS1"
+
+# Source additional script
+ADDITIONAL_SCRIPT='.envrc'
+if [[ -f $ADDITIONAL_SCRIPT ]]; then
+    . $ADDITIONAL_SCRIPT
+fi
