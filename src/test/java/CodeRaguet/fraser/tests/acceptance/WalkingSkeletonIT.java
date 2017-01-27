@@ -1,4 +1,4 @@
-package CodeRaguet.fraser.tests.e2e;
+package CodeRaguet.fraser.tests.acceptance;
 
 
 import CodeRaguet.fraser.tests.tools.e2e.E2ETest;
