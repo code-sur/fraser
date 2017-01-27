@@ -26,7 +26,7 @@ public class Frases {
         return new Frase(someMessage().getText());
     }
 
-    public static Frase fraseInQuotationMarks() {
-        return new Frase("Frase in quotation marks");
+    public static Frase fraseWithinQuotationMarks() {
+        return new Frase("Frase within quotation marks");
     }
 }

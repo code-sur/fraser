@@ -5,6 +5,8 @@ import CodeRaguet.fraser.model.Message;
 import java.util.Arrays;
 import java.util.List;
 
+import static CodeRaguet.fraser.tests.tools.fixtures.Frases.fraseWithinQuotationMarks;
+
 public class Messages {
 
     public static Message firstMessage() {
@@ -24,7 +26,11 @@ public class Messages {
     }
 
     public static Message fifthMessage() {
-        return new Message("&quot;Frase with quotation marks&quot;");
+        return new Message(String.format("&quot;%s&quot;", fraseWithinQuotationMarks()));
+    }
+
+    public static Message sixthMessage() {
+        return new Message(String.format("\"%s\" and text to discard", fraseWithinQuotationMarks()));
     }
 
     public static Message longMessage() {
@@ -55,11 +61,11 @@ public class Messages {
         return firstMessage();
     }
 
-    public static Message beforeMessageWithHTMLQuotationMarks() {
+    public static Message beforeFraseWithinHTMLQuotationMarks() {
         return fourthMessage();
     }
 
-    public static Message beforeMessageWithQuotationMarks() {
+    public static Message beforeMessageWithFraseAndTextToDiscard() {
         return fifthMessage();
     }
 }
