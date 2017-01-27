@@ -17,7 +17,7 @@ public class PublishedFrases {
 
     private final Twitter twitter;
 
-    public PublishedFrases(Properties env) {
+    PublishedFrases(Properties env) {
         ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
         configurationBuilder
                 .setDebugEnabled(true)
@@ -29,17 +29,17 @@ public class PublishedFrases {
         twitter = twitterFactory.getInstance();
     }
 
-    public void hasRecived(Frase firstFrase) {
+    public void hasRecived(Frase frase) {
         List<String> tweets = new ArrayList<>();
         try {
             twitter.getHomeTimeline().forEach(status -> tweets.add(status.getText()));
         } catch (TwitterException e) {
             throw new RuntimeException(e);
         }
-        assertThat(tweets).contains(firstFrase.toString());
+        assertThat(tweets).contains(frase.toString());
     }
 
-    public void deleteFrases() {
+    void deleteFrases() {
         try {
             twitter.getUserTimeline().forEach(status -> {
                 try {

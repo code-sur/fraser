@@ -1,5 +1,8 @@
 package CodeRaguet.fraser.model;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Message {
 
     private String text;
@@ -31,5 +34,19 @@ public class Message {
     @Override
     public String toString() {
         return text;
+    }
+
+    public Frase extractFrase() {
+        String fraseText;
+        if (getText().contains("\"")) {
+            String regex = ".*\"(.+)\".*";
+            Matcher matcher = Pattern.compile(regex).matcher(getText());
+            matcher.find();
+            fraseText = matcher.group(1);
+        } else {
+            fraseText = getText();
+        }
+
+        return new Frase(fraseText);
     }
 }

@@ -2,7 +2,9 @@ package CodeRaguet.fraser.tests.unit;
 
 import CodeRaguet.fraser.model.BookOfMessages;
 import CodeRaguet.fraser.FraserApplication;
+import CodeRaguet.fraser.model.Frase;
 import CodeRaguet.fraser.model.FrasesPublisher;
+import CodeRaguet.fraser.model.Message;
 import CodeRaguet.fraser.model.exceptions.BookmarkException;
 import CodeRaguet.fraser.model.exceptions.NoMoreMessagesException;
 import CodeRaguet.fraser.tests.tools.fixtures.Frases;
@@ -42,5 +44,16 @@ public class FraserApplicationTest {
         fraserApplication.run();
 
         verify(frasesPublisher).publish(Frases.someFrase());
+    }
+
+    @Test
+    public void extractFraseInQuotationMarks() throws BookmarkException, NoMoreMessagesException {
+        String textInQuotationMarks = "text in quotation marks";
+        Message messageWithFraseToExtract = new Message(String.format("\"%s\" text to discard", textInQuotationMarks));
+        when(bookOfMessages.next()).thenReturn(messageWithFraseToExtract);
+
+        fraserApplication.run();
+
+        verify(frasesPublisher).publish(new Frase(textInQuotationMarks));
     }
 }
