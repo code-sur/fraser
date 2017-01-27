@@ -37,7 +37,7 @@ abstract public class DatabaseTest extends ENVTest {
 
     @Before
     public void clearTables() {
-        String sql = String.format("TRUNCATE TABLE %s", DatabaseBookmark.LAST_MESSAGE_TABLE);
+        String sql = String.format("TRUNCATE TABLE %s", DatabaseBookmark.BOOKMARK_TABLE);
         executeSQLStatement(sql);
     }
 
