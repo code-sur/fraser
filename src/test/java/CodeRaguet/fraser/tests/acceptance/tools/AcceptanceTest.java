@@ -3,7 +3,7 @@ package CodeRaguet.fraser.tests.acceptance.tools;
 import CodeRaguet.fraser.tests.tools.db.DatabaseTest;
 import org.junit.Before;
 
-public class AcceptanceTest extends DatabaseTest {
+abstract public class AcceptanceTest extends DatabaseTest {
     protected final FraserRunner fraser = new FraserRunner(testENV);
     protected final PublishedFrases publishedFrases = new PublishedFrases(testENV);
     protected BookmarkHandler bookmarkHandler;
