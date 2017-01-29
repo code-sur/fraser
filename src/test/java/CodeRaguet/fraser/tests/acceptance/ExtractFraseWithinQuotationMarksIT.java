@@ -3,9 +3,9 @@ package CodeRaguet.fraser.tests.acceptance;
 import CodeRaguet.fraser.tests.acceptance.tools.AcceptanceTest;
 import org.junit.Test;
 
+import static CodeRaguet.fraser.tests.tools.fixtures.Frases.firstLineAsFrase;
 import static CodeRaguet.fraser.tests.tools.fixtures.Frases.fraseWithinQuotationMarks;
-import static CodeRaguet.fraser.tests.tools.fixtures.Messages.beforeFraseWithinHTMLQuotationMarks;
-import static CodeRaguet.fraser.tests.tools.fixtures.Messages.beforeMessageWithFraseAndTextToDiscard;
+import static CodeRaguet.fraser.tests.tools.fixtures.Messages.*;
 
 public class ExtractFraseWithinQuotationMarksIT extends AcceptanceTest {
 
@@ -25,5 +25,14 @@ public class ExtractFraseWithinQuotationMarksIT extends AcceptanceTest {
         fraser.run();
 
         publishedFrases.hasRecived(fraseWithinQuotationMarks());
+    }
+
+    @Test
+    public void extractFirstLineAsFrase() {
+        bookmarkHandler.placeBookmarkOn(beforeMessageWithFirstLineAsFrase());
+
+        fraser.run();
+
+        publishedFrases.hasRecived(firstLineAsFrase());
     }
 }

@@ -5,6 +5,7 @@ import CodeRaguet.fraser.model.Message;
 import java.util.Arrays;
 import java.util.List;
 
+import static CodeRaguet.fraser.tests.tools.fixtures.Frases.firstLineAsFrase;
 import static CodeRaguet.fraser.tests.tools.fixtures.Frases.fraseWithinQuotationMarks;
 
 public class Messages {
@@ -29,8 +30,12 @@ public class Messages {
         return new Message(String.format("&quot;%s&quot;", fraseWithinQuotationMarks()));
     }
 
-    public static Message sixthMessage() {
+    private static Message sixthMessage() {
         return new Message(String.format("\"%s\" and text to discard", fraseWithinQuotationMarks()));
+    }
+
+    private static Message seventhMessage() {
+        return new Message(String.format("%s\n\nAnd text to discard", firstLineAsFrase()));
     }
 
     public static Message longMessage() {
@@ -67,5 +72,9 @@ public class Messages {
 
     public static Message beforeMessageWithFraseAndTextToDiscard() {
         return fifthMessage();
+    }
+
+    public static Message beforeMessageWithFirstLineAsFrase() {
+        return sixthMessage();
     }
 }
