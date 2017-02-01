@@ -1,6 +1,7 @@
 package CodeRaguet.fraser.tests.acceptance;
 
 import CodeRaguet.fraser.tests.acceptance.tools.AcceptanceTest;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static CodeRaguet.fraser.tests.tools.fixtures.Frases.firstLineAsFrase;
@@ -28,6 +29,7 @@ public class ExtractFraseWithinQuotationMarksIT extends AcceptanceTest {
     }
 
     @Test
+    @Ignore
     public void extractFirstLineAsFrase() {
         bookmarkHandler.placeBookmarkOn(beforeMessageWithFirstLineAsFrase());
 
