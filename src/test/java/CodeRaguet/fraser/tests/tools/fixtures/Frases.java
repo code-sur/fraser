@@ -29,4 +29,8 @@ public class Frases {
     public static Frase fraseWithinQuotationMarks() {
         return new Frase("Frase within quotation marks");
     }
+
+    public static Frase firstLineAsFrase() {
+        return new Frase("First line as frase");
+    }
 }

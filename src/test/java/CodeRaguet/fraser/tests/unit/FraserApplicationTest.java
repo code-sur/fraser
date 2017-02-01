@@ -56,4 +56,15 @@ public class FraserApplicationTest {
 
         verify(frasesPublisher).publish(new Frase(textInQuotationMarks));
     }
+
+    @Test
+    public void extractFirstlineAsFrase() throws NoMoreMessagesException, BookmarkException {
+        String fraseText = "Text of frase";
+        Message messageWithFirstLineAsFrase = new Message(String.format("%s\n\nAnd text to discard", fraseText));
+        when(bookOfMessages.next()).thenReturn(messageWithFirstLineAsFrase);
+
+        fraserApplication.run();
+
+        verify(frasesPublisher).publish(new Frase(fraseText));
+    }
 }

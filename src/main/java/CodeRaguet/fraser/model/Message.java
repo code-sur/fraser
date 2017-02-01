@@ -43,6 +43,11 @@ public class Message {
             Matcher matcher = Pattern.compile(regex).matcher(getText());
             matcher.find();
             fraseText = matcher.group(1);
+        } else if (getText().contains("\n\n")) {
+            String regex = "(.+)\\n\\n.*";
+            Matcher matcher = Pattern.compile(regex).matcher(getText());
+            matcher.find();
+            fraseText = matcher.group(1);
         } else {
             fraseText = getText();
         }
