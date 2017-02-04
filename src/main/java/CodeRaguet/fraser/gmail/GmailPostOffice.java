@@ -31,8 +31,8 @@ import java.util.List;
 
 public class GmailPostOffice implements PostOffice {
 
-    private static final String USER_ID = "me";
     private final List<String> SCOPES;
+    private final GmailService gmailService;
     private HttpTransport HTTP_TRANSPORT;
     private final JsonFactory JSON_FACTORY;
     private DataStoreFactory DATA_STORE_FACTORY;
@@ -54,6 +54,7 @@ public class GmailPostOffice implements PostOffice {
         service = authorizeAndBuildService();
         this.filterTranslator = filterTranslator;
         this.gmailMessageTranslator = gmailMessageTranslator;
+        this.gmailService = new GmailService();
     }
 
     private Gmail authorizeAndBuildService() {
@@ -113,7 +114,7 @@ public class GmailPostOffice implements PostOffice {
 
     private ListThreadsResponse getResponse(String pageToken, MessageFilter filter) throws IOException {
         Long threadsMaxResults = 100L;
-        return service.users().threads().list(USER_ID)
+        return service.users().threads().list(GmailService.getUserId())
                 .setMaxResults(threadsMaxResults)
                 .setQ(filterTranslator.translate(filter))
                 .setPageToken(pageToken)
@@ -122,7 +123,7 @@ public class GmailPostOffice implements PostOffice {
 
     private Message getFirstMessageOf(Thread thread) {
         try {
-            return service.users().threads().get(USER_ID, thread.getId()).execute().getMessages().get(0);
+            return service.users().threads().get(GmailService.getUserId(), thread.getId()).execute().getMessages().get(0);
         } catch (IOException e) {
             throw new GmailServiceException("Can't select message", e);
         }

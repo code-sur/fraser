@@ -23,14 +23,13 @@ public class GmailPostOfficeIT extends ENVTest {
     private PostOffice postOffice;
     private MessageFilter messageFilter = new MessageFilter();
     private GmailFilterTranslator filterTranslator;
-    private GmailMessageTranslator gmailMessageTranslator;
 
     @Before
     public void setUpGmailService() {
         String clientSecret = testENV.getProperty(ENV.GMAIL_CLIENT_SECRET.name());
         String refreshToken = testENV.getProperty(ENV.GMAIL_REFRESH_TOKEN.name());
         filterTranslator = mock(GmailFilterTranslator.class);
-        gmailMessageTranslator = new GmailMessageTranslator();
+        GmailMessageTranslator gmailMessageTranslator = new GmailMessageTranslator();
         postOffice = new GmailPostOffice(clientSecret, refreshToken, filterTranslator, gmailMessageTranslator);
     }
 
