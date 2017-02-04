@@ -88,14 +88,14 @@ public class GmailPostOffice implements PostOffice {
 
     @Override
     public List<CodeRaguet.fraser.model.Message> messagesFilteredBy(MessageFilter filter) {
-        List<Thread> threadsWithFrase = selectThreadsWithFrase(filter);
+        List<Thread> threads = getThreadsFilteredBy(filter);
         List<CodeRaguet.fraser.model.Message> messagesWithFrase = new ArrayList<>();
-        threadsWithFrase.forEach(thread -> messagesWithFrase.add(new CodeRaguet.fraser.model.Message(selectMessageWithFrase(thread).getSnippet())));
+        threads.forEach(thread -> messagesWithFrase.add(new CodeRaguet.fraser.model.Message(selectFirstMessageOf(thread).getSnippet())));
         Collections.reverse(messagesWithFrase);
         return messagesWithFrase;
     }
 
-    private List<Thread> selectThreadsWithFrase(MessageFilter filter) {
+    private List<Thread> getThreadsFilteredBy(MessageFilter filter) {
         List<Thread> threads = new ArrayList<>();
         ListThreadsResponse response;
         String pageToken = null;
@@ -120,9 +120,9 @@ public class GmailPostOffice implements PostOffice {
                 .execute();
     }
 
-    private Message selectMessageWithFrase(Thread threadWithFrase) {
+    private Message selectFirstMessageOf(Thread thread) {
         try {
-            return service.users().threads().get(USER_ID, threadWithFrase.getId()).execute().getMessages().get(0);
+            return service.users().threads().get(USER_ID, thread.getId()).execute().getMessages().get(0);
         } catch (IOException e) {
             throw new GmailServiceException("Can't select message", e);
         }
