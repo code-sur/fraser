@@ -41,7 +41,7 @@ public class GmailPostOffice implements PostOffice {
     private GmailFilterTranslator filterTranslator;
     private GmailMessageTranslator gmailMessageTranslator;
 
-    public GmailPostOffice(String clientSecret, String refreshToken, GmailFilterTranslator filterTranslator) {
+    public GmailPostOffice(String clientSecret, String refreshToken, GmailFilterTranslator filterTranslator, GmailMessageTranslator gmailMessageTranslator) {
         try {
             HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         } catch (IOException | GeneralSecurityException e) {
@@ -53,7 +53,7 @@ public class GmailPostOffice implements PostOffice {
         this.clientSecret = clientSecret;
         service = authorizeAndBuildService();
         this.filterTranslator = filterTranslator;
-        gmailMessageTranslator = new GmailMessageTranslator();
+        this.gmailMessageTranslator = gmailMessageTranslator;
     }
 
     private Gmail authorizeAndBuildService() {
