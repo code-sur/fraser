@@ -16,6 +16,7 @@ class GmailService {
     private HttpTransport HTTP_TRANSPORT;
     private final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private DataStoreFactory DATA_STORE_FACTORY;
+    private String clientSecret;
 
     DataStoreFactory getDATA_STORE_FACTORY() {
         return DATA_STORE_FACTORY;
@@ -45,4 +46,11 @@ class GmailService {
         return USER_ID;
     }
 
+    String getClientSecret() {
+        return clientSecret;
+    }
+
+    void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
+    }
 }

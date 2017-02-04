@@ -27,7 +27,6 @@ import java.util.List;
 public class GmailPostOffice implements PostOffice {
 
     private final GmailService gmailService;
-    private String clientSecret;
     private Gmail service;
     private GmailFilterTranslator filterTranslator;
     private GmailMessageTranslator gmailMessageTranslator;
@@ -40,7 +39,7 @@ public class GmailPostOffice implements PostOffice {
             throw new RuntimeException(e);
         }
         gmailService.setDATA_STORE_FACTORY(new ENVDataStoreFactory(refreshToken));
-        this.clientSecret = clientSecret;
+        gmailService.setClientSecret(clientSecret);
         service = authorizeAndBuildService();
         this.filterTranslator = filterTranslator;
         this.gmailMessageTranslator = gmailMessageTranslator;
@@ -68,7 +67,7 @@ public class GmailPostOffice implements PostOffice {
     }
 
     private GoogleClientSecrets loadClientSecrets() throws IOException {
-        InputStream in = new ByteArrayInputStream(clientSecret.getBytes(StandardCharsets.UTF_8));
+        InputStream in = new ByteArrayInputStream(gmailService.getClientSecret().getBytes(StandardCharsets.UTF_8));
         return GoogleClientSecrets.load(gmailService.getJSON_FACTORY(), new InputStreamReader(in));
     }
 
