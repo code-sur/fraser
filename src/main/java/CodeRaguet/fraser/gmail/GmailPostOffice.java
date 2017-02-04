@@ -14,7 +14,6 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.DataStoreFactory;
 import com.google.api.services.gmail.Gmail;
-import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.gmail.model.ListThreadsResponse;
 import com.google.api.services.gmail.model.Message;
 import com.google.api.services.gmail.model.Thread;
@@ -31,7 +30,6 @@ import java.util.List;
 
 public class GmailPostOffice implements PostOffice {
 
-    private final List<String> SCOPES;
     private final GmailService gmailService;
     private HttpTransport HTTP_TRANSPORT;
     private final JsonFactory JSON_FACTORY;
@@ -48,13 +46,12 @@ public class GmailPostOffice implements PostOffice {
             throw new RuntimeException(e);
         }
         DATA_STORE_FACTORY = new ENVDataStoreFactory(refreshToken);
-        SCOPES = Collections.singletonList(GmailScopes.GMAIL_READONLY);
         JSON_FACTORY = JacksonFactory.getDefaultInstance();
         this.clientSecret = clientSecret;
+        this.gmailService = new GmailService();
         service = authorizeAndBuildService();
         this.filterTranslator = filterTranslator;
         this.gmailMessageTranslator = gmailMessageTranslator;
-        this.gmailService = new GmailService();
     }
 
     private Gmail authorizeAndBuildService() {
@@ -68,7 +65,7 @@ public class GmailPostOffice implements PostOffice {
             // Build flow and trigger user authorization request.
             GoogleAuthorizationCodeFlow flow =
                     new GoogleAuthorizationCodeFlow.Builder(
-                            HTTP_TRANSPORT, JSON_FACTORY, loadClientSecrets(), SCOPES)
+                            HTTP_TRANSPORT, JSON_FACTORY, loadClientSecrets(), gmailService.getSCOPES())
                             .setDataStoreFactory(DATA_STORE_FACTORY)
                             .setAccessType("offline")
                             .build();
