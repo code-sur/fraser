@@ -89,10 +89,10 @@ public class GmailPostOffice implements PostOffice {
     @Override
     public List<CodeRaguet.fraser.model.Message> messagesFilteredBy(MessageFilter filter) {
         List<Thread> threads = getThreadsFilteredBy(filter);
-        List<CodeRaguet.fraser.model.Message> messagesWithFrase = new ArrayList<>();
-        threads.forEach(thread -> messagesWithFrase.add(translateMessageToFraserMessage(selectFirstMessageOf(thread))));
-        Collections.reverse(messagesWithFrase);
-        return messagesWithFrase;
+        List<CodeRaguet.fraser.model.Message> fraserMessages = new ArrayList<>();
+        threads.forEach(thread -> fraserMessages.add(translateMessageToFraserMessage(getFirstMessageOf(thread))));
+        Collections.reverse(fraserMessages);
+        return fraserMessages;
     }
 
     private CodeRaguet.fraser.model.Message translateMessageToFraserMessage(Message gmailMessage) {
@@ -124,7 +124,7 @@ public class GmailPostOffice implements PostOffice {
                 .execute();
     }
 
-    private Message selectFirstMessageOf(Thread thread) {
+    private Message getFirstMessageOf(Thread thread) {
         try {
             return service.users().threads().get(USER_ID, thread.getId()).execute().getMessages().get(0);
         } catch (IOException e) {
