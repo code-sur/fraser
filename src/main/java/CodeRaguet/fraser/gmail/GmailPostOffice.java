@@ -39,6 +39,7 @@ public class GmailPostOffice implements PostOffice {
     private String clientSecret;
     private Gmail service;
     private GmailFilterTranslator filterTranslator;
+    private GmailMessageTranslator gmailMessageTranslator;
 
     public GmailPostOffice(String clientSecret, String refreshToken, GmailFilterTranslator filterTranslator) {
         try {
@@ -52,6 +53,7 @@ public class GmailPostOffice implements PostOffice {
         this.clientSecret = clientSecret;
         service = authorizeAndBuildService();
         this.filterTranslator = filterTranslator;
+        gmailMessageTranslator = new GmailMessageTranslator();
     }
 
     private Gmail authorizeAndBuildService() {
@@ -96,7 +98,7 @@ public class GmailPostOffice implements PostOffice {
     }
 
     private CodeRaguet.fraser.model.Message translateMessageToFraserMessage(Message gmailMessage) {
-        return new CodeRaguet.fraser.model.Message(gmailMessage.getSnippet());
+        return gmailMessageTranslator.translate(gmailMessage);
     }
 
     private List<Thread> getThreadsFilteredBy(MessageFilter filter) {
