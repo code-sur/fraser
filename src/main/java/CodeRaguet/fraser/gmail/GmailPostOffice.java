@@ -57,30 +57,24 @@ public class GmailPostOffice implements PostOffice {
     }
 
     private Gmail authorizeAndBuildService() {
-        Credential credential;
-        try {
-            credential = authorize();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        String APPLICATION_NAME = "Gmail API Java Quickstart";
-        return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
-                .setApplicationName(APPLICATION_NAME)
+        return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, getGmailAuthorizationCode())
+                .setApplicationName("Gmail API Java Quickstart")
                 .build();
     }
 
-    private Credential authorize() throws IOException {
-        GoogleClientSecrets clientSecrets = loadClientSecrets();
-
-        // Build flow and trigger user authorization request.
-        GoogleAuthorizationCodeFlow flow =
-                new GoogleAuthorizationCodeFlow.Builder(
-                        HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-                        .setDataStoreFactory(DATA_STORE_FACTORY)
-                        .setAccessType("offline")
-                        .build();
-        return new AuthorizationCodeInstalledApp(
-                flow, new LocalServerReceiver()).authorize("user");
+    private Credential getGmailAuthorizationCode() {
+        try {
+            // Build flow and trigger user authorization request.
+            GoogleAuthorizationCodeFlow flow =
+                    new GoogleAuthorizationCodeFlow.Builder(
+                            HTTP_TRANSPORT, JSON_FACTORY, loadClientSecrets(), SCOPES)
+                            .setDataStoreFactory(DATA_STORE_FACTORY)
+                            .setAccessType("offline")
+                            .build();
+            return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
+        } catch (IOException e) {
+            throw new RuntimeException("Can't getGmailAuthorizationCode", e);
+        }
     }
 
     private GoogleClientSecrets loadClientSecrets() throws IOException {
