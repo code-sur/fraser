@@ -1,6 +1,8 @@
 package CodeRaguet.fraser.gmail;
 
 import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.gmail.GmailScopes;
 
 import java.util.Collections;
@@ -11,6 +13,11 @@ class GmailService {
     private static final String USER_ID = "me";
     private final List<String> SCOPES = Collections.singletonList(GmailScopes.GMAIL_READONLY);
     private HttpTransport HTTP_TRANSPORT;
+    private final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+
+    JsonFactory getJSON_FACTORY() {
+        return JSON_FACTORY;
+    }
 
     HttpTransport getHTTP_TRANSPORT() {
         return HTTP_TRANSPORT;
