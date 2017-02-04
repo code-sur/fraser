@@ -9,7 +9,6 @@ import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.DataStoreFactory;
@@ -31,7 +30,6 @@ import java.util.List;
 public class GmailPostOffice implements PostOffice {
 
     private final GmailService gmailService;
-    private HttpTransport HTTP_TRANSPORT;
     private final JsonFactory JSON_FACTORY;
     private DataStoreFactory DATA_STORE_FACTORY;
     private String clientSecret;
@@ -40,22 +38,22 @@ public class GmailPostOffice implements PostOffice {
     private GmailMessageTranslator gmailMessageTranslator;
 
     public GmailPostOffice(String clientSecret, String refreshToken, GmailFilterTranslator filterTranslator, GmailMessageTranslator gmailMessageTranslator) {
+        this.gmailService = new GmailService();
         try {
-            HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+            gmailService.setHTTP_TRANSPORT(GoogleNetHttpTransport.newTrustedTransport());
         } catch (IOException | GeneralSecurityException e) {
             throw new RuntimeException(e);
         }
         DATA_STORE_FACTORY = new ENVDataStoreFactory(refreshToken);
         JSON_FACTORY = JacksonFactory.getDefaultInstance();
         this.clientSecret = clientSecret;
-        this.gmailService = new GmailService();
         service = authorizeAndBuildService();
         this.filterTranslator = filterTranslator;
         this.gmailMessageTranslator = gmailMessageTranslator;
     }
 
     private Gmail authorizeAndBuildService() {
-        return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, getGmailAuthorizationCode())
+        return new Gmail.Builder(gmailService.getHTTP_TRANSPORT(), JSON_FACTORY, getGmailAuthorizationCode())
                 .setApplicationName("Gmail API Java Quickstart")
                 .build();
     }
@@ -65,7 +63,7 @@ public class GmailPostOffice implements PostOffice {
             // Build flow and trigger user authorization request.
             GoogleAuthorizationCodeFlow flow =
                     new GoogleAuthorizationCodeFlow.Builder(
-                            HTTP_TRANSPORT, JSON_FACTORY, loadClientSecrets(), gmailService.getSCOPES())
+                            gmailService.getHTTP_TRANSPORT(), JSON_FACTORY, loadClientSecrets(), gmailService.getSCOPES())
                             .setDataStoreFactory(DATA_STORE_FACTORY)
                             .setAccessType("offline")
                             .build();
