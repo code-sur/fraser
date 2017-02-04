@@ -9,7 +9,6 @@ import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.util.store.DataStoreFactory;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.ListThreadsResponse;
 import com.google.api.services.gmail.model.Message;
@@ -28,7 +27,6 @@ import java.util.List;
 public class GmailPostOffice implements PostOffice {
 
     private final GmailService gmailService;
-    private DataStoreFactory DATA_STORE_FACTORY;
     private String clientSecret;
     private Gmail service;
     private GmailFilterTranslator filterTranslator;
@@ -41,7 +39,7 @@ public class GmailPostOffice implements PostOffice {
         } catch (IOException | GeneralSecurityException e) {
             throw new RuntimeException(e);
         }
-        DATA_STORE_FACTORY = new ENVDataStoreFactory(refreshToken);
+        gmailService.setDATA_STORE_FACTORY(new ENVDataStoreFactory(refreshToken));
         this.clientSecret = clientSecret;
         service = authorizeAndBuildService();
         this.filterTranslator = filterTranslator;
@@ -60,7 +58,7 @@ public class GmailPostOffice implements PostOffice {
             GoogleAuthorizationCodeFlow flow =
                     new GoogleAuthorizationCodeFlow.Builder(
                             gmailService.getHTTP_TRANSPORT(), gmailService.getJSON_FACTORY(), loadClientSecrets(), gmailService.getSCOPES())
-                            .setDataStoreFactory(DATA_STORE_FACTORY)
+                            .setDataStoreFactory(gmailService.getDATA_STORE_FACTORY())
                             .setAccessType("offline")
                             .build();
             return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
