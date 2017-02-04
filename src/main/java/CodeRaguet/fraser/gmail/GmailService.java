@@ -4,6 +4,7 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.DataStoreFactory;
+import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
 
 import java.util.Collections;
@@ -17,6 +18,7 @@ class GmailService {
     private final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private DataStoreFactory DATA_STORE_FACTORY;
     private String clientSecret;
+    private Gmail service;
 
     DataStoreFactory getDATA_STORE_FACTORY() {
         return DATA_STORE_FACTORY;
@@ -52,5 +54,13 @@ class GmailService {
 
     void setClientSecret(String clientSecret) {
         this.clientSecret = clientSecret;
+    }
+
+    public Gmail getService() {
+        return service;
+    }
+
+    public void setService(Gmail service) {
+        this.service = service;
     }
 }
