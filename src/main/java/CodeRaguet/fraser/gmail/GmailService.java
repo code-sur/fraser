@@ -12,6 +12,8 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.DataStoreFactory;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
+import com.google.api.services.gmail.model.Message;
+import com.google.api.services.gmail.model.Thread;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -75,5 +77,13 @@ public class GmailService {
     private GoogleClientSecrets loadClientSecrets() throws IOException {
         InputStream in = new ByteArrayInputStream(clientSecret.getBytes(StandardCharsets.UTF_8));
         return GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+    }
+
+    Message getFirstMessageOf(Thread thread) {
+        try {
+            return service.users().threads().get(GmailService.getUserId(), thread.getId()).execute().getMessages().get(0);
+        } catch (Exception e) {
+            throw new GmailServiceException("Can't select message", e);
+        }
     }
 }

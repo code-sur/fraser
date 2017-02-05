@@ -28,7 +28,7 @@ public class GmailPostOffice implements PostOffice {
     public List<CodeRaguet.fraser.model.Message> messagesFilteredBy(MessageFilter filter) {
         List<Thread> threads = getThreadsFilteredBy(filter);
         List<CodeRaguet.fraser.model.Message> fraserMessages = new ArrayList<>();
-        threads.forEach(thread -> fraserMessages.add(translateMessageToFraserMessage(getFirstMessageOf(thread))));
+        threads.forEach(thread -> fraserMessages.add(translateMessageToFraserMessage(service.getFirstMessageOf(thread))));
         Collections.reverse(fraserMessages);
         return fraserMessages;
     }
@@ -60,14 +60,6 @@ public class GmailPostOffice implements PostOffice {
                 .setQ(filterTranslator.translate(filter))
                 .setPageToken(pageToken)
                 .execute();
-    }
-
-    private Message getFirstMessageOf(Thread thread) {
-        try {
-            return service.getService().users().threads().get(GmailService.getUserId(), thread.getId()).execute().getMessages().get(0);
-        } catch (IOException e) {
-            throw new GmailServiceException("Can't select message", e);
-        }
     }
 
 }
