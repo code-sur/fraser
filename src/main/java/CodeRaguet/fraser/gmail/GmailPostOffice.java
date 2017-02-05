@@ -4,7 +4,6 @@ package CodeRaguet.fraser.gmail;
 import CodeRaguet.fraser.model.MessageFilter;
 import CodeRaguet.fraser.model.PostOffice;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.ListThreadsResponse;
 import com.google.api.services.gmail.model.Message;
 import com.google.api.services.gmail.model.Thread;
@@ -36,17 +35,13 @@ public class GmailPostOffice implements PostOffice {
         }
         service.setDATA_STORE_FACTORY(new ENVDataStoreFactory(refreshToken));
         service.setClientSecret(clientSecret);
-        service.setService(authorizeAndBuildService());
+        service.setService(service.authorizeAndBuildService());
     }
 
     public GmailPostOffice(GmailFilterTranslator filterTranslator, GmailMessageTranslator messageTranslator, GmailService service) {
         this.service = service;
         this.filterTranslator = filterTranslator;
         this.messageTranslator = messageTranslator;
-    }
-
-    private Gmail authorizeAndBuildService() {
-        return service.authorizeAndBuildService();
     }
 
     @Override
