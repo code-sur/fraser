@@ -3,22 +3,13 @@ package CodeRaguet.fraser.gmail;
 
 import CodeRaguet.fraser.model.MessageFilter;
 import CodeRaguet.fraser.model.PostOffice;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
-import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.ListThreadsResponse;
 import com.google.api.services.gmail.model.Message;
 import com.google.api.services.gmail.model.Thread;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,29 +36,7 @@ public class GmailPostOffice implements PostOffice {
     }
 
     private Gmail authorizeAndBuildService() {
-        return new Gmail.Builder(gmailService.getHTTP_TRANSPORT(), gmailService.getJSON_FACTORY(), getGmailAuthorizationCode())
-                .setApplicationName("Gmail API Java Quickstart")
-                .build();
-    }
-
-    private Credential getGmailAuthorizationCode() {
-        try {
-            // Build flow and trigger user authorization request.
-            GoogleAuthorizationCodeFlow flow =
-                    new GoogleAuthorizationCodeFlow.Builder(
-                            gmailService.getHTTP_TRANSPORT(), gmailService.getJSON_FACTORY(), loadClientSecrets(), gmailService.getSCOPES())
-                            .setDataStoreFactory(gmailService.getDATA_STORE_FACTORY())
-                            .setAccessType("offline")
-                            .build();
-            return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
-        } catch (IOException e) {
-            throw new RuntimeException("Can't getGmailAuthorizationCode", e);
-        }
-    }
-
-    private GoogleClientSecrets loadClientSecrets() throws IOException {
-        InputStream in = new ByteArrayInputStream(gmailService.getClientSecret().getBytes(StandardCharsets.UTF_8));
-        return GoogleClientSecrets.load(gmailService.getJSON_FACTORY(), new InputStreamReader(in));
+        return gmailService.authorizeAndBuildService();
     }
 
     @Override
