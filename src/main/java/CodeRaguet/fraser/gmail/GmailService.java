@@ -51,10 +51,6 @@ public class GmailService {
         return service;
     }
 
-    public void setService(Gmail service) {
-        this.service = service;
-    }
-
     private Gmail authorizeAndBuildService() {
         return new Gmail.Builder(httpTransport, JSON_FACTORY, getGmailAuthorizationCode())
                 .setApplicationName("Gmail API Java Quickstart")
