@@ -18,12 +18,6 @@ public class GmailPostOffice implements PostOffice {
     private GmailFilterTranslator filterTranslator;
     private GmailMessageTranslator messageTranslator;
 
-    public GmailPostOffice(String clientSecret, String refreshToken, GmailFilterTranslator filterTranslator, GmailMessageTranslator messageTranslator) {
-        this.service = new GmailService(refreshToken, clientSecret);
-        this.filterTranslator = filterTranslator;
-        this.messageTranslator = messageTranslator;
-    }
-
     public GmailPostOffice(GmailFilterTranslator filterTranslator, GmailMessageTranslator messageTranslator, GmailService service) {
         this.service = service;
         this.filterTranslator = filterTranslator;

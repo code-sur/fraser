@@ -22,7 +22,7 @@ import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
 
-class GmailService {
+public class GmailService {
 
     private static final String USER_ID = "me";
     private final List<String> SCOPES = Collections.singletonList(GmailScopes.GMAIL_READONLY);
@@ -32,7 +32,7 @@ class GmailService {
     private String clientSecret;
     private Gmail service;
 
-    GmailService(String refreshToken, String clientSecret) {
+    public GmailService(String refreshToken, String clientSecret) {
         try {
             httpTransport = GoogleNetHttpTransport.newTrustedTransport();
         } catch (IOException | GeneralSecurityException e) {
