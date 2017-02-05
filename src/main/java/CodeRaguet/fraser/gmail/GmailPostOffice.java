@@ -3,13 +3,11 @@ package CodeRaguet.fraser.gmail;
 
 import CodeRaguet.fraser.model.MessageFilter;
 import CodeRaguet.fraser.model.PostOffice;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.services.gmail.model.ListThreadsResponse;
 import com.google.api.services.gmail.model.Message;
 import com.google.api.services.gmail.model.Thread;
 
 import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,21 +19,9 @@ public class GmailPostOffice implements PostOffice {
     private GmailMessageTranslator messageTranslator;
 
     public GmailPostOffice(String clientSecret, String refreshToken, GmailFilterTranslator filterTranslator, GmailMessageTranslator messageTranslator) {
-        this.service = new GmailService();
-        setUpService(refreshToken, clientSecret);
+        this.service = new GmailService(refreshToken, clientSecret);
         this.filterTranslator = filterTranslator;
         this.messageTranslator = messageTranslator;
-    }
-
-    private void setUpService(String refreshToken, String clientSecret) {
-        try {
-            service.setHTTP_TRANSPORT(GoogleNetHttpTransport.newTrustedTransport());
-        } catch (IOException | GeneralSecurityException e) {
-            throw new RuntimeException(e);
-        }
-        service.setDATA_STORE_FACTORY(new ENVDataStoreFactory(refreshToken));
-        service.setClientSecret(clientSecret);
-        service.setService(service.authorizeAndBuildService());
     }
 
     public GmailPostOffice(GmailFilterTranslator filterTranslator, GmailMessageTranslator messageTranslator, GmailService service) {

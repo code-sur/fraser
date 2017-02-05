@@ -5,6 +5,7 @@ import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInsta
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,26 +26,25 @@ class GmailService {
 
     private static final String USER_ID = "me";
     private final List<String> SCOPES = Collections.singletonList(GmailScopes.GMAIL_READONLY);
-    private HttpTransport HTTP_TRANSPORT;
+    private HttpTransport httpTransport;
     private final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-    private DataStoreFactory DATA_STORE_FACTORY;
+    private DataStoreFactory dataStoreFactory;
     private String clientSecret;
     private Gmail service;
 
-    void setDATA_STORE_FACTORY(DataStoreFactory DATA_STORE_FACTORY) {
-        this.DATA_STORE_FACTORY = DATA_STORE_FACTORY;
-    }
-
-    void setHTTP_TRANSPORT(HttpTransport HTTP_TRANSPORT) {
-        this.HTTP_TRANSPORT = HTTP_TRANSPORT;
+    GmailService(String refreshToken, String clientSecret) {
+        try {
+            httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+        } catch (IOException | GeneralSecurityException e) {
+            throw new RuntimeException(e);
+        }
+        dataStoreFactory = new ENVDataStoreFactory(refreshToken);
+        this.clientSecret = clientSecret;
+        this.service = authorizeAndBuildService();
     }
 
     static String getUserId() {
         return USER_ID;
-    }
-
-    void setClientSecret(String clientSecret) {
-        this.clientSecret = clientSecret;
     }
 
     public Gmail getService() {
@@ -54,8 +55,8 @@ class GmailService {
         this.service = service;
     }
 
-    Gmail authorizeAndBuildService() {
-        return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, getGmailAuthorizationCode())
+    private Gmail authorizeAndBuildService() {
+        return new Gmail.Builder(httpTransport, JSON_FACTORY, getGmailAuthorizationCode())
                 .setApplicationName("Gmail API Java Quickstart")
                 .build();
     }
@@ -65,8 +66,8 @@ class GmailService {
             // Build flow and trigger user authorization request.
             GoogleAuthorizationCodeFlow flow =
                     new GoogleAuthorizationCodeFlow.Builder(
-                            HTTP_TRANSPORT, JSON_FACTORY, loadClientSecrets(), SCOPES)
-                            .setDataStoreFactory(DATA_STORE_FACTORY)
+                            httpTransport, JSON_FACTORY, loadClientSecrets(), SCOPES)
+                            .setDataStoreFactory(dataStoreFactory)
                             .setAccessType("offline")
                             .build();
             return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
