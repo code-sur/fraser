@@ -50,10 +50,6 @@ public class GmailService {
         this.filterTranslator = filterTranslator;
     }
 
-    public Gmail getService() {
-        return service;
-    }
-
     private Gmail authorizeAndBuildService() {
         return new Gmail.Builder(httpTransport, JSON_FACTORY, getGmailAuthorizationCode())
                 .setApplicationName("Gmail API Java Quickstart")
@@ -80,7 +76,7 @@ public class GmailService {
         return GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
     }
 
-    Message getFirstMessageOf(Thread thread) {
+    public Message getFirstMessageOf(Thread thread) {
         try {
             return service.users().threads().get(USER_ID, thread.getId()).execute().getMessages().get(0);
         } catch (Exception e) {
@@ -88,7 +84,7 @@ public class GmailService {
         }
     }
 
-    List<Thread> getThreadsFilteredBy(MessageFilter filter) {
+     public List<Thread> getThreadsFilteredBy(MessageFilter filter) {
         List<Thread> threads = new ArrayList<>();
         ListThreadsResponse response;
         String pageToken = null;
