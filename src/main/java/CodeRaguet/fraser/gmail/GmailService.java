@@ -33,6 +33,7 @@ public class GmailService {
     private DataStoreFactory dataStoreFactory;
     private String clientSecret;
     private Gmail service;
+    private GmailFilterTranslator filterTranslator;
 
     public GmailService(String refreshToken, String clientSecret) {
         try {
@@ -85,5 +86,13 @@ public class GmailService {
         } catch (Exception e) {
             throw new GmailServiceException("Can't select message", e);
         }
+    }
+
+    public GmailFilterTranslator getFilterTranslator() {
+        return filterTranslator;
+    }
+
+    public void setFilterTranslator(GmailFilterTranslator filterTranslator) {
+        this.filterTranslator = filterTranslator;
     }
 }

@@ -15,12 +15,11 @@ import java.util.List;
 public class GmailPostOffice implements PostOffice {
 
     private final GmailService service;
-    private GmailFilterTranslator filterTranslator;
     private GmailMessageTranslator messageTranslator;
 
     public GmailPostOffice(GmailFilterTranslator filterTranslator, GmailMessageTranslator messageTranslator, GmailService service) {
         this.service = service;
-        this.filterTranslator = filterTranslator;
+        service.setFilterTranslator(filterTranslator);
         this.messageTranslator = messageTranslator;
     }
 
@@ -57,7 +56,7 @@ public class GmailPostOffice implements PostOffice {
         Long threadsMaxResults = 100L;
         return service.getService().users().threads().list(GmailService.getUserId())
                 .setMaxResults(threadsMaxResults)
-                .setQ(filterTranslator.translate(filter))
+                .setQ(service.getFilterTranslator().translate(filter))
                 .setPageToken(pageToken)
                 .execute();
     }
