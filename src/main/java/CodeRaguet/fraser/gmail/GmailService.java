@@ -101,6 +101,7 @@ public class GmailService {
             threads.addAll(response.getThreads());
             pageToken = response.getNextPageToken();
         } while (response.getNextPageToken() != null);
+        Collections.reverse(threads);
         return threads;
     }
 
