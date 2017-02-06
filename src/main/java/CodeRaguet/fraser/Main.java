@@ -47,7 +47,7 @@ public class Main {
         String clientSecret = ENV.GMAIL_CLIENT_SECRET.value();
         String refreshToken = ENV.GMAIL_REFRESH_TOKEN.value();
         GmailService service = new GmailService(refreshToken, clientSecret, new GmailFilterTranslator());
-        return new GmailPostOffice(new GmailFilterTranslator(), new GmailMessageTranslator(), service);
+        return new GmailPostOffice(new GmailMessageTranslator(), service);
     }
 
 }

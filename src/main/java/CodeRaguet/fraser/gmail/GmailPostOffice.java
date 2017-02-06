@@ -15,9 +15,8 @@ public class GmailPostOffice implements PostOffice {
     private final GmailService service;
     private GmailMessageTranslator messageTranslator;
 
-    public GmailPostOffice(GmailFilterTranslator filterTranslator, GmailMessageTranslator messageTranslator, GmailService service) {
+    public GmailPostOffice(GmailMessageTranslator messageTranslator, GmailService service) {
         this.service = service;
-        service.setFilterTranslator(filterTranslator);
         this.messageTranslator = messageTranslator;
     }
 

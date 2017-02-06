@@ -32,7 +32,7 @@ public class GmailPostOfficeIT extends ENVTest {
         filterTranslator = mock(GmailFilterTranslator.class);
         GmailMessageTranslator gmailMessageTranslator = new GmailMessageTranslator();
         GmailService gmailService = new GmailService(refreshToken, clientSecret, filterTranslator);
-        postOffice = new GmailPostOffice(filterTranslator, gmailMessageTranslator, gmailService);
+        postOffice = new GmailPostOffice(gmailMessageTranslator, gmailService);
     }
 
     @Test

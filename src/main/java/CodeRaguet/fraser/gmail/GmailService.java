@@ -88,10 +88,6 @@ public class GmailService {
         }
     }
 
-    void setFilterTranslator(GmailFilterTranslator filterTranslator) {
-        this.filterTranslator = filterTranslator;
-    }
-
     List<Thread> getThreadsFilteredBy(MessageFilter filter) {
         List<Thread> threads = new ArrayList<>();
         ListThreadsResponse response;
