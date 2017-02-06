@@ -2,7 +2,9 @@ package CodeRaguet.fraser.tests.integration;
 
 import CodeRaguet.fraser.ENV;
 import CodeRaguet.fraser.gmail.GmailFilterTranslator;
+import CodeRaguet.fraser.gmail.GmailMessageTranslator;
 import CodeRaguet.fraser.gmail.GmailPostOffice;
+import CodeRaguet.fraser.gmail.GmailService;
 import CodeRaguet.fraser.model.Message;
 import CodeRaguet.fraser.model.MessageFilter;
 import CodeRaguet.fraser.model.PostOffice;
@@ -28,7 +30,9 @@ public class GmailPostOfficeIT extends ENVTest {
         String clientSecret = testENV.getProperty(ENV.GMAIL_CLIENT_SECRET.name());
         String refreshToken = testENV.getProperty(ENV.GMAIL_REFRESH_TOKEN.name());
         filterTranslator = mock(GmailFilterTranslator.class);
-        postOffice = new GmailPostOffice(clientSecret, refreshToken, filterTranslator);
+        GmailMessageTranslator gmailMessageTranslator = new GmailMessageTranslator();
+        GmailService gmailService = new GmailService(refreshToken, clientSecret, filterTranslator);
+        postOffice = new GmailPostOffice(gmailMessageTranslator, gmailService);
     }
 
     @Test
