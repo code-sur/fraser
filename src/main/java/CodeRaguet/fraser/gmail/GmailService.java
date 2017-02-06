@@ -1,5 +1,6 @@
 package CodeRaguet.fraser.gmail;
 
+import CodeRaguet.fraser.model.MessageFilter;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -12,6 +13,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.DataStoreFactory;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
+import com.google.api.services.gmail.model.ListThreadsResponse;
 import com.google.api.services.gmail.model.Message;
 import com.google.api.services.gmail.model.Thread;
 
@@ -21,6 +23,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -44,10 +47,6 @@ public class GmailService {
         dataStoreFactory = new ENVDataStoreFactory(refreshToken);
         this.clientSecret = clientSecret;
         this.service = authorizeAndBuildService();
-    }
-
-    static String getUserId() {
-        return USER_ID;
     }
 
     public Gmail getService() {
@@ -82,17 +81,38 @@ public class GmailService {
 
     Message getFirstMessageOf(Thread thread) {
         try {
-            return service.users().threads().get(GmailService.getUserId(), thread.getId()).execute().getMessages().get(0);
+            return service.users().threads().get(USER_ID, thread.getId()).execute().getMessages().get(0);
         } catch (Exception e) {
             throw new GmailServiceException("Can't select message", e);
         }
     }
 
-    public GmailFilterTranslator getFilterTranslator() {
-        return filterTranslator;
+    void setFilterTranslator(GmailFilterTranslator filterTranslator) {
+        this.filterTranslator = filterTranslator;
     }
 
-    public void setFilterTranslator(GmailFilterTranslator filterTranslator) {
-        this.filterTranslator = filterTranslator;
+    List<Thread> getThreadsFilteredBy(MessageFilter filter) {
+        List<Thread> threads = new ArrayList<>();
+        ListThreadsResponse response;
+        String pageToken = null;
+        do {
+            try {
+                response = getResponse(pageToken, filter);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            threads.addAll(response.getThreads());
+            pageToken = response.getNextPageToken();
+        } while (response.getNextPageToken() != null);
+        return threads;
+    }
+
+    private ListThreadsResponse getResponse(String pageToken, MessageFilter filter) throws IOException {
+        Long threadsMaxResults = 100L;
+        return service.users().threads().list(USER_ID)
+                .setMaxResults(threadsMaxResults)
+                .setQ(filterTranslator.translate(filter))
+                .setPageToken(pageToken)
+                .execute();
     }
 }
