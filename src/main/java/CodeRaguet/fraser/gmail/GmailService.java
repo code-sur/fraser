@@ -38,7 +38,7 @@ public class GmailService {
     private Gmail service;
     private GmailFilterTranslator filterTranslator;
 
-    public GmailService(String refreshToken, String clientSecret) {
+    public GmailService(String refreshToken, String clientSecret, GmailFilterTranslator filterTranslator) {
         try {
             httpTransport = GoogleNetHttpTransport.newTrustedTransport();
         } catch (IOException | GeneralSecurityException e) {
@@ -47,6 +47,7 @@ public class GmailService {
         dataStoreFactory = new ENVDataStoreFactory(refreshToken);
         this.clientSecret = clientSecret;
         this.service = authorizeAndBuildService();
+        this.filterTranslator = filterTranslator;
     }
 
     public Gmail getService() {

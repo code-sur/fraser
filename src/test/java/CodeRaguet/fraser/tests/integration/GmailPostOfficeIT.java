@@ -31,7 +31,7 @@ public class GmailPostOfficeIT extends ENVTest {
         String refreshToken = testENV.getProperty(ENV.GMAIL_REFRESH_TOKEN.name());
         filterTranslator = mock(GmailFilterTranslator.class);
         GmailMessageTranslator gmailMessageTranslator = new GmailMessageTranslator();
-        GmailService gmailService = new GmailService(refreshToken, clientSecret);
+        GmailService gmailService = new GmailService(refreshToken, clientSecret, filterTranslator);
         postOffice = new GmailPostOffice(filterTranslator, gmailMessageTranslator, gmailService);
     }
 
