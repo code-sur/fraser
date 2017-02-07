@@ -12,7 +12,7 @@ import static java.util.Collections.singletonList;
 
 public class GmailMessages {
 
-    public static Message gmailMessage() {
+    public static Message firstGmailMessage() {
         Message gmailMessage = new Message();
         gmailMessage.setHistoryId(BigInteger.valueOf(8170));
         gmailMessage.setId("15946741e5510f9a");

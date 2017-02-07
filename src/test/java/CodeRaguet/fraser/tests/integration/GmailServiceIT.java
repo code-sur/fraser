@@ -23,6 +23,6 @@ public class GmailServiceIT extends ENVTest {
 
         Message gmailMessage = gmailService.getFirstMessageOf(thread);
 
-        assertThat(gmailMessage).isEqualTo(GmailMessages.gmailMessage());
+        assertThat(gmailMessage).isEqualTo(GmailMessages.firstGmailMessage());
     }
 }
