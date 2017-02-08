@@ -7,7 +7,6 @@ import com.google.api.services.gmail.model.Message;
 import com.google.api.services.gmail.model.Thread;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class GmailPostOffice implements PostOffice {
@@ -25,7 +24,6 @@ public class GmailPostOffice implements PostOffice {
         List<Thread> threads = service.getThreadsFilteredBy(filter);
         List<CodeRaguet.fraser.model.Message> fraserMessages = new ArrayList<>();
         threads.forEach(thread -> fraserMessages.add(translateMessageToFraserMessage(service.getFirstMessageOf(thread))));
-        Collections.reverse(fraserMessages);
         return fraserMessages;
     }
 
