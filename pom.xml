@@ -4,7 +4,7 @@
 
     <groupId>CodeRaguet</groupId>
     <artifactId>fraser</artifactId>
-    <version>2.3.0</version>
+    <version>2.3.1</version>
     <packaging>jar</packaging>
 
     <name>fraser</name>
@@ -79,6 +79,7 @@
                     <arguments>
                         <argument>up</argument>
                     </arguments>
+                    <skip>${skipTests}</skip>
                 </configuration>
             </plugin>
         </plugins>
