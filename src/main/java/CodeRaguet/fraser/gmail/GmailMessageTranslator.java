@@ -13,6 +13,6 @@ public class GmailMessageTranslator {
     }
 
     public Message translate(String HTMLData) {
-        return new Message(HTMLParser.parseHTML(decodeURLBase64(HTMLData)));
+        return new Message(HTMLParser.parse(decodeURLBase64(HTMLData)));
     }
 }

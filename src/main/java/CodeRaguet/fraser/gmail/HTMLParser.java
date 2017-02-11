@@ -4,7 +4,7 @@ import org.jsoup.Jsoup;
 
 public class HTMLParser {
 
-    public String parseHTML(String html) {
+    public String parse(String html) {
         return Jsoup.parse(html).text();
     }
 }
