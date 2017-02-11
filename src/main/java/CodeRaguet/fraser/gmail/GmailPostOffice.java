@@ -29,7 +29,7 @@ public class GmailPostOffice implements PostOffice {
     }
 
     private CodeRaguet.fraser.model.Message translateMessageToFraserMessage(Message gmailMessage) {
-        return gmailMessageTranslator.translate(gmailMessage);
+        return gmailMessageTranslator.translate(pickHTMLDataFrom(gmailMessage));
     }
 
     private String pickHTMLDataFrom(Message message) {
