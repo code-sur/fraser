@@ -12,6 +12,8 @@ import static java.util.Collections.singletonList;
 
 public class GmailMessages {
 
+    public static final String FIRST_GMAIL_MESSAGE_HTML_DATA = "PGRpdiBkaXI9Imx0ciI-PHNwYW4gc3R5bGU9ImNvbG9yOnJnYigzMywzMywzMyk7Zm9udC1mYW1pbHk6dmVyZGFuYSxzYW5zLXNlcmlmO2ZvbnQtc2l6ZToxMy4zMzMzcHgiPkVsIGluZmllcm5vIGVzIGVsIG9sdmlkbzwvc3Bhbj48YnI-PC9kaXY-DQo=";
+
     public static Message firstGmailMessage() {
         Message gmailMessage = new Message();
         gmailMessage.setHistoryId(BigInteger.valueOf(8170));
@@ -53,7 +55,7 @@ public class GmailMessages {
                                 .setPartId("0"),
                         new MessagePart()
                                 .setBody(new MessagePartBody()
-                                        .setData("PGRpdiBkaXI9Imx0ciI-PHNwYW4gc3R5bGU9ImNvbG9yOnJnYigzMywzMywzMyk7Zm9udC1mYW1pbHk6dmVyZGFuYSxzYW5zLXNlcmlmO2ZvbnQtc2l6ZToxMy4zMzMzcHgiPkVsIGluZmllcm5vIGVzIGVsIG9sdmlkbzwvc3Bhbj48YnI-PC9kaXY-DQo=")
+                                        .setData(FIRST_GMAIL_MESSAGE_HTML_DATA)
                                         .setSize(143))
                                 .setFilename("")
                                 .setHeaders(singletonList(new MessagePartHeader().setName("Content-Type").setValue("text/html; charset=UTF-8")))
