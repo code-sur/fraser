@@ -4,6 +4,7 @@ package CodeRaguet.fraser.gmail;
 import CodeRaguet.fraser.model.MessageFilter;
 import CodeRaguet.fraser.model.PostOffice;
 import com.google.api.services.gmail.model.Message;
+import com.google.api.services.gmail.model.MessagePart;
 import com.google.api.services.gmail.model.Thread;
 
 import java.util.ArrayList;
@@ -29,6 +30,14 @@ public class GmailPostOffice implements PostOffice {
 
     private CodeRaguet.fraser.model.Message translateMessageToFraserMessage(Message gmailMessage) {
         return messageTranslator.translate(gmailMessage);
+    }
+
+    private String pickHTMLDataFrom(Message message) {
+        return pickHTMLMessagePartFrom(message).getBody().getData();
+    }
+
+    private MessagePart pickHTMLMessagePartFrom(Message message) {
+        return message.getPayload().getParts().get(1);
     }
 
 }
