@@ -79,6 +79,7 @@
                     <arguments>
                         <argument>up</argument>
                     </arguments>
+                    <skip>${skipTests}</skip>
                 </configuration>
             </plugin>
         </plugins>
