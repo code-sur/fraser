@@ -1,5 +1,7 @@
 package CodeRaguet.fraser.gmail;
 
+import CodeRaguet.fraser.model.Message;
+
 import java.util.Base64;
 
 public class GmailMessageTranslator {
@@ -10,7 +12,7 @@ public class GmailMessageTranslator {
         return new String(Base64.getUrlDecoder().decode(URLBase64encoded));
     }
 
-    public CodeRaguet.fraser.model.Message translate(String HTMLData) {
-        return new CodeRaguet.fraser.model.Message(HTMLParser.parseHTML(decodeURLBase64(HTMLData)));
+    public Message translate(String HTMLData) {
+        return new Message(HTMLParser.parseHTML(decodeURLBase64(HTMLData)));
     }
 }
