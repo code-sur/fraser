@@ -8,7 +8,7 @@ import static CodeRaguet.fraser.tests.tools.fixtures.Frases.firstLineAsFrase;
 import static CodeRaguet.fraser.tests.tools.fixtures.Frases.fraseWithinQuotationMarks;
 import static CodeRaguet.fraser.tests.tools.fixtures.Messages.*;
 
-public class ExtractFraseWithinQuotationMarksIT extends AcceptanceTest {
+public class ExtractFrase extends AcceptanceTest {
 
     @Test
     public void extractFraseWithinHTMLQuotationMarks() {
