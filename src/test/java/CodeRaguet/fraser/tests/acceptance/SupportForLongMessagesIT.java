@@ -1,14 +1,14 @@
-package CodeRaguet.fraser.tests.e2e;
+package CodeRaguet.fraser.tests.acceptance;
 
 import CodeRaguet.fraser.model.Message;
-import CodeRaguet.fraser.tests.tools.e2e.E2ETest;
+import CodeRaguet.fraser.tests.acceptance.tools.AcceptanceTest;
 import org.junit.Test;
 
 import static CodeRaguet.fraser.tests.tools.fixtures.Frases.longFrase;
 import static CodeRaguet.fraser.tests.tools.fixtures.Messages.longMessage;
 import static CodeRaguet.fraser.tests.tools.fixtures.Messages.secondMessage;
 
-public class SupportForLongMessagesIT extends E2ETest {
+public class SupportForLongMessagesIT extends AcceptanceTest {
 
     @Test
     public void supportLongMessages() {

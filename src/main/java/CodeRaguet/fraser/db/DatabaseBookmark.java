@@ -12,7 +12,7 @@ import java.sql.Statement;
 
 public class DatabaseBookmark implements Bookmark {
 
-    public static final String LAST_MESSAGE_TABLE = "LAST_MESSAGE";
+    public static final String BOOKMARK_TABLE = "BOOKMARK";
     private final Connection connection;
 
     public DatabaseBookmark(Connection connection) {
@@ -26,7 +26,7 @@ public class DatabaseBookmark implements Bookmark {
         try {
             Statement statement = connection.createStatement();
 
-            resultSet = statement.executeQuery(String.format("SELECT %s from %s", "TEXT", "LAST_MESSAGE"));
+            resultSet = statement.executeQuery(String.format("SELECT %s from %s", "TEXT", BOOKMARK_TABLE));
             if (resultSet.next()) {
                 fraseText = resultSet.getString("TEXT");
             } else {
@@ -44,8 +44,8 @@ public class DatabaseBookmark implements Bookmark {
 
     @Override
     public void placeOn(Message message) throws BookmarkException {
-        String update = String.format("UPDATE LAST_MESSAGE SET TEXT = '%s'", message.getText());
-        String insert = String.format("INSERT INTO LAST_MESSAGE (TEXT) VALUES ('%s')", message.getText());
+        String update = String.format("UPDATE %s SET TEXT = '%s'", BOOKMARK_TABLE, message.getText());
+        String insert = String.format("INSERT INTO %s (TEXT) VALUES ('%s')", BOOKMARK_TABLE, message.getText());
         String sql = bookmarkExists() ? update : insert;
         try {
             executeSQL(sql);
