@@ -1,13 +1,13 @@
 package CodeRaguet.fraser.gmail;
 
-import org.jsoup.Jsoup;
-
 import java.util.Base64;
 
 public class GmailMessageTranslator {
 
+    private HTMLParser HTMLParser = new HTMLParser();
+
     private String parseHTML(String html) {
-        return Jsoup.parse(html).text();
+        return HTMLParser.parseHTML(html);
     }
 
     private String decodeURLBase64(String URLBase64encoded) {
