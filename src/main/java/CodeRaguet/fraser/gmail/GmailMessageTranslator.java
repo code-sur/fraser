@@ -29,4 +29,7 @@ public class GmailMessageTranslator {
     }
 
 
+    public CodeRaguet.fraser.model.Message translate(String HTMLData) {
+        return new CodeRaguet.fraser.model.Message(parseHTML(decodeURLBase64(HTMLData)));
+    }
 }
