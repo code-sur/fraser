@@ -13,11 +13,11 @@ import java.util.List;
 public class GmailPostOffice implements PostOffice {
 
     private final GmailService service;
-    private GmailMessageTranslator messageTranslator;
+    private GmailMessageTranslator gmailMessageTranslator;
 
-    public GmailPostOffice(GmailMessageTranslator messageTranslator, GmailService service) {
+    public GmailPostOffice(GmailMessageTranslator gmailMessageTranslator, GmailService service) {
         this.service = service;
-        this.messageTranslator = messageTranslator;
+        this.gmailMessageTranslator = gmailMessageTranslator;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class GmailPostOffice implements PostOffice {
     }
 
     private CodeRaguet.fraser.model.Message translateMessageToFraserMessage(Message gmailMessage) {
-        return messageTranslator.translate(gmailMessage);
+        return gmailMessageTranslator.translate(gmailMessage);
     }
 
     private String pickHTMLDataFrom(Message message) {
